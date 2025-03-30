@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signup">
+
+    <EditText
+        android:id="@+id/text1"
+        style="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked"
+        android:layout_width="280dp"
+        android:layout_height="88dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:onClick="button3Clicked"
+        android:paddingLeft="12dp"
+        android:text="Creer un nouveau compte"
+        android:textColor="#132B92"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <EditText
+        android:layout_width="342dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="30dp"
+        android:hint="entre votre nom"
+        android:paddingLeft="15dp"
+        android:textStyle=""
+        android:textSize="16sp"
+        android:background="@drawable/text_background"
+    />
+    
+    <EditText
+        android:layout_width="342dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="13dp"
+        android:hint="entre votre prenom"
+        android:paddingLeft="15dp"
+        android:textStyle=""
+        android:textSize="16sp"
+        android:background="@drawable/text_background"
+        />
+</LinearLayout>

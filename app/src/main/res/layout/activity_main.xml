@@ -48,7 +48,9 @@
         android:layout_width="211dp"
         android:layout_height="45dp"
         android:background="@drawable/button_background"
-        android:text="S'authentifier" />
+        android:onClick="@+id/buttonClicked"
+        android:text="S'authentifier"
+        />
 
 
     <TextView
@@ -65,7 +67,8 @@
         android:layout_width="211dp"
         android:layout_height="45dp"
         android:background="@drawable/button_background"
-        android:text="S'inscrire" />
+        android:text="S'inscrire"
+        />
 
 
 
