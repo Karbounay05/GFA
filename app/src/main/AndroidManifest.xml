@@ -7,15 +7,15 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="GFA"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
 
-        <!-- Main Activity -->
+        <!-- **Only IntroActivity should be the launcher** -->
         <activity
-            android:name=".MainActivity"
+            android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +23,12 @@
             </intent-filter>
         </activity>
 
-        <!-- Page1 Activity -->
-        <activity android:name=".Page1Activity" android:exported="true"/>
+
+        <activity android:name=".MainActivity" android:exported="true" />
+
+
+        <activity android:name=".main" android:exported="true" />
+        <activity android:name=".Page1Activity" android:exported="true" />
 
     </application>
 

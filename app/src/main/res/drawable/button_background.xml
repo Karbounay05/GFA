@@ -1,25 +1,51 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Pressed State (Darker Shade) -->
     <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <gradient
-                android:type="linear"
-                android:angle="90"
-                android:startColor="#2A3CAD"
-                android:endColor="#7C7FCE" />
-            <corners android:radius="200dp"/>
-        </shape>
+        <layer-list>
+            <item>
+                <!-- Shadow effect -->
+                <shape android:shape="rectangle">
+                    <solid android:color="#80000000"/> <!-- Shadow color -->
+                    <corners android:radius="200dp"/>
+                    <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
+                </shape>
+            </item>
+            <item>
+                <!-- Main shape with gradient -->
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="90"
+                        android:startColor="#2A3CAD"
+                        android:endColor="#7C7FCE" />
+                    <corners android:radius="200dp"/>
+                </shape>
+            </item>
+        </layer-list>
     </item>
 
     <!-- Default State (Lighter Shade with Gradient) -->
     <item>
-        <shape android:shape="rectangle">
-            <gradient
-                android:type="linear"
-                android:angle="90"
-                android:startColor="#C5DAF4"
-                android:endColor="#0850F8" />
-            <corners android:radius="250dp"/>
-        </shape>
+        <layer-list>
+            <item>
+                <!-- Shadow effect -->
+                <shape android:shape="rectangle">
+                    <solid android:color="#80000000"/> <!-- Shadow color -->
+                    <corners android:radius="250dp"/>
+                    <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
+                </shape>
+            </item>
+            <item>
+                <!-- Main shape with gradient -->
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:type="linear"
+                        android:angle="90"
+                        android:startColor="#C5DAF4"
+                        android:endColor="#0850F8" />
+                    <corners android:radius="250dp"/>
+                </shape>
+            </item>
+        </layer-list>
     </item>
 </selector>
