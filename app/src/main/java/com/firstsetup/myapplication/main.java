@@ -25,8 +25,17 @@ public class main extends AppCompatActivity {
         });
 
         // Find the "S'inscrire" button and set an onClick listener
-        Button signupButton = findViewById(R.id.button2);
+        Button signupButton = findViewById(R.id.button);
         signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open Page1Activity when button is clicked
+                Intent intent = new Intent(main.this, Acceuil.class);
+                startActivity(intent);
+            }
+        });
+        Button signupButton2 = findViewById(R.id.button2);
+        signupButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Open Page1Activity when button is clicked
