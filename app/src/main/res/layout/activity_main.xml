@@ -13,7 +13,7 @@
     <EditText
         android:id="@+id/textView3"
         android:layout_width="300dp"
-        android:layout_height="45dp"
+        android:layout_height="70dp"
         android:layout_marginTop="400dp"
         android:background="@drawable/new_button"
         android:textSize="16sp"

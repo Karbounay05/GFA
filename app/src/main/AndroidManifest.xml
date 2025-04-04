@@ -25,7 +25,7 @@
 
 
         <activity android:name=".MainActivity" android:exported="true" />
-
+        <activity android:name=".Acceuil" android:exported="true" />
 
         <activity android:name=".main" android:exported="true" />
         <activity android:name=".Page1Activity" android:exported="true" />
