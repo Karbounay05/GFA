@@ -31,7 +31,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/text_background"
-        android:hint="Entrez votre nom"
+        android:hint="Entrez votre region"
         android:paddingLeft="15dp"
         android:textSize="16sp"
         android:textStyle=""
@@ -46,7 +46,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/text_background"
-        android:hint="Entrez votre prénom"
+        android:hint="Entrez votre ville"
         android:paddingLeft="15dp"
         android:textSize="16sp"
         android:textStyle=""
@@ -54,6 +54,21 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="342dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/text_background"
+        android:hint="Entrez votre zone"
+        android:paddingLeft="15dp"
+        android:textSize="16sp"
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <Button
         android:id="@+id/button2"
