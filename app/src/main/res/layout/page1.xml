@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,118 +12,60 @@
         style="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked"
         android:layout_width="280dp"
         android:layout_height="88dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:onClick="button3Clicked"
         android:paddingLeft="12dp"
         android:text="Creer un nouveau compte"
         android:textColor="#132B92"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="342dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/text_background"
         android:hint="Entrez votre nom"
         android:paddingLeft="15dp"
         android:textSize="16sp"
-        android:textStyle="" />
+        android:textStyle=""
+        app:layout_constraintEnd_toEndOf="@+id/text1"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="@+id/text1"
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
 
     <EditText
+        android:id="@+id/editText2"
         android:layout_width="342dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/text_background"
         android:hint="Entrez votre prénom"
         android:paddingLeft="15dp"
-        android:textStyle=""
-        android:textSize="16sp"
-        android:background="@drawable/text_background" />
-
-    <!-- Email Field -->
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Entrez votre email"
-        android:paddingLeft="15dp"
         android:textSize="16sp"
         android:textStyle=""
-        android:background="@drawable/text_background"
-        android:inputType="textEmailAddress" />
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <!-- Phone Field -->
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Entrez votre numéro de téléphone"
-        android:paddingLeft="15dp"
-        android:textSize="16sp"
-        android:textStyle=""
-        android:background="@drawable/text_background"
-        android:inputType="phone" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="150dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/button_background"
+        android:text="Suivant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.819"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-    <!-- Password Field -->
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Entrez votre mot de passe"
-        android:paddingLeft="15dp"
-        android:textSize="16sp"
-        android:textStyle=""
-        android:background="@drawable/text_background"
-        android:inputType="textPassword" />
 
-    <!-- Confirm Password Field -->
-    <EditText
-        android:id="@+id/confirm_password"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Confirmez votre mot de passe"
-        android:paddingLeft="15dp"
-        android:textSize="16sp"
-        android:textStyle=""
-        android:background="@drawable/text_background"
-        android:inputType="textPassword" />
-
-    <!-- Country Field -->
-    <EditText
-        android:id="@+id/country"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Entrez votre pays"
-        android:paddingLeft="15dp"
-        android:textSize="16sp"
-        android:textStyle=""
-        android:background="@drawable/text_background" />
-
-    <!-- City Field -->
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="13dp"
-        android:hint="Entrez votre ville"
-        android:paddingLeft="15dp"
-        android:textSize="16sp"
-        android:textStyle=""
-        android:background="@drawable/text_background" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
