@@ -5,11 +5,11 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Acceuil extends AppCompatActivity {
+public class accueilActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.acceuil_interface);
+        setContentView(R.layout.acceuil_activity);
     }
 }

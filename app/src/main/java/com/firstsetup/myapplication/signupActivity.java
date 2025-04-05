@@ -1,12 +1,10 @@
 package com.firstsetup.myapplication;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Page1Activity extends AppCompatActivity {
+public class signupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

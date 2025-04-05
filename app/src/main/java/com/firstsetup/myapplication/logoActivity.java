@@ -11,13 +11,13 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class IntroActivity extends AppCompatActivity {
+public class logoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.introduction_activity); // Intro layout
+        setContentView(R.layout.logo_activity); // Intro layout
 
         // Apply animations
         TextView textView = findViewById(R.id.textanim);
@@ -45,7 +45,7 @@ public class IntroActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IntroActivity.this, main.class);
+                Intent intent = new Intent(logoActivity.this, introductionActivity.class);
                 startActivity(intent);
                 finish(); // Close IntroActivity to prevent going back
             }

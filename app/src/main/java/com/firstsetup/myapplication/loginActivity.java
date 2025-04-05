@@ -10,13 +10,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class main extends AppCompatActivity {
+public class loginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -30,7 +30,7 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open Page1Activity when button is clicked
-                Intent intent = new Intent(main.this, Acceuil.class);
+                Intent intent = new Intent(loginActivity.this, accueilActivity.class);
                 startActivity(intent);
             }
         });
@@ -39,7 +39,7 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open Page1Activity when button is clicked
-                Intent intent = new Intent(main.this, Page1Activity.class);
+                Intent intent = new Intent(loginActivity.this, signupActivity.class);
                 startActivity(intent);
             }
         });
