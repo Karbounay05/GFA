@@ -11,7 +11,7 @@
     android:rotationX="0"
     tools:context=".MainActivity">
     <EditText
-        android:id="@+id/textView3"
+        android:id="@+id/editTextEmail"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_marginTop="400dp"
@@ -23,7 +23,7 @@
         android:inputType="text"
         android:hint="Email" />
     <EditText
-        android:id="@+id/textView4"
+        android:id="@+id/editTextPassword"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="18dp"
@@ -44,7 +44,7 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSubmit"
         android:layout_width="211dp"
         android:layout_height="45dp"
         android:background="@drawable/button_background"
@@ -63,14 +63,14 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnSubmit2"
         android:layout_width="211dp"
         android:layout_height="45dp"
-        android:background="@drawable/button_background"
+        android:layout_marginTop="20dp"
         android:text="S'inscrire"
-        />
-
-
-
-
+        android:background="@drawable/button_background" />
 </LinearLayout>
+
+
+
+

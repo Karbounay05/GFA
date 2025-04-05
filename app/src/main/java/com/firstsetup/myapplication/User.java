@@ -19,6 +19,13 @@ public class User {
         this.ville = ville;
         this.zone = zone;
     }
+    public User() {
+        // Constructeur par défaut
+    }
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
     public String getNom() {
         return nom;
     }
