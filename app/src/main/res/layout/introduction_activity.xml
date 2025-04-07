@@ -22,18 +22,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <TextView
+        android:id="@+id/slideTitle"
+        android:layout_width="125dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/slideText"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage2"
+        app:layout_constraintStart_toStartOf="@+id/slideImage2"
+        app:layout_constraintTop_toBottomOf="@+id/slideImage2"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/slideText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="214dp"
+        android:layout_height="92dp"
         android:text="Slide 1"
         android:textColor="#000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/slideImage"
         app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/slideImage"
         app:layout_constraintTop_toTopOf="@+id/slideImage"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <ImageView
         android:id="@+id/slideImage2"
@@ -47,6 +63,19 @@
         app:layout_constraintEnd_toEndOf="@+id/slideImage"
         app:layout_constraintStart_toStartOf="@+id/slideImage"
         app:layout_constraintTop_toTopOf="@+id/slideImage"
-        />
+        app:layout_constraintVertical_bias="0.127" />
+
+    <Button
+        android:id="@+id/slideButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#E07373"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="@+id/slideImage"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="@+id/slideImage"
+        app:layout_constraintTop_toBottomOf="@+id/slideText"
+        app:layout_constraintVertical_bias="0.873" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

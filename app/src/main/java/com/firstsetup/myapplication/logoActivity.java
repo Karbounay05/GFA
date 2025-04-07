@@ -49,6 +49,6 @@ public class logoActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish(); // Close IntroActivity to prevent going back
             }
-        }, 8000); // 8 seconds delay
+        }, 5300); // 8 seconds delay
     }
 }
