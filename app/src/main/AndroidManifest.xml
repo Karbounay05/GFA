@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,11 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true">
 
         <!-- **Only IntroActivity should be the launcher** -->
         <activity
-            android:name=".IntroActivity"
+            android:name=".Page1Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +31,10 @@
         <activity android:name=".Acceuil" android:exported="true" />
 
         <activity android:name=".main" android:exported="true" />
-        <activity android:name=".Page1Activity" android:exported="true" />
+        <activity android:name=".Page2Activity" android:exported="true" />
+        <activity android:name=".Page3Activity" android:exported="true" />
+        <activity android:name=".Page4Activity" android:exported="true" />
+
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Initialiser Retrofit
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://localhost:3000") // Adresse de ton serveur Node.js
+                    .baseUrl("http://192.168.43.207:3000/addCultivateur") // Adresse de ton serveur Node.js
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

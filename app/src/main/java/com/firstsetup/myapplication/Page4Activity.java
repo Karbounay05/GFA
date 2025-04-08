@@ -43,6 +43,7 @@ public class Page4Activity extends AppCompatActivity {
         String ville = getIntent().getStringExtra("ville");
         String zone = getIntent().getStringExtra("zone");
 
+
         suivantBtn.setOnClickListener(view -> {
             String password = passwordEditText.getText().toString();
             String confirm = confirmPasswordEditText.getText().toString();
@@ -60,7 +61,7 @@ public class Page4Activity extends AppCompatActivity {
     private void sendUserToServer(User user) {
         // Utilisation de Volley pour envoyer les données
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://10.0.2.2:3000/register"; // Pour l'émulateur Android Studio
+        String url = "http://192.168.43.207:3000/addCultivateur"; // Pour l'émulateur Android Studio
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -68,7 +69,7 @@ public class Page4Activity extends AppCompatActivity {
             jsonBody.put("prenom", user.getPrenom());
             jsonBody.put("tel", user.getTel());
             jsonBody.put("email", user.getEmail());
-            jsonBody.put("motdepasse", user.getPassword());
+            jsonBody.put("password", user.getPassword());
             jsonBody.put("region", user.getRegion());
             jsonBody.put("ville", user.getVille());
             jsonBody.put("zone", user.getZone());
