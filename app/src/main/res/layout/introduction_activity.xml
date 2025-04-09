@@ -23,59 +23,65 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <TextView
-        android:id="@+id/slideTitle"
-        android:layout_width="125dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="title"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/slideText"
-        app:layout_constraintEnd_toEndOf="@+id/slideImage2"
-        app:layout_constraintStart_toStartOf="@+id/slideImage2"
-        app:layout_constraintTop_toBottomOf="@+id/slideImage2"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/slideText"
         android:layout_width="214dp"
-        android:layout_height="92dp"
+        android:layout_height="144dp"
+        android:gravity="top|center"
         android:text="Slide 1"
         android:textColor="#000"
-        android:textSize="24sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/slideImage"
         app:layout_constraintEnd_toEndOf="@+id/slideImage"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="@+id/slideImage"
         app:layout_constraintTop_toTopOf="@+id/slideImage"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.663" />
 
     <ImageView
         android:id="@+id/slideImage2"
-        android:layout_width="207dp"
-        android:layout_height="306dp"
+        android:layout_width="208dp"
+        android:layout_height="279dp"
         android:background="@drawable/rounded_image_bg"
         android:clipToOutline="true"
         android:outlineProvider="background"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/slideText"
         app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/slideImage"
         app:layout_constraintTop_toTopOf="@+id/slideImage"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.333" />
+
+    <TextView
+        android:id="@+id/slideTitle"
+        android:layout_width="183dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom|center"
+        android:textColor="#4744C5"
+        android:textSize="22dp"
+        android:text="title"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/slideImage2"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage2"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/slideImage2" />
+
 
     <Button
         android:id="@+id/slideButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#E07373"
+        android:layout_width="111dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4B7392E0"
+        android:background="@drawable/rounded_image_bg"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="@+id/slideImage"
         app:layout_constraintEnd_toEndOf="@+id/slideImage"
-        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="@+id/slideImage"
         app:layout_constraintTop_toBottomOf="@+id/slideText"
-        app:layout_constraintVertical_bias="0.873" />
+        app:layout_constraintVertical_bias="0.736" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
