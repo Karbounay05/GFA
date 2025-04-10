@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         // Start IntroActivity and finish MainActivity
-        Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+        Intent intent = new Intent(MainActivity.this, logoActivity.class);
         startActivity(intent);
         finish(); // Close MainActivity to prevent looping back
     }

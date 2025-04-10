@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logo">
+
+    <TextView
+        android:id="@+id/textanim"
+        android:layout_width="150dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="424dp"
+        android:fontFamily="serif-monospace"
+        android:gravity="center"
+        android:text="GFA"
+        android:textColor="#0F5415"
+        android:textSize="58dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textanim2"
+        android:layout_width="300dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="120dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="controler votre ferme de votre phone"
+        android:textColor="#010B38"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textanim"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,7 @@
 
         <!-- **Only IntroActivity should be the launcher** -->
         <activity
-            android:name=".IntroActivity"
+            android:name=".logoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,11 @@
         </activity>
 
 
-        <activity android:name=".MainActivity" android:exported="true" />
-        <activity android:name=".Acceuil" android:exported="true" />
+        <activity android:name=".introductionActivity" android:exported="true" />
+        <activity android:name=".accueilActivity" android:exported="true" />
 
-        <activity android:name=".main" android:exported="true" />
-        <activity android:name=".Page1Activity" android:exported="true" />
+        <activity android:name=".loginActivity" android:exported="true" />
+        <activity android:name=".signupActivity" android:exported="true" />
 
     </application>
 
