@@ -5,6 +5,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import androidx.activity.EdgeToEdge;
 
 import com.firstsetup.myapplication.User;
 import com.firstsetup.myapplication.ApiServer.ApiService;
@@ -26,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         EdgeToEdge.enable(this);
+
+         // Start IntroActivity and finish MainActivity
+        Intent intent = new Intent(MainActivity.this, logoActivity.class);
+        startActivity(intent);
+        finish();
 
 
         editTextEmail = findViewById(R.id.editTextEmail);
