@@ -1,54 +1,37 @@
 package com.firstsetup.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class IntroActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class introductionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.introduction_activity); // Intro layout
+        setContentView(R.layout.activity_main);
 
-        // Apply animations
-        TextView textView = findViewById(R.id.textanim);
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        Animation moveUp = AnimationUtils.loadAnimation(this, R.anim.move_up);
+        // Initialize the ViewPager2
+        ViewPager2 viewPager = findViewById(R.id.viewPagerDone);
 
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.addAnimation(fadeIn);
-        animationSet.addAnimation(moveUp);
-        animationSet.setDuration(2000);
-        textView.startAnimation(animationSet);
+        // Create a list of SlideItems (text + image)
+        List<slideAdapter.SlideItem> slides = new ArrayList<>();
+        slides.add(new slideAdapter.SlideItem("Découvrez les services d'GFA pour une agriculture prospère et durable","Bienvenue",R.drawable.rounded_image_bg, R.drawable.img1, 0));
+        slides.add(new slideAdapter.SlideItem("Permettre à l’utilisateur de planifier, suivre et optimiser toutes les activités de sa ferme,incluant la gestion des cultures, du bétail, des ressources, et des ventes, depuis une seule interface intuitive.","Gérer votre ferme",R.drawable.rounded_image_bg, R.drawable.img2,0));
+        slides.add(new slideAdapter.SlideItem("Obtenez de l'assistance continue et des recommandation adaptées au cycle et à l'évolution de votre culture et à l'environnement associé","Suivre la parcelle",R.drawable.rounded_image_bg, R.drawable.img3,0));
+        slides.add(new slideAdapter.SlideItem("Consulter les cotations à jour des fruits, légumes et céréales sur les marchés de gros les plus dynamiques","Infos prix",R.drawable.rounded_image_bg, R.drawable.img4,0));
+        slides.add(new slideAdapter.SlideItem("Dispozer des données et des prévisions Météo les plus précises","Méteo",R.drawable.rounded_image_bg, R.drawable.img5,0));
+        slides.add(new slideAdapter.SlideItem("accélerer à notre map pour calculer la surface de superficier de votre ferme","Calculer la superficier",R.drawable.rounded_image_bg, R.drawable.img6,0));
+        slides.add(new slideAdapter.SlideItem("Nous vous souhaitons une bonne expérience. N'hésitez pas à commencer la gestion de votre ferme.","s'inscrire chez nous",R.drawable.rounded_image_bg, R.drawable.img7,0));
 
-        // Second text animation
-        TextView textView2 = findViewById(R.id.textanim2);
-        Animation fadeIn2 = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        Animation moveUp2 = AnimationUtils.loadAnimation(this, R.anim.move_up);
+        // Create the adapter with the SlideItem list
+        slideAdapter adapter = new slideAdapter(slides, viewPager);
 
-        AnimationSet animationSet2 = new AnimationSet(true);
-        animationSet2.addAnimation(fadeIn2);
-        animationSet2.addAnimation(moveUp2);
-        animationSet2.setDuration(2000);
-        textView2.startAnimation(animationSet2);
-
-        // **Wait for 5 seconds and go to MainActivity**
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(IntroActivity.this, main.class);
-                startActivity(intent);
-                finish(); // Close IntroActivity to prevent going back
-            }
-        }, 8000); // 8 seconds delay
+        // Set the adapter to the ViewPager
+        viewPager.setAdapter(adapter);
     }
 }
