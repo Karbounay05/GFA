@@ -2,9 +2,11 @@ package com.firstsetup.myapplication;
 
 import android.os.Bundle;
 
-<<<<<<<< HEAD:app/src/main/java/com/firstsetup/myapplication/logoActivity.java
+import androidx.appcompat.app.AppCompatActivity;
+
+
 public class logoActivity extends AppCompatActivity {
-========
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
