@@ -1,34 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/intro"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logo">
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/slideImage"
+        android:layout_width="299dp"
+        android:layout_height="568dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/rounded_image_bg"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
 
     <TextView
-        android:id="@+id/textanim"
-        android:layout_width="150dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="100dp"
-        android:gravity="center"
-        android:text="GFA"
-        android:textSize="58dp"
-        android:textColor="#0F5415"
+        android:id="@+id/slideText"
+        android:layout_width="214dp"
+        android:layout_height="144dp"
+        android:gravity="top|center"
+        android:text="Slide 1"
+        android:textColor="#000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/slideImage"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@+id/slideImage"
+        app:layout_constraintTop_toTopOf="@+id/slideImage"
+        app:layout_constraintVertical_bias="0.663" />
+
+    <ImageView
+        android:id="@+id/slideImage2"
+        android:layout_width="208dp"
+        android:layout_height="279dp"
+        android:background="@drawable/rounded_image_bg"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/slideText"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="@+id/slideImage"
+        app:layout_constraintTop_toTopOf="@+id/slideImage"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <TextView
+        android:id="@+id/slideTitle"
+        android:layout_width="183dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="bottom|center"
+        android:textColor="#4744C5"
+        android:textSize="22dp"
+        android:text="title"
         android:textStyle="bold"
-        android:fontFamily="serif-monospace"
-        />
-    <TextView
-        android:id="@+id/textanim2"
-        android:layout_width="300dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="-220dp"
-        android:gravity="center"
-        android:text="controler votre ferme de votre phone"
-        android:textSize="25dp"
-        android:textColor="#010B38"
-        android:fontFamily="sans-serif"
-        />
+        app:layout_constraintBottom_toBottomOf="@+id/slideImage2"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage2"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/slideImage2" />
 
-</LinearLayout>
+
+    <Button
+        android:id="@+id/slideButton"
+        android:layout_width="111dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4B7392E0"
+        android:background="@drawable/rounded_image_bg"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="@+id/slideImage"
+        app:layout_constraintEnd_toEndOf="@+id/slideImage"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="@+id/slideImage"
+        app:layout_constraintTop_toBottomOf="@+id/slideText"
+        app:layout_constraintVertical_bias="0.736" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
