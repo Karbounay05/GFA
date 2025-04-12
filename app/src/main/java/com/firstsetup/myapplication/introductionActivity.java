@@ -13,7 +13,7 @@ public class introductionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.introduction_activity);
+        setContentView(R.layout.activity_main);
 
         // Initialize the ViewPager2
         ViewPager2 viewPager = findViewById(R.id.viewPagerDone);
