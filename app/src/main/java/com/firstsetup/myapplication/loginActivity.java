@@ -40,7 +40,7 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Open Page1Activity when button is clicked
-                Intent intent = new Intent(loginActivity.this, signupActivity.class);
+                Intent intent = new Intent(loginActivity.this, Page1Activity.class);
                 startActivity(intent);
             }
         });

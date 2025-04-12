@@ -25,10 +25,14 @@
 
 
         <activity android:name=".introductionActivity" android:exported="true" />
-        <activity android:name=".accueilActivity" android:exported="true" />
-
         <activity android:name=".loginActivity" android:exported="true" />
-        <activity android:name=".signupActivity" android:exported="true" />
+        <activity android:name=".accueilActivity" android:exported="true" />
+        <activity android:name=".MainActivity" android:exported="true" />
+
+        <activity android:name=".Page1Activity" android:exported="true" />
+        <activity android:name=".Page2Activity" android:exported="true" />
+        <activity android:name=".Page3Activity" android:exported="true" />
+        <activity android:name=".Page4Activity" android:exported="true" />
 
     </application>
 
