@@ -45,10 +45,24 @@ public class logoActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
+                int val = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                        .getInt("val", 0);
+                if(val==0){
                 Intent intent = new Intent(logoActivity.this, introductionActivity.class);
                 startActivity(intent);
-                finish(); // Close IntroActivity to prevent going back
+                finish(); }
+                else if(val == 1){
+
+                    Intent intent = new Intent(logoActivity.this, accueilActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(val == 2){
+                    Intent intent = new Intent(logoActivity.this, loginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{}
             }
-        }, 5300); // 8 seconds delay
+        }, 5300);
+
     }
 }
