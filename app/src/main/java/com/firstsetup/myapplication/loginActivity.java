@@ -67,7 +67,7 @@ public class loginActivity extends AppCompatActivity {
 
     private void sendUserToServer(User user) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.43.207:3000/loginCultivateur";
+        String url = "https://fluorescent-boiled-butter.glitch.me/loginCultivateur";
 
         JSONObject jsonBody = new JSONObject();
         try {

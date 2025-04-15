@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         weatherText = findViewById(R.id.weatherText); // TextView pour afficher la météo
 
-        // Crée une requête Volley pour obtenir les données météo
+        // Crée une requête Vo      lley pour obtenir les données météo
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
                             // Affichage des informations météo dans un TextView
                             weatherText.setText("Température: " + temperature + "°C\nDescription: " + weatherDescription);
+                            Toast.makeText(MainActivity.this, "Météo : " + weatherDescription, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             Toast.makeText(MainActivity.this, "Erreur de données météo", Toast.LENGTH_SHORT).show();
                         }
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
 
         // Start IntroActivity and finish MainActivity
-        Intent intent = new Intent(MainActivity.this, logoActivity.class);
+      /*  Intent intent = new Intent(MainActivity.this, logoActivity.class);
         startActivity(intent);
-        finish(); // Close MainActivity to prevent looping back
+        finish(); // Close MainActivity to prevent looping back */
     }
 }
