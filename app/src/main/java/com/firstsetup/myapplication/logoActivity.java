@@ -53,7 +53,7 @@ public class logoActivity extends AppCompatActivity {
                 finish(); }
                 else if(val == 1){
 
-                    Intent intent = new Intent(logoActivity.this, accueilActivity.class);
+                    Intent intent = new Intent(logoActivity.this, acceuil.class);
                     startActivity(intent);
                     finish();
                 }else if(val == 2){

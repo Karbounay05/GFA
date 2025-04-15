@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.firstsetup.myapplication.acceuil;
 
 public class loginActivity extends AppCompatActivity {
     EditText email, password;
@@ -84,7 +85,7 @@ public class loginActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(loginActivity.this, accueilActivity.class);
+                    Intent intent = new Intent(loginActivity.this, acceuil.class);
                     startActivity(intent);
                 },
                 error -> Toast.makeText(loginActivity.this, "Server error: " + error.getMessage(), Toast.LENGTH_LONG).show()

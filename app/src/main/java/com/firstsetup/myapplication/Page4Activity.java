@@ -86,7 +86,7 @@ public class Page4Activity extends AppCompatActivity {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response ->{ Toast.makeText(this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Page4Activity.this, accueilActivity.class);
+                    Intent intent = new Intent(Page4Activity.this, acceuil.class);
                     startActivity(intent);
                 },
                 error -> Toast.makeText(this, "Erreur serveur : " + error.getMessage(), Toast.LENGTH_LONG).show()
