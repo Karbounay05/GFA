@@ -25,6 +25,8 @@ public class Page4Activity extends AppCompatActivity {
     EditText passwordEditText, confirmPasswordEditText;
     Button suivantBtn;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +75,20 @@ public class Page4Activity extends AppCompatActivity {
             jsonBody.put("region", user.getRegion());
             jsonBody.put("ville", user.getVille());
             jsonBody.put("zone", user.getZone());
+
+            getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                    .edit()
+                    .putInt("val", 1)
+                    .apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                response -> Toast.makeText(this, "Inscription réussie !", Toast.LENGTH_SHORT).show(),
+                response ->{ Toast.makeText(this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Page4Activity.this, accueilActivity.class);
+                    startActivity(intent);
+                },
                 error -> Toast.makeText(this, "Erreur serveur : " + error.getMessage(), Toast.LENGTH_LONG).show()
         );
 
