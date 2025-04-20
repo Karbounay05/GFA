@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".logoActivity"
+            android:name=".acceuil"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
 
         <activity android:name=".introductionActivity" android:exported="true" />
         <activity android:name=".loginActivity" android:exported="true" />
-        <activity android:name=".acceuil" android:exported="true" />
+        <activity android:name=".logoActivity" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
 
         <activity android:name=".Page1Activity" android:exported="true" />
