@@ -37,26 +37,31 @@ class acceuil : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Set up ViewPager2 with slides
-        val slides = listOf("Slide 1", "Slide 2", "Slide 3")
+        // New format: List of 3 slides, each with 3 strings
+        val slides = listOf(
+            listOf("Gérer la ferme", "Suivre laa parcelle", "Diagnostiquer la plant"),
+            listOf("Calculer le rendement", "Calculer le superficier", "assistant AI")
+        )
+
+
         val adapter = ServicesAdapter(slides)
         viewPager.adapter = adapter
 
-        // Navigation item clicks
+        // Navigation drawer
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    // TODO: Handle Home navigation
+                    // Handle Home
                 }
                 R.id.nav_settings -> {
-                    // TODO: Handle Settings navigation
+                    // Handle Settings
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-        // Logout button
+        // Logout
         val logoutButton: Button = findViewById(R.id.button_logout)
         logoutButton.setOnClickListener {
             getSharedPreferences("MyPrefs", MODE_PRIVATE)
