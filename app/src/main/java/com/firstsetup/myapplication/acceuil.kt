@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 
 class acceuil : AppCompatActivity() {
@@ -15,6 +16,7 @@ class acceuil : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,7 @@ class acceuil : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigation_view)
+        viewPager = findViewById(R.id.viewPager)
 
         toggle = ActionBarDrawerToggle(
             this,
@@ -33,6 +36,11 @@ class acceuil : AppCompatActivity() {
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Set up ViewPager2 with slides
+        val slides = listOf("Slide 1", "Slide 2", "Slide 3")
+        val adapter = ServicesAdapter(slides)
+        viewPager.adapter = adapter
 
         // Navigation item clicks
         navigationView.setNavigationItemSelectedListener { menuItem ->
