@@ -8,13 +8,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 
-class Acceuil : AppCompatActivity() {
+class acceuil : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,7 @@ class Acceuil : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigation_view)
+        viewPager = findViewById(R.id.viewPager)
 
         toggle = ActionBarDrawerToggle(
             this,
@@ -34,21 +37,31 @@ class Acceuil : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Navigation item clicks
+        // New format: List of 3 slides, each with 3 strings
+        val slides = listOf(
+            listOf("Gérer la ferme", "Suivre laa parcelle", "Diagnostiquer la plant"),
+            listOf("Calculer le rendement", "Calculer le superficier", "assistant AI")
+        )
+
+
+        val adapter = ServicesAdapter(slides)
+        viewPager.adapter = adapter
+
+        // Navigation drawer
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    // TODO: Handle Home navigation
+                    // Handle Home
                 }
                 R.id.nav_settings -> {
-                    // TODO: Handle Settings navigation
+                    // Handle Settings
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-        // Logout button
+        // Logout
         val logoutButton: Button = findViewById(R.id.button_logout)
         logoutButton.setOnClickListener {
             getSharedPreferences("MyPrefs", MODE_PRIVATE)
