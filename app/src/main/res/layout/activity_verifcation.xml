@@ -1,0 +1,28 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Code de vérification"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/codeInput"
+        android:hint="Entrez le code reçu par email"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"/>
+
+    <Button
+        android:id="@+id/verifyBtn"
+        android:text="Vérifier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
