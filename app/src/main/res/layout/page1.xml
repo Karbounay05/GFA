@@ -5,30 +5,44 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signup">
+    android:background="@drawable/singuptest">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="311dp"
+        android:layout_height="451dp"
+        android:background="@drawable/slide_background_inverst"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04">
+
+    </FrameLayout>
 
     <EditText
         android:id="@+id/text1"
         style="@style/MaterialAlertDialog.Material3.Title.Icon.CenterStacked"
-        android:layout_width="280dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="236dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:onClick="button3Clicked"
         android:paddingLeft="12dp"
         android:text="Creer un nouveau compte"
-        android:textColor="#132B92"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
         app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
+        android:layout_width="286dp"
+        android:layout_height="42dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/text_background"
         android:hint="Entrez votre nom"
@@ -42,8 +56,8 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="342dp"
-        android:layout_height="50dp"
+        android:layout_width="286dp"
+        android:layout_height="42dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/text_background"
         android:hint="Entrez votre prénom"
@@ -60,11 +74,14 @@
         android:layout_width="150dp"
         android:layout_height="41dp"
         android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/button_background"
         android:text="Suivant"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
         app:layout_constraintHorizontal_bias="0.819"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
 

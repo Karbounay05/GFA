@@ -16,8 +16,8 @@
                     <gradient
                         android:type="linear"
                         android:angle="90"
-                        android:startColor="#2A3CAD"
-                        android:endColor="#7C7FCE" />
+                        android:startColor="#7E8CE2B9"
+                        android:endColor="#F88CE2B9" />
                     <corners android:radius="200dp"/>
                 </shape>
             </item>
@@ -30,7 +30,7 @@
             <item>
                 <!-- Shadow effect -->
                 <shape android:shape="rectangle">
-                    <solid android:color="#80000000"/> <!-- Shadow color -->
+                    <solid android:color="#00FFFFFF"/> <!-- Shadow color -->
                     <corners android:radius="250dp"/>
                     <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
                 </shape>
@@ -41,8 +41,8 @@
                     <gradient
                         android:type="linear"
                         android:angle="90"
-                        android:startColor="#C5DAF4"
-                        android:endColor="#0850F8" />
+                        android:startColor="#F88CE2B9"
+                        android:endColor="#7E8CE2B9" />
                     <corners android:radius="250dp"/>
                 </shape>
             </item>
