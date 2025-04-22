@@ -36,6 +36,8 @@
         <activity android:name=".Page3Activity" android:exported="true" />
         <activity android:name=".Page4Activity" android:exported="true" />
 
+        <activity android:name=".GererFermeActivity" android:exported="true"/>
+
     </application>
 
 </manifest>
