@@ -1,44 +1,64 @@
-<!-- res/layout/activity_ajouter_ferme.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:background="#A71EA162">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="340dp"
+        android:layout_height="551dp"
+        android:background="@drawable/slide_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/editNomF"
-            android:hint="Nom de la ferme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="15dp"
+            android:hint="Nom de la ferme" />
 
         <EditText
             android:id="@+id/editSuperficie"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="150dp"
             android:hint="Superficie (hectares)"
-            android:inputType="numberDecimal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/editLocalisation"
-            android:hint="Localisation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="15dp"
+            android:hint="Localisation" />
 
         <EditText
             android:id="@+id/editTypeSol"
-            android:hint="Type de sol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="290dp"
+            android:hint="Type de sol" />
 
         <Button
             android:id="@+id/btnAjouterFerme"
-            android:text="Ajouter la ferme"
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
-    </LinearLayout>
-</ScrollView>
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="485dp"
+
+            android:background="@drawable/button_background"
+            android:text="Ajouter la ferme" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
