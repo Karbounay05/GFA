@@ -55,7 +55,7 @@ public class AjouterFermeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String url = "https://fluorescent-boiled-butter.glitch.me/api/fermes";
+        String url = "https://fluorescent-boiled-butter.glitch.me/fermes";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, body,
                 response -> {
