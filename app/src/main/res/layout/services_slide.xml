@@ -11,39 +11,38 @@
 
     <!-- Third Button -->
 
-    <!-- First Text -->
-
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="588dp"
+        android:layout_marginRight="20dp"
         android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button3"
+        app:layout_constraintEnd_toStartOf="@id/button3"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="588dp"
         android:layout_marginRight="20dp"
         android:text=""
         app:layout_constraintEnd_toStartOf="@id/button4"
         app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- First Text -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button4"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="588dp"
         android:text=""
-        app:layout_constraintEnd_toStartOf="@id/button3"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

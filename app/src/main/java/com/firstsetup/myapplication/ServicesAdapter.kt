@@ -1,6 +1,5 @@
 package com.firstsetup.myapplication
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,15 +46,7 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
         holder.button1.background = ContextCompat.getDrawable(context, imgIds[startIndex])
         holder.button2.background = ContextCompat.getDrawable(context, imgIds[startIndex + 1])
         holder.button3.background = ContextCompat.getDrawable(context, imgIds[startIndex + 2])
-
-        holder.button1.setOnClickListener {
-            if (position == 0) { // Only for first slide
-                val intent = Intent(context, GererFermeActivity::class.java)
-                context.startActivity(intent)
-            }
-        }
     }
-
 
     override fun getItemCount(): Int = slideTexts.size
 }

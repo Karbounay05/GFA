@@ -39,8 +39,8 @@ class acceuil : AppCompatActivity() {
 
         // New format: List of 3 slides, each with 3 strings
         val slides = listOf(
-            listOf("Gérer la ferme", "Suivre la parcelle", "Diagnostiquer la plant"),
-            listOf("Calculer le rendement", "Calculer la superficier", "Assistant AI")
+            listOf("Gérer la ferme", "Suivre laa parcelle", "Diagnostiquer la plant"),
+            listOf("Calculer le rendement", "Calculer le superficier", "assistant AI")
         )
 
 

@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".acceuil">
 
-
     <!-- Main Content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A71EA162">
+        android:background="@drawable/blue_background">
 
         <Button
             android:id="@+id/button_logout"
@@ -31,34 +30,35 @@
             tools:layout_editor_absoluteX="-180dp"
             tools:layout_editor_absoluteY="0dp">
 
-            <FrameLayout
-                android:layout_width="370dp"
-                android:layout_height="211dp"
-                android:layout_marginLeft="-2dp"
-                android:layout_marginTop="565dp"
-                android:background="@drawable/slide_background">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="169dp" />
-            </FrameLayout>
-
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="743dp" />
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/weatherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Chargement de la météo..."
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_logout" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="130dp"
             android:layout_height="25dp"
             android:layout_marginTop="40dp"
-            android:text="Region"
             android:gravity="center"
+            android:text="Region"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
