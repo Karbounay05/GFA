@@ -1,8 +1,10 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 
@@ -46,5 +48,12 @@ class GererFermeActivity : AppCompatActivity() {
 
             override fun onAnimationRepeat(animation: Animation?) {}
         })
+
+        val button = findViewById<Button>(R.id.buttonFrame1)
+            button.setOnClickListener{
+            val  intent = Intent(this, AjouterFermeControl::class.java)
+            startActivity(intent)
+        }
     }
+
 }
