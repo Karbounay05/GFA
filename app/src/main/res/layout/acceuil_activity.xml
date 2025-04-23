@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue_background">
+        android:background="#A71EA162">
 
         <Button
             android:id="@+id/button_logout"
@@ -30,10 +30,19 @@
             tools:layout_editor_absoluteX="-180dp"
             tools:layout_editor_absoluteY="0dp">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="743dp" />
+            <FrameLayout
+                android:layout_width="370dp"
+                android:layout_height="211dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginTop="565dp"
+                android:background="@drawable/slide_background">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="169dp" />
+            </FrameLayout>
+
         </FrameLayout>
 
         <TextView
@@ -47,6 +56,8 @@
             app:layout_constraintHorizontal_bias="0.531"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

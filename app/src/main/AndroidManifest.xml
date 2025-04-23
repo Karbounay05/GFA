@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logospace"
+        android:icon="@drawable/leaf2"
         android:label="GFA"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".acceuil"
+            android:name=".logoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
 
         <activity android:name=".introductionActivity" android:exported="true" />
         <activity android:name=".loginActivity" android:exported="true" />
-        <activity android:name=".logoActivity" android:exported="true" />
+        <activity android:name=".acceuil" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
 
         <activity android:name=".Page1Activity" android:exported="true" />
@@ -36,6 +36,8 @@
         <activity android:name=".Page3Activity" android:exported="true" />
         <activity android:name=".Page4Activity" android:exported="true" />
         <activity android:name=".VerificationActivity" android:exported="true" />
+
+        <activity android:name=".GererFermeActivity" android:exported="true"/>
 
     </application>
 
