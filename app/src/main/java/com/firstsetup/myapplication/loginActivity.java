@@ -75,19 +75,29 @@ public class loginActivity extends AppCompatActivity {
             jsonBody.put("email", user.getEmail());
 
             jsonBody.put("password", user.getPassword());
-            getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                    .edit()
-                    .putInt("val", 1)
-                    .apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
-                    Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(loginActivity.this, acceuil.class);
-                    startActivity(intent);
+                    try {
+                        int userId = response.getJSONObject("user").getInt("user_id");
+                        getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                                .edit()
+                                .putInt("cultivateur_id", userId)
+                                .apply();
+
+
+                        Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(loginActivity.this, acceuil.class);
+                        startActivity(intent);
+                        finish();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(loginActivity.this, "Erreur parsing réponse", Toast.LENGTH_SHORT).show();
+                    }
                 },
                 error -> Toast.makeText(loginActivity.this, "Server error: " + error.getMessage(), Toast.LENGTH_LONG).show()
         );

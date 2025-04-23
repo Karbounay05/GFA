@@ -46,11 +46,18 @@ public class AjouterFermeActivity extends AppCompatActivity {
 
         JSONObject body = new JSONObject();
         try {
+            int cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1);
+
+            if (cultivateurId == -1) {
+                Toast.makeText(this, "Erreur : identifiant cultivateur manquant ❌", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             body.put("nom", nom);
             body.put("superficie", Double.parseDouble(superficie));
             body.put("localisation", localisation);
             body.put("type_sol", typeSol);
-            body.put("cultivateur_id", 1); // À remplacer par l'ID réel (récupéré au login par exemple)
+            body.put("cultivateur_id", cultivateurId); // ✅ utilisé dynamiquement
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,4 +75,5 @@ public class AjouterFermeActivity extends AppCompatActivity {
 
         Volley.newRequestQueue(this).add(request);
     }
+
 }
