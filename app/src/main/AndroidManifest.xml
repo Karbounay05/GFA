@@ -30,14 +30,13 @@
         <activity android:name=".loginActivity" android:exported="true" />
         <activity android:name=".acceuil" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
-
+        <activity android:name=".GererFermeActivity" android:exported="true" />
+        <activity android:name=".AjouterFermeActivity" android:exported="true" />
         <activity android:name=".Page1Activity" android:exported="true" />
         <activity android:name=".Page2Activity" android:exported="true" />
         <activity android:name=".Page3Activity" android:exported="true" />
         <activity android:name=".Page4Activity" android:exported="true" />
         <activity android:name=".VerificationActivity" android:exported="true" />
-
-        <activity android:name=".GererFermeActivity" android:exported="true"/>
 
     </application>
 

@@ -63,7 +63,7 @@ public class Page4Activity extends AppCompatActivity {
     private void sendUserToServer(User user) {
         // Utilisation de Volley pour envoyer les données
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://fluorescent-boiled-butter.glitch.me/addCultivateur"; // Ton URL de serveur Node.js
+        String url = "https://fluorescent-boiled-butter.glitch.me/addCultivateur"; // Pour l'émulateur Android Studio
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -86,7 +86,7 @@ public class Page4Activity extends AppCompatActivity {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
-                    Toast.makeText(this, "Inscription réussie ! Vérifie ton e-mail 📩", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Inscription en cours de verification ! Vérifie ton e-mail 📩", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Page4Activity.this, VerificationActivity.class);
                     intent.putExtra("email", user.getEmail()); // Envoie l'email à la page de vérif
                     startActivity(intent);
@@ -97,5 +97,4 @@ public class Page4Activity extends AppCompatActivity {
 
         queue.add(request);
     }}
-
 
