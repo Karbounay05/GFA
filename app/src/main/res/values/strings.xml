@@ -2,4 +2,14 @@
     <string name="app_name">My Application</string>
     <string name="open_drawer">Open Navigation</string>
     <string name="close_drawer">Close Navigation</string>
+
+        <!-- other strings -->
+        <string-array name="types_de_sol">
+            <item>Sol argileux</item>
+            <item>Sol sableux</item>
+            <item>Sol calcaire</item>
+            <item>Sol humifère</item>
+            <item>Sol siliceux</item>
+        </string-array>
+
 </resources>

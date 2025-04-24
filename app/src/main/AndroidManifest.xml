@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".logoActivity"
+            android:name=".VerificationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
         <activity android:name=".Page2Activity" android:exported="true" />
         <activity android:name=".Page3Activity" android:exported="true" />
         <activity android:name=".Page4Activity" android:exported="true" />
-        <activity android:name=".VerificationActivity" android:exported="true" />
+       <!-- <activity android:name=".VerificationActivity" android:exported="true" />-->
 
     </application>
 

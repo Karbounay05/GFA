@@ -2,9 +2,11 @@
 package com.firstsetup.myapplication;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +18,8 @@ import org.json.JSONObject;
 
 public class AjouterFermeActivity extends AppCompatActivity {
 
-    EditText editNom, editSuperficie, editLocalisation, editTypeSol;
+    EditText editNom, editSuperficie, editLocalisation;
+    Spinner spinnerTypeSol;
     Button btnAjouter;
 
     @Override
@@ -27,17 +30,23 @@ public class AjouterFermeActivity extends AppCompatActivity {
         editNom = findViewById(R.id.editNomF);
         editSuperficie = findViewById(R.id.editSuperficie);
         editLocalisation = findViewById(R.id.editLocalisation);
-        editTypeSol = findViewById(R.id.editTypeSol);
+        spinnerTypeSol = findViewById(R.id.spinnerTypeSol);
         btnAjouter = findViewById(R.id.btnAjouterFerme);
 
         btnAjouter.setOnClickListener(v -> ajouterFerme());
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.types_de_sol, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTypeSol.setAdapter(adapter);
     }
+
 
     private void ajouterFerme() {
         String nom = editNom.getText().toString();
         String superficie = editSuperficie.getText().toString();
         String localisation = editLocalisation.getText().toString();
-        String typeSol = editTypeSol.getText().toString();
+        String typeSol = spinnerTypeSol.getSelectedItem().toString();
 
         if (nom.isEmpty() || superficie.isEmpty() || localisation.isEmpty()) {
             Toast.makeText(this, "Remplis tous les champs", Toast.LENGTH_SHORT).show();

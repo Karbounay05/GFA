@@ -63,7 +63,7 @@ public class Page4Activity extends AppCompatActivity {
     private void sendUserToServer(User user) {
         // Utilisation de Volley pour envoyer les données
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://fluorescent-boiled-butter.glitch.me/addCultivateur"; // Pour l'émulateur Android Studio
+        String url = "https://truthful-simple-wolfberry.glitch.me/addCultivateur"; // Pour l'émulateur Android Studio
 
         JSONObject jsonBody = new JSONObject();
         try {
