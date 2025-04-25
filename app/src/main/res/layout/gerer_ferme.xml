@@ -80,18 +80,10 @@
             android:layout_width="103dp"
             android:layout_height="38dp"
             android:layout_marginStart="215dp"
-            android:layout_marginTop="105dp"
+            android:translationY="105dp"
             android:background="@drawable/button_background"
             android:text="Suivant" />
-        <Button
-            android:id="@+id/buttonVoirFermes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="📋 Voir mes fermes"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal" />
+
     </FrameLayout>
 
     <!-- Frame 2 -->

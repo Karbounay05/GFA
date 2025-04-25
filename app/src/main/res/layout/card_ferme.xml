@@ -13,72 +13,88 @@
     android:foreground="?attr/selectableItemBackground">
 
 
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="229dp"
+        android:background="#A71EA162"
         android:orientation="vertical"
         android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnDetails"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:text="👁️ Détails"
+            android:textColor="@android:color/white"
+            android:translationX="230dp" />
 
         <TextView
             android:id="@+id/nomFerme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="🌾 Ferme"
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_green_dark" />
+
+            />
 
         <TextView
             android:id="@+id/localisationFerme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📍 Localisation" />
+            android:layout_marginTop="10dp"
+            android:text="📍 Localisation"
+            android:translationY="30dp" />
 
         <TextView
             android:id="@+id/solFerme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🌱 Sol" />
+            android:layout_marginTop="8dp"
+            android:text="🌱 Sol"
+            android:translationY="60dp" />
 
         <TextView
             android:id="@+id/tailleFerme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📏 Taille" />
+            android:layout_marginTop="8dp"
+            android:text="📏 Taille"
+            android:translationY="90dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
             android:gravity="end"
-            android:layout_marginTop="8dp">
+            android:orientation="horizontal"
+            android:translationY="125dp">
 
             <Button
                 android:id="@+id/btnModifier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="121dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_background"
+                android:backgroundTint="#93AD40"
                 android:text="✏️ Modifier"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:translationX="-95dp" />
 
             <Button
                 android:id="@+id/btnSupprimer"
-                android:layout_width="wrap_content"
+                android:layout_width="121dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_background"
+                android:backgroundTint="#FB0000"
                 android:text="🗑️ Supprimer"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@android:color/holo_red_light"
-                android:textColor="@android:color/white" />
-            <Button
-                android:id="@+id/btnDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👁️ Détails"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@android:color/holo_blue_light"
                 android:textColor="@android:color/white" />
 
+
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

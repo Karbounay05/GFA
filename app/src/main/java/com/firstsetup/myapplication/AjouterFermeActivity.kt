@@ -1,6 +1,8 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +11,6 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.firstsetup.myapplication.databinding.ActivityAjouterFermeBinding
 import org.json.JSONObject
-import android.widget.ArrayAdapter
-
 
 class AjouterFermeActivity : AppCompatActivity() {
 
@@ -22,7 +22,7 @@ class AjouterFermeActivity : AppCompatActivity() {
         binding = ActivityAjouterFermeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialiser le Spinner avec les types de sol
+        // 🌀 Initialiser le Spinner avec les types de sol
         val adapter = ArrayAdapter.createFromResource(
             this,
             R.array.types_sol,
@@ -31,7 +31,7 @@ class AjouterFermeActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerTypeSol.adapter = adapter
 
-        // Gérer la SeekBar de superficie
+        // 📏 Gérer la SeekBar de superficie
         binding.seekBarSuperficie.progress = superficieValue
         binding.textSuperficieValue.text = "$superficieValue hectares"
 
@@ -45,6 +45,7 @@ class AjouterFermeActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
+        // ➕ Bouton ajouter la ferme
         binding.btnAjouterFerme.setOnClickListener {
             ajouterFerme()
         }
@@ -55,11 +56,13 @@ class AjouterFermeActivity : AppCompatActivity() {
         val localisation = binding.editLocalisation.text.toString().trim()
         val typeSol = binding.spinnerTypeSol.selectedItem.toString()
 
+        // Vérifier les champs requis
         if (nom.isEmpty() || localisation.isEmpty()) {
             Toast.makeText(this, "Remplis tous les champs", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // Récupérer l'ID du cultivateur depuis SharedPreferences
         val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
             .getInt("cultivateur_id", -1)
 
@@ -68,6 +71,7 @@ class AjouterFermeActivity : AppCompatActivity() {
             return
         }
 
+        // Préparer le corps JSON de la requête
         val body = JSONObject().apply {
             put("nom", nom)
             put("taille", superficieValue)
@@ -78,15 +82,21 @@ class AjouterFermeActivity : AppCompatActivity() {
 
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes"
 
+        // Requête POST avec Volley
         val request = JsonObjectRequest(Request.Method.POST, url, body,
             { response ->
                 Toast.makeText(this, "Ferme ajoutée ✅", Toast.LENGTH_SHORT).show()
+
+                // 🚀 Aller à FermeListActivity
+                val intent = Intent(this, FermeListActivity::class.java)
+                startActivity(intent)
                 finish()
             },
             { error ->
                 Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
             })
 
+        // Ajouter la requête à la file
         Volley.newRequestQueue(this).add(request)
     }
 }
