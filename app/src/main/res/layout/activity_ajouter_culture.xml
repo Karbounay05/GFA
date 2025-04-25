@@ -29,6 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date plantation (AAAA-MM-JJ)" />
+    <EditText
+        android:id="@+id/editEtatSante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="etat de la planate" />
 
     <Button
         android:id="@+id/btnAjouterCulture"

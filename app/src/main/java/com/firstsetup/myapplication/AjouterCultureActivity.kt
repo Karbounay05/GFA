@@ -16,6 +16,7 @@ class AjouterCultureActivity : AppCompatActivity() {
     private lateinit var surfaceInput: EditText
     private lateinit var saisonInput: EditText
     private lateinit var datePlantationInput: EditText
+    private lateinit var etatSante: EditText
     private lateinit var btnAjouterCulture: Button
 
     private var fermeId: Int = -1
@@ -28,6 +29,7 @@ class AjouterCultureActivity : AppCompatActivity() {
         surfaceInput = findViewById(R.id.editSurfaceCulture)
         saisonInput = findViewById(R.id.editSaisonCulture)
         datePlantationInput = findViewById(R.id.editDatePlantationCulture)
+        etatSante = findViewById(R.id.editEtatSante)
         btnAjouterCulture = findViewById(R.id.btnAjouterCulture)
 
         fermeId = intent.getIntExtra("ferme_id", -1)
@@ -42,8 +44,8 @@ class AjouterCultureActivity : AppCompatActivity() {
         val surface = surfaceInput.text.toString()
         val saison = saisonInput.text.toString()
         val datePlantation = datePlantationInput.text.toString()
-
-        if (type.isEmpty() || surface.isEmpty() || saison.isEmpty() || datePlantation.isEmpty()) {
+        val etat= etatSante.text.toString()
+        if (type.isEmpty() || surface.isEmpty() || saison.isEmpty() || datePlantation.isEmpty()|| etat.isEmpty()) {
             Toast.makeText(this, "Remplis tous les champs", Toast.LENGTH_SHORT).show()
             return
         }
@@ -54,6 +56,7 @@ class AjouterCultureActivity : AppCompatActivity() {
             put("surface", surface.toDouble())
             put("saison", saison)
             put("date_plantation", datePlantation)
+            put("etat_sante", etat)
         }
 
         val url = "https://fluorescent-boiled-butter.glitch.me/culture"

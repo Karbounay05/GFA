@@ -16,6 +16,7 @@ class CultureAdapter(
         val type: TextView = view.findViewById(R.id.typeCulture)
         val surface: TextView = view.findViewById(R.id.surfaceCulture)
         val saison: TextView = view.findViewById(R.id.saisonCulture)
+        val etat: TextView = view.findViewById(R.id.etatSanteCulture)
         val btnModifier: Button = view.findViewById(R.id.btnModifierCulture)
         val btnSupprimer: Button = view.findViewById(R.id.btnSupprimerCulture)
     }
@@ -31,6 +32,7 @@ class CultureAdapter(
         holder.type.text = culture.type
         holder.surface.text = "Surface: ${culture.surface} ha"
         holder.saison.text = "Saison: ${culture.saison}"
+
 
         holder.btnModifier.setOnClickListener {
             // À implémenter : ModifierCultureActivity

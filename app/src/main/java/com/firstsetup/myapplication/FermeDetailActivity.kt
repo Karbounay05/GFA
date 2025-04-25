@@ -101,8 +101,8 @@ class FermeDetailActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
-    private fun supprimerAnimal(cultureId: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/culture/$cultureId"
+    private fun supprimerAnimal(animauxId: Int) {
+        val url = "https://fluorescent-boiled-butter.glitch.me/animaux/$animauxId"
 
         val request = StringRequest(Request.Method.DELETE, url,
             {
@@ -110,7 +110,7 @@ class FermeDetailActivity : AppCompatActivity() {
                 chargerAnimaux()
             },
             {
-                Toast.makeText(this, "Erreur suppression culture : ${it.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Erreur suppression animal : ${it.message}", Toast.LENGTH_LONG).show()
             })
 
         Volley.newRequestQueue(this).add(request)
@@ -132,7 +132,8 @@ class FermeDetailActivity : AppCompatActivity() {
                             obj.getString("type"),
                             obj.getDouble("surface"),
                             obj.getString("saison"),
-                            obj.getString("date_plantation")
+                            obj.getString("date_plantation"),
+                            obj.getString("etat_sante")
                         )
                     )
                 }
@@ -164,5 +165,5 @@ class FermeDetailActivity : AppCompatActivity() {
         Volley.newRequestQueue(this).add(request)
     }
     data class Animal(val id: Int, val espece: String, val nombre: Int, val date_entree: String, val statut_sanitaire: String)
-    data class Culture(val id: Int, val type: String, val surface: Double, val saison: String, val date_plantation: String)
+    data class Culture(val id: Int, val type: String, val surface: Double, val saison: String, val date_plantation: String,val etat_sante: String)
 }

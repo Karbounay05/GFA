@@ -23,7 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Saison"/>
-
+    <TextView
+        android:id="@+id/etatSanteCulture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saison"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
