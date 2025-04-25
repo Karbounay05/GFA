@@ -43,11 +43,11 @@
         <activity android:name=".FermeDetailActivity" android:exported="true" />
         <activity android:name=".AjouterCultureActivity" android:exported="true" />
         <activity android:name=".AjouterAnimalActivity" android:exported="true" />
-        <activity android:name=".ModifierAnimalActivity" android:exported="true" />
+      <!--  <activity android:name=".ModifierAnimalActivity" android:exported="true" />
         <activity android:name=".ModifierCultureActivity" android:exported="true" />
         <activity android:name=".SupprimerAnimalActivity" android:exported="true" />
         <activity android:name=".SupprimerCultureActivity" android:exported="true" />
-        <activity android:name=".FermeAdapter" android:exported="true" />
+        <activity android:name=".FermeAdapter" android:exported="true" />-->
     </application>
 
 </manifest>
