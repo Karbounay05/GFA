@@ -52,5 +52,12 @@ class GererFermeActivity : AppCompatActivity() {
         val intent= Intent(this, AjouterFermeActivity::class.java)
         startActivity(intent)
         }
+        val voirFermesButton = findViewById<Button>(R.id.buttonVoirFermes)
+        voirFermesButton.setOnClickListener {
+            val intent = Intent(this, FermeListActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
 }

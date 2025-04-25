@@ -1,6 +1,7 @@
 package com.firstsetup.myapplication
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -36,8 +37,10 @@ class SupprimerFermeActivity : AppCompatActivity() {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$id"
 
         val request = StringRequest(Request.Method.DELETE, url,
-            { response ->
+            {
                 Toast.makeText(this, "Ferme supprimée avec succès ✅", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, FermeListActivity::class.java)
+                startActivity(intent)
                 finish()
             },
             { error ->
@@ -46,4 +49,5 @@ class SupprimerFermeActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
+
 }

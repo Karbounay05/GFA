@@ -32,12 +32,22 @@
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".GererFermeActivity" android:exported="true" />
         <activity android:name=".AjouterFermeActivity" android:exported="true" />
+        <activity android:name=".ModifierFermeActivity" android:exported="true" />
+        <activity android:name=".SupprimerFermeActivity" android:exported="true" />
         <activity android:name=".Page1Activity" android:exported="true" />
         <activity android:name=".Page2Activity" android:exported="true" />
         <activity android:name=".Page3Activity" android:exported="true" />
         <activity android:name=".Page4Activity" android:exported="true" />
         <activity android:name=".VerificationActivity" android:exported="true" />
-
+        <activity android:name=".FermeListActivity" android:exported="true" />
+        <activity android:name=".FermeDetailActivity" android:exported="true" />
+        <activity android:name=".AjouterCultureActivity" android:exported="true" />
+        <activity android:name=".AjouterAnimalActivity" android:exported="true" />
+        <activity android:name=".ModifierAnimalActivity" android:exported="true" />
+        <activity android:name=".ModifierCultureActivity" android:exported="true" />
+        <activity android:name=".SupprimerAnimalActivity" android:exported="true" />
+        <activity android:name=".SupprimerCultureActivity" android:exported="true" />
+        <activity android:name=".FermeAdapter" android:exported="true" />
     </application>
 
 </manifest>

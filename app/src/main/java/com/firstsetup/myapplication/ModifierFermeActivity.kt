@@ -1,5 +1,6 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -62,15 +63,20 @@ class ModifierFermeActivity : AppCompatActivity() {
 
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$fermeId"
 
-        val request = JsonObjectRequest(Request.Method.PUT, url, body,
+        val request = JsonObjectRequest(
+            Request.Method.PUT, url, body,
             {
                 Toast.makeText(this, "Ferme modifiée avec succès ✅", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, FermeListActivity::class.java)
+                startActivity(intent)
                 finish()
             },
             {
                 Toast.makeText(this, "Erreur : ${it.message}", Toast.LENGTH_LONG).show()
             })
 
+        // 💡 Ce qu’il manquait :
         Volley.newRequestQueue(this).add(request)
     }
+
 }

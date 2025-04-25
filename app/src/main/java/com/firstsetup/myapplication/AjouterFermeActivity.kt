@@ -1,6 +1,7 @@
 package com.firstsetup.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -24,12 +25,12 @@ class AjouterFermeActivity : AppCompatActivity() {
     }
 
     private fun ajouterFerme() {
-        val nom = binding.editNomF.text.toString()
-        val superficie = binding.editSuperficie.text.toString()
-        val localisation = binding.editLocalisation.text.toString()
-        val typeSol = binding.editTypeSol.text.toString()
+        val nom = binding.editNomF.text.toString().trim()
+        val superficieRaw = binding.editSuperficie.text.toString().trim().replace(",", ".")
+        val localisation = binding.editLocalisation.text.toString().trim()
+        val typeSol = binding.editTypeSol.text.toString().trim()
 
-        if (nom.isEmpty() || superficie.isEmpty() || localisation.isEmpty()) {
+        if (nom.isEmpty() || superficieRaw.isEmpty() || localisation.isEmpty()) {
             Toast.makeText(this, "Remplis tous les champs", Toast.LENGTH_SHORT).show()
             return
         }
@@ -40,25 +41,33 @@ class AjouterFermeActivity : AppCompatActivity() {
             return
         }
 
-        val body = JSONObject().apply {
-            put("nom", nom)
-            put("superficie", superficie.toDouble())
-            put("localisation", localisation)
-            put("type_sol", typeSol)
-            put("cultivateur_id", cultivateurId)
+        try {
+            val superficieDouble = superficieRaw.toDouble()
+
+            val body = JSONObject().apply {
+                put("nom", nom)
+                put("taille", superficieDouble) // ✅ cast bien un Double ici
+                put("localisation", localisation)
+                put("type_sol", typeSol)
+                put("cultivateur_id", cultivateurId)
+            }
+
+            val url = "https://fluorescent-boiled-butter.glitch.me/fermes"
+
+            val request = JsonObjectRequest(Request.Method.POST, url, body,
+                { response ->
+                    Toast.makeText(this, "Ferme ajoutée ✅", Toast.LENGTH_SHORT).show()
+                    finish()
+                },
+                { error ->
+                    Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
+                })
+
+            Volley.newRequestQueue(this).add(request)
+
+        } catch (e: NumberFormatException) {
+            Toast.makeText(this, "Superficie invalide", Toast.LENGTH_SHORT).show()
         }
-
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes"
-
-        val request = JsonObjectRequest(Request.Method.POST, url, body,
-            { response ->
-                Toast.makeText(this, "Ferme ajoutée ✅", Toast.LENGTH_SHORT).show()
-                finish()
-            },
-            { error ->
-                Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
-            })
-
-        Volley.newRequestQueue(this).add(request)
     }
+
 }
