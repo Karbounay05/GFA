@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
-import org.json.JSONObject
 
 class FermeListActivity : AppCompatActivity() {
 
@@ -81,7 +79,7 @@ class FermeListActivity : AppCompatActivity() {
             val solText: TextView = view.findViewById(R.id.solFerme)
             val btnModifier: Button = view.findViewById(R.id.btnModifier)
             val btnSupprimer: Button = view.findViewById(R.id.btnSupprimer)
-            val btnDetails: Button = view.findViewById(R.id.btnDetails)
+            val cardView: View = view.findViewById(R.id.cardFerme) // le CardView
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FermeViewHolder {
@@ -96,6 +94,13 @@ class FermeListActivity : AppCompatActivity() {
             holder.tailleText.text = "📏 ${ferme.taille} ha"
             holder.solText.text = "🌱 ${ferme.typeSol}"
 
+            // ✅ Le clic sur la carte entière ouvre les détails
+            holder.cardView.setOnClickListener {
+                val intent = Intent(holder.itemView.context, FermeDetailActivity::class.java)
+                intent.putExtra("ferme_id", ferme.id)
+                holder.itemView.context.startActivity(intent)
+            }
+
             holder.btnModifier.setOnClickListener {
                 val intent = Intent(holder.itemView.context, ModifierFermeActivity::class.java)
                 intent.putExtra("ferme_id", ferme.id)
@@ -104,11 +109,6 @@ class FermeListActivity : AppCompatActivity() {
 
             holder.btnSupprimer.setOnClickListener {
                 val intent = Intent(holder.itemView.context, SupprimerFermeActivity::class.java)
-                intent.putExtra("ferme_id", ferme.id)
-                holder.itemView.context.startActivity(intent)
-            }
-            holder.btnDetails.setOnClickListener {
-                val intent = Intent(holder.itemView.context, FermeDetailActivity::class.java)
                 intent.putExtra("ferme_id", ferme.id)
                 holder.itemView.context.startActivity(intent)
             }

@@ -12,24 +12,11 @@
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground">
 
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="229dp"
-        android:background="#A71EA162"
-        android:orientation="vertical"
+        android:layout_height="212dp"
+        android:background="#A72EB474"
         android:padding="16dp">
-
-        <Button
-            android:id="@+id/btnDetails"
-            android:layout_width="121dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/button_background"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:text="👁️ Détails"
-            android:textColor="@android:color/white"
-            android:translationX="230dp" />
 
         <TextView
             android:id="@+id/nomFerme"
@@ -38,9 +25,7 @@
             android:text="🌾 Ferme"
             android:textColor="@color/white"
             android:textSize="22sp"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/localisationFerme"
@@ -82,7 +67,7 @@
                 android:backgroundTint="#93AD40"
                 android:text="✏️ Modifier"
                 android:textColor="@android:color/white"
-                android:translationX="-95dp" />
+                android:translationX="-20dp" />
 
             <Button
                 android:id="@+id/btnSupprimer"
@@ -93,8 +78,15 @@
                 android:backgroundTint="#FB0000"
                 android:text="🗑️ Supprimer"
                 android:textColor="@android:color/white" />
-
-
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="94dp"
+            android:layout_height="98dp"
+            app:srcCompat="@drawable/addferme"
+            android:translationX="169dp"
+            android:translationY="32dp"/>
+
     </FrameLayout>
 </androidx.cardview.widget.CardView>
