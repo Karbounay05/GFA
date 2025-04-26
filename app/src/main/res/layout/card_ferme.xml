@@ -15,7 +15,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="212dp"
-        android:background="#A72EB474"
+        android:background="#009688"
         android:padding="16dp">
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="🌾 Ferme"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="📍 Localisation"
-            android:translationY="30dp" />
+            android:translationY="30dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/solFerme"
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="🌱 Sol"
-            android:translationY="60dp" />
+            android:translationY="60dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tailleFerme"
@@ -49,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="📏 Taille"
-            android:translationY="90dp" />
+            android:translationY="90dp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +70,7 @@
                 android:backgroundTint="#93AD40"
                 android:text="✏️ Modifier"
                 android:textColor="@android:color/white"
-                android:translationX="-20dp" />
+                android:translationX="-28dp" />
 
             <Button
                 android:id="@+id/btnSupprimer"

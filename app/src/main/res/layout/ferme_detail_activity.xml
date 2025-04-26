@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    android:padding="16dp">
+    android:background="#6627E4DA"
+    android:padding="16dp"
+    >
 
     <!-- Titre -->
     <TextView
@@ -16,16 +17,11 @@
         android:text="Détails de la ferme"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark"
-        android:layout_gravity="center_horizontal"/>
+        android:textColor="#4C4D4C"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="serif"/>
 
     <!-- Liste des animaux -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Animaux"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAnimaux"
@@ -37,9 +33,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="serif"
+        android:text="Animaux"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:translationY="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Cultures"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:fontFamily="serif"
+        android:textColor="@color/black"
+        android:translationY="60dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCultures"
@@ -50,27 +59,29 @@
     <!-- Boutons Ajouter -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="253dp"
         android:layout_marginTop="24dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnAjouterAnimal"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/black"
             android:text="Ajouter un animal"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnAjouterCulture"
-            android:layout_width="wrap_content"
+            android:layout_width="174dp"
             android:layout_height="wrap_content"
-            android:text="Ajouter une culture"
             android:layout_marginStart="8dp"
-            android:backgroundTint="@android:color/holo_green_light"
-            android:textColor="@android:color/white"/>
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/black"
+            android:text="Ajouter une culture"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </LinearLayout>
