@@ -20,7 +20,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.firstsetup.myapplication.acceuil;
 
 public class loginActivity extends AppCompatActivity {
     EditText email, password;
@@ -89,7 +88,7 @@ public class loginActivity extends AppCompatActivity {
 
 
                         Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(loginActivity.this, acceuil.class);
+                        Intent intent = new Intent(loginActivity.this, Acceuil.class);
                         startActivity(intent);
                         finish();
 

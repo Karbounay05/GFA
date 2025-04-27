@@ -54,6 +54,32 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
                 context.startActivity(intent)
             }
         }
+        holder.button3.setOnClickListener {
+            if (position == 0) {
+
+            }else if (position == 1) {
+                if (context is Acceuil) {
+                    val aiFragment =
+                        context.supportFragmentManager.findFragmentByTag("AI_FRAGMENT") as? AIFragment
+
+                    if (aiFragment != null) {
+                        aiFragment.expandPopup()
+                    } else {
+                        context.hideAccueilButtons()
+                        context.supportFragmentManager.beginTransaction()
+                            .setCustomAnimations(
+                                R.anim.slide_in_bottom,
+                                R.anim.fade_out,
+                                R.anim.fade_in2,
+                                R.anim.slide_out_bottom
+                            )
+                            .replace(R.id.content_frame, AIFragment(), "AI_FRAGMENT")
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
+            }
+        }
     }
 
 
