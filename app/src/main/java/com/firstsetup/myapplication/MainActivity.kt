@@ -1,66 +1,89 @@
-package com.firstsetup.myapplication;
+package com.firstsetup.myapplication
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import org.json.JSONObject;
+import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
+import java.util.*
 
-public class MainActivity extends AppCompatActivity {
+class MainActivity : AppCompatActivity() {
 
-    private TextView weatherText;
-    private static final String API_KEY = "132b349bd472e322f99891150708a288";  // Remplace par ta clé API
-    private static final String CITY_NAME = "Rabat";       // Ville pour la météo
-    private static final String URL = "https://api.openweathermap.org/data/2.5/weather?q=" + CITY_NAME + "&appid=" + API_KEY + "&units=metric";
+    private lateinit var weatherText: TextView
+    private lateinit var lottieWeather: LottieAnimationView
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.acceuil_activity);
+    companion object {
+        private const val API_KEY = "132b349bd472e322f99891150708a288" // Ta vraie API key ici
+        private const val CITY_NAME = "Rabat"
+        private const val URL = "https://api.openweathermap.org/data/2.5/weather?q=$CITY_NAME&appid=$API_KEY&units=metric"
+    }
 
-        weatherText = findViewById(R.id.weatherText); // TextView pour afficher la météo
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.acceuil_activity)
 
-        // Crée une requête Vo      lley pour obtenir les données météo
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // Extraction des données depuis le JSON
-                            JSONObject main = response.getJSONObject("main");
-                            double temperature = main.getDouble("temp");
-                            String weatherDescription = response.getJSONArray("weather").getJSONObject(0).getString("description");
+        weatherText = findViewById(R.id.weatherText)
+        lottieWeather = findViewById(R.id.lottieWeather)
 
-                            // Affichage des informations météo dans un TextView
-                            weatherText.setText("Température: " + temperature + "°C\nDescription: " + weatherDescription);
-                            Toast.makeText(MainActivity.this, "Météo : " + weatherDescription, Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Toast.makeText(MainActivity.this, "Erreur de données météo", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Erreur de connexion", Toast.LENGTH_SHORT).show();
-            }
-        });
+        fetchWeather()
+    }
 
-        // Ajoute la requête à la queue Volley
-        queue.add(jsonObjectRequest);
+    private fun fetchWeather() {
+        val queue = Volley.newRequestQueue(this)
 
-        // Start IntroActivity and finish MainActivity
-      /*  Intent intent = new Intent(MainActivity.this, logoActivity.class);
-        startActivity(intent);
-        finish(); // Close MainActivity to prevent looping back */
+        val request = JsonObjectRequest(Request.Method.GET, URL, null,
+            { response ->
+                try {
+                    Log.d("WEATHER", "Réponse reçue: $response") // Pour debug
+
+                    val main = response.optJSONObject("main")
+                    val temp = main?.optDouble("temp", 0.0)
+                    val humidity = main?.optInt("humidity", 0)
+
+                    val weatherArray = response.optJSONArray("weather")
+                    val description = weatherArray?.optJSONObject(0)?.optString("description", "Pas de données")
+
+                    val wind = response.optJSONObject("wind")
+                    val windSpeed = wind?.optDouble("speed", 0.0)
+
+                    val text = "Temp: $temp°C\n" +
+                            "Description: $description\n" +
+                            "Vent: $windSpeed m/s\n" +
+                            "Humidité: $humidity%"
+                    weatherText.text = text
+
+                    val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    val isNight = hour < 6 || hour > 18
+
+                    if (description != null) afficherAnimation(description, isNight)
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Erreur lors du traitement des données météo", Toast.LENGTH_SHORT).show()
+                }
+            },
+            { error ->
+                Log.e("WEATHER", "Erreur de connexion: ${error.message}")
+                Toast.makeText(this, "Erreur de connexion à l'API météo", Toast.LENGTH_SHORT).show()
+            })
+
+        queue.add(request)
+    }
+
+    private fun afficherAnimation(description: String, isNight: Boolean) {
+        val anim = when {
+            isNight && description.contains("clear", true) -> R.raw.night
+            description.contains("cloud", true) -> R.raw.cloud
+            description.contains("rain", true) -> R.raw.rain
+            description.contains("storm", true) -> R.raw.storm
+            else -> if (isNight) R.raw.night else R.raw.sun
+        }
+        lottieWeather.setAnimation(anim)
+        lottieWeather.playAnimation()
     }
 }

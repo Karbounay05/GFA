@@ -1,5 +1,6 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AnimalAdapter(
     private val animaux: List<FermeDetailActivity.Animal>,
-    private val onDelete: (Int) -> Unit // 🔥 Ajout du callback pour supprimer
+    private val onDelete: (Int) -> Unit,
+    private val onUpdate: (Int, Int, String) -> Unit
 ) : RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>() {
 
     inner class AnimalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,23 +23,22 @@ class AnimalAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_animal, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
         return AnimalViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
         val animal = animaux[position]
         holder.espece.text = animal.espece
-        holder.nombre.text = "Nombre: ${animal.nombre}"
-        holder.statut.text = "Statut: ${animal.statut_sanitaire}"
-
-        holder.btnModifier.setOnClickListener {
-            // Tu pourras ajouter la navigation vers ModifierAnimalActivity ici
-        }
+        holder.nombre.text = "Nombre : ${animal.nombre}"
+        holder.statut.text = "Statut : ${animal.statut_sanitaire}"
 
         holder.btnSupprimer.setOnClickListener {
-            onDelete(animal.id) // 👈 Ceci appelle la fonction passée depuis FermeDetailActivity
+            onDelete(animal.id)
+        }
+
+        holder.btnModifier.setOnClickListener {
+            onUpdate(animal.id, animal.nombre, animal.statut_sanitaire)
         }
     }
 

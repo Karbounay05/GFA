@@ -53,6 +53,7 @@ class acceuil : AppCompatActivity() {
                 R.id.nav_home -> {
                     // Handle Home
                 }
+
                 R.id.nav_settings -> {
                     // Handle Settings
                 }
@@ -62,23 +63,6 @@ class acceuil : AppCompatActivity() {
         }
 
         // Logout
-        val logoutButton: Button = findViewById(R.id.button_logout)
-        logoutButton.setOnClickListener {
-            getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                .edit()
-                .putInt("val", 2)
-                .apply()
 
-            val intent = Intent(this, loginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

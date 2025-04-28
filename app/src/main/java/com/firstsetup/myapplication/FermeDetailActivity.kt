@@ -85,11 +85,20 @@ class FermeDetailActivity : AppCompatActivity() {
                         )
                     )
                 }
-                recyclerViewAnimaux.adapter = AnimalAdapter(animaux) { id ->
-                    supprimerAnimal(id)
-                }
+                recyclerViewAnimaux.adapter = AnimalAdapter(
+                    animaux,
+                    { id -> supprimerAnimal(id) },
+                    { id, nombre, statut ->
+                        val intent = Intent(this, ModifierAnimalActivity::class.java)
+                        intent.putExtra("animal_id", id)
+                        intent.putExtra("nombre", nombre.toString())
+                        intent.putExtra("statut_sanitaire", statut)
+                        startActivity(intent)
+                    }
+                )
 
-                btnAjouterAnimal.visibility = if (animaux.isEmpty()) View.VISIBLE else View.GONE
+                btnAjouterAnimal.visibility = View.VISIBLE
+
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement animaux", error)
@@ -148,7 +157,8 @@ class FermeDetailActivity : AppCompatActivity() {
                     }
                 )
 
-                btnAjouterCulture.visibility = if (cultures.isEmpty()) View.VISIBLE else View.GONE
+                btnAjouterCulture.visibility = View.VISIBLE
+
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement cultures", error)
