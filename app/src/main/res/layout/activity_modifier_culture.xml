@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+
+    <EditText
+        android:id="@+id/editSurfaceCulture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Surface (ha)"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/editSaisonCulture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Saison" />
+
+    <EditText
+        android:id="@+id/editEtatSante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="etat de la planate" />
+
+    <Button
+        android:id="@+id/btnModifierCulture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modifier Culture"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

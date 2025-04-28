@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -59,7 +58,6 @@ class FermeDetailActivity : AppCompatActivity() {
             intent.putExtra("ferme_id", fermeId)
             startActivity(intent)
         }
-
     }
 
     override fun onResume() {
@@ -87,11 +85,20 @@ class FermeDetailActivity : AppCompatActivity() {
                         )
                     )
                 }
-                recyclerViewAnimaux.adapter = AnimalAdapter(animaux) { id ->
-                    supprimerAnimal(id)
-                }
+                recyclerViewAnimaux.adapter = AnimalAdapter(
+                    animaux,
+                    { id -> supprimerAnimal(id) },
+                    { id, nombre, statut ->
+                        val intent = Intent(this, ModifierAnimalActivity::class.java)
+                        intent.putExtra("animal_id", id)
+                        intent.putExtra("nombre", nombre.toString())
+                        intent.putExtra("statut_sanitaire", statut)
+                        startActivity(intent)
+                    }
+                )
 
-                btnAjouterAnimal.visibility = if (animaux.isEmpty()) View.VISIBLE else View.GONE
+                btnAjouterAnimal.visibility = View.VISIBLE
+
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement animaux", error)
@@ -101,6 +108,7 @@ class FermeDetailActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
+
     private fun supprimerAnimal(animauxId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/animaux/$animauxId"
 
@@ -115,7 +123,6 @@ class FermeDetailActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
-
 
     private fun chargerCultures() {
         val url = "https://fluorescent-boiled-butter.glitch.me/culture/$fermeId"
@@ -137,10 +144,21 @@ class FermeDetailActivity : AppCompatActivity() {
                         )
                     )
                 }
-                recyclerViewCultures.adapter = CultureAdapter(cultures) { id ->
-                    supprimerCulture(id)
-                }
-                btnAjouterCulture.visibility = if (cultures.isEmpty()) View.VISIBLE else View.GONE
+                recyclerViewCultures.adapter = CultureAdapter(
+                    cultures,
+                    { id -> supprimerCulture(id) },
+                    { id, surface, saison, etat ->
+                        val intent = Intent(this, ModifierCultureActivity::class.java)
+                        intent.putExtra("culture_id", id)
+                        intent.putExtra("surface", surface.toString())
+                        intent.putExtra("saison", saison)
+                        intent.putExtra("etat_sante", etat)
+                        startActivity(intent)
+                    }
+                )
+
+                btnAjouterCulture.visibility = View.VISIBLE
+
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement cultures", error)
@@ -150,12 +168,13 @@ class FermeDetailActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
+
     private fun supprimerCulture(cultureId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/culture/$cultureId"
 
         val request = StringRequest(Request.Method.DELETE, url,
             {
-                Toast.makeText(this, "culture supprimé ✅", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Culture supprimée ✅", Toast.LENGTH_SHORT).show()
                 chargerCultures()
             },
             {
@@ -164,6 +183,7 @@ class FermeDetailActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
+
     data class Animal(val id: Int, val espece: String, val nombre: Int, val date_entree: String, val statut_sanitaire: String)
-    data class Culture(val id: Int, val type: String, val surface: Double, val saison: String, val date_plantation: String,val etat_sante: String)
+    data class Culture(val id: Int, val type: String, val surface: Double, val saison: String, val date_plantation: String, val etat_sante: String)
 }

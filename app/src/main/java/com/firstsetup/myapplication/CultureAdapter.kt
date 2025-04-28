@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CultureAdapter(
     private val cultures: List<FermeDetailActivity.Culture>,
-    private val onDelete: (Int) -> Unit // ✅ ici dans le constructeur
+    private val onDelete: (Int) -> Unit,
+    private val onUpdate: (Int, Double, String, String) -> Unit // ✅ ID + Surface + Saison + Etat
 ) : RecyclerView.Adapter<CultureAdapter.CultureViewHolder>() {
 
     inner class CultureViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,14 +33,15 @@ class CultureAdapter(
         holder.type.text = culture.type
         holder.surface.text = "Surface: ${culture.surface} ha"
         holder.saison.text = "Saison: ${culture.saison}"
-
+        holder.etat.text = "État : ${culture.etat_sante}"
 
         holder.btnModifier.setOnClickListener {
-            // À implémenter : ModifierCultureActivity
+            // ✅ Appel de la fonction onUpdate avec les bonnes valeurs
+            onUpdate(culture.id, culture.surface, culture.saison, culture.etat_sante)
         }
 
         holder.btnSupprimer.setOnClickListener {
-            onDelete(culture.id) // ✅ appel correct de la fonction
+            onDelete(culture.id)
         }
     }
 

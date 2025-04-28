@@ -55,15 +55,7 @@ class Acceuil : AppCompatActivity() {
             true
         }
 
-        val logoutButton: Button = findViewById(R.id.button_logout)
-        logoutButton.setOnClickListener {
-            getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                .edit()
-                .putInt("val", 2)
-                .apply()
-            startActivity(Intent(this, loginActivity::class.java))
-            finish()
-        }
+
 
 
 
@@ -78,11 +70,11 @@ class Acceuil : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     fun hideAccueilButtons() {
-        findViewById<Button>(R.id.button_logout).visibility = View.GONE
+
     }
 
     fun showAccueilButtons() {
-        findViewById<Button>(R.id.button_logout).visibility = View.VISIBLE
+
     }
 
 }
