@@ -1,0 +1,94 @@
+{
+  "je voudrais choisr un domain": {
+    "message": "👋 Bonjour à vous aussi ! De quoi avez-vous besoin aujourd'hui ?",
+    "next": "categories"
+  },
+  "Bonjour": {
+    "message": "😊 Bonjour ! Heureux de vous retrouver. Que puis-je faire pour vous ?",
+    "next": "categories"
+  },
+  "Comment ça va ?": {
+    "message": "🤖 Toujours prêt à vous aider ! Par quoi voulez-vous commencer ?",
+    "next": "categories"
+  },
+
+  "Gestion de ferme": {
+    "message": "🏡 En gestion de ferme, je peux vous accompagner dans l'organisation des tâches, la gestion des équipements, et plus encore. Que souhaitez-vous explorer ?",
+    "options": ["Organiser les tâches", "Gérer les équipements", "Retour"]
+  },
+
+  "Organiser les tâches": {
+    "message": "📝 Planifier vos tâches vous aide à améliorer la productivité. Voulez-vous que je vous propose un exemple de planning ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Gérer les équipements": {
+    "message": "🔧 Pour une ferme efficace, il est essentiel de suivre l'entretien de vos équipements. Besoin d'un modèle de suivi ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Gestion des cultures": {
+    "message": "🌾 Concernant vos cultures, je peux vous aider sur les maladies, l'irrigation ou les périodes de plantation. Que souhaitez-vous ?",
+    "options": ["Détecter maladies", "Conseils irrigation", "Retour"]
+  },
+
+  "Détecter maladies": {
+    "message": "🔬 Pour détecter les maladies, observez les feuilles, tiges et fruits. Voulez-vous voir les signes les plus fréquents ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Conseils irrigation": {
+    "message": "💧 L'irrigation est clé pour la santé de vos plantes. Voulez-vous des conseils adaptés à votre région ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Gestion des animaux": {
+    "message": "🐄 Pour vos animaux, je peux vous assister sur leur santé, leur alimentation, ou leur reproduction. Que préférez-vous ?",
+    "options": ["Suivi santé", "Gestion alimentation", "Retour"]
+  },
+
+  "Suivi santé": {
+    "message": "🏥 La santé animale est primordiale. Souhaitez-vous un guide pour reconnaître les signes de maladie ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Gestion alimentation": {
+    "message": "🥕 Une bonne alimentation garantit la productivité de vos animaux. Voulez-vous un modèle d'alimentation ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Gestion de la météo": {
+    "message": "🌦️ La météo joue un rôle énorme en agriculture. Voulez-vous recevoir des alertes météo ou des conseils saisonniers ?",
+    "options": ["Recevoir alertes", "Conseils saisonniers", "Retour"]
+  },
+
+  "Recevoir alertes": {
+    "message": "📢 Je peux vous envoyer des notifications météo personnalisées. Voulez-vous configurer votre région ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Conseils saisonniers": {
+    "message": "🌱 Adapter votre travail aux saisons est vital. Voulez-vous quelques conseils pour cette saison ?",
+    "options": ["Oui", "Non", "Retour"]
+  },
+
+  "Oui": {
+    "message": "✅ Parfait ! N'hésitez pas à demander plus de détails si besoin.",
+    "next": "categories"
+  },
+
+  "Non": {
+    "message": "👍 Aucun problème ! Nous pouvons passer à un autre sujet si vous voulez.",
+    "next": "categories"
+  },
+
+  "Retour": {
+    "message": "🔙 D'accord, revenons au menu précédent.",
+    "next": "categories"
+  },
+
+  "Terminer": {
+    "message": "🙏 Merci d'avoir utilisé notre assistant agricole ! À bientôt et bon courage pour vos projets. 🌾",
+    "options": []
+  }
+}

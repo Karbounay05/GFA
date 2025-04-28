@@ -46,12 +46,17 @@ class AIFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
+        aiAssistant.loadConversation(requireContext()) // <<< very important
+
         aiAssistant.startConversation(object : AiAssistant.Callback {
             override fun onAiRespond(message: String, options: List<String>) {
                 addAiMessage(message)
-                addOptions(options)
+                recyclerView.postDelayed({
+                    addOptions(options)
+                }, 1000) // wait 1s before showing options
             }
         })
+
 
         closeButton.setOnClickListener {
             (activity as? Acceuil)?.showAccueilButtons()
@@ -118,12 +123,12 @@ class AIFragment : Fragment() {
                 aiAssistant.handleUserChoice(userChoice, object : AiAssistant.Callback {
                     override fun onAiRespond(message: String, options: List<String>) {
                         addAiMessage(message)
-
                         recyclerView.postDelayed({
                             addOptions(options)
-                        }, 1000) // 1 second delay after AI message
+                        }, 1000)
                     }
                 })
+
             }, 1300) // another 1 second after "Assistant écrit..."
         }, 500) // first 1 second after user message
     }
