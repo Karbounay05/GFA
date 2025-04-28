@@ -28,7 +28,7 @@
 
         <activity android:name=".introductionActivity" android:exported="true" />
         <activity android:name=".loginActivity" android:exported="true" />
-        <activity android:name=".acceuil" android:exported="true" />
+        <activity android:name=".Acceuil" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".GererFermeActivity" android:exported="true" />
         <activity android:name=".AjouterFermeActivity" android:exported="true" />
