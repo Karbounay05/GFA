@@ -3,6 +3,7 @@ package com.firstsetup.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
 
-class acceuil : AppCompatActivity() {
+class Acceuil : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -37,32 +38,43 @@ class acceuil : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // New format: List of 3 slides, each with 3 strings
         val slides = listOf(
-            listOf("Gérer la ferme", "Suivre la parcelle", "Diagnostiquer la plant"),
-            listOf("Calculer le rendement", "Calculer la superficier", "Assistant AI")
+            listOf("Gérer la ferme", "Suivre la parcelle", "Diagnostiquer la plante"), // small typo fix ok
+            listOf("Calculer le rendement", "Calculer la superficie", "Assistant AI")
         )
-
 
         val adapter = ServicesAdapter(slides)
         viewPager.adapter = adapter
 
-        // Navigation drawer
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // Handle Home
-                }
-
-                R.id.nav_settings -> {
-                    // Handle Settings
-                }
+                R.id.nav_home -> {}
+                R.id.nav_settings -> {}
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
-        // Logout
+
+
+
+
+
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    fun hideAccueilButtons() {
+
+    }
+
+    fun showAccueilButtons() {
+
+    }
+
 }
