@@ -1,4 +1,4 @@
-package com.firstsetup.myapplication
+package com.firstsetup.myapplication.model
 
 data class Ferme(
     val id: Int,

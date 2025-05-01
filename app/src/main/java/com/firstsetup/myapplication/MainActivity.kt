@@ -6,10 +6,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +18,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lottieWeather: LottieAnimationView
 
     companion object {
-        private const val API_KEY = "132b349bd472e322f99891150708a288" // Ta vraie API key ici
+        private const val API_KEY = "e8fb962960b460360ed7c6080e38db24"
         private const val CITY_NAME = "Rabat"
-        private const val URL = "https://api.openweathermap.org/data/2.5/weather?q=$CITY_NAME&appid=$API_KEY&units=metric"
+    }
+
+    private fun getWeatherUrl(): String {
+        return "https://api.openweathermap.org/data/2.5/weather?q=$CITY_NAME&appid=$API_KEY&units=metric&lang=fr"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acceuil_activity)
-
         weatherText = findViewById(R.id.weatherText)
         lottieWeather = findViewById(R.id.lottieWeather)
 
@@ -36,10 +38,10 @@ class MainActivity : AppCompatActivity() {
     private fun fetchWeather() {
         val queue = Volley.newRequestQueue(this)
 
-        val request = JsonObjectRequest(Request.Method.GET, URL, null,
+        val request = JsonObjectRequest(Request.Method.GET, getWeatherUrl(), null,
             { response ->
                 try {
-                    Log.d("WEATHER", "Réponse reçue: $response") // Pour debug
+                    Log.d("WEATHER_RAW", response.toString())
 
                     val main = response.optJSONObject("main")
                     val temp = main?.optDouble("temp", 0.0)
@@ -47,9 +49,19 @@ class MainActivity : AppCompatActivity() {
 
                     val weatherArray = response.optJSONArray("weather")
                     val description = weatherArray?.optJSONObject(0)?.optString("description", "Pas de données")
+                    val mainWeather = weatherArray?.optJSONObject(0)?.optString("main", "")
 
                     val wind = response.optJSONObject("wind")
                     val windSpeed = wind?.optDouble("speed", 0.0)
+
+                    val sys = response.optJSONObject("sys")
+                    val now = response.optLong("dt")
+                    val sunrise = sys?.optLong("sunrise", 0) ?: 0
+                    val sunset = sys?.optLong("sunset", 0) ?: 0
+                    val isNight = now < sunrise || now > sunset
+
+                    Log.d("TIME", "now=$now, sunrise=$sunrise, sunset=$sunset")
+                    Log.d("ANIM_LOGIC", "main=$mainWeather, isNight=$isNight")
 
                     val text = "Temp: $temp°C\n" +
                             "Description: $description\n" +
@@ -57,30 +69,28 @@ class MainActivity : AppCompatActivity() {
                             "Humidité: $humidity%"
                     weatherText.text = text
 
-                    val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                    val isNight = hour < 6 || hour > 18
-
-                    if (description != null) afficherAnimation(description, isNight)
+                    if (mainWeather != null) afficherAnimation(mainWeather, isNight)
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(this, "Erreur lors du traitement des données météo", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Erreur parsing météo", Toast.LENGTH_SHORT).show()
                 }
             },
             { error ->
-                Log.e("WEATHER", "Erreur de connexion: ${error.message}")
-                Toast.makeText(this, "Erreur de connexion à l'API météo", Toast.LENGTH_SHORT).show()
+                val statusCode = error.networkResponse?.statusCode ?: -1
+                Log.e("WEATHER", "Erreur réseau: ${error.message} (code: $statusCode)")
+                Toast.makeText(this, "Erreur réseau : code $statusCode", Toast.LENGTH_SHORT).show()
             })
 
         queue.add(request)
     }
 
-    private fun afficherAnimation(description: String, isNight: Boolean) {
+    private fun afficherAnimation(main: String, isNight: Boolean) {
         val anim = when {
-            isNight && description.contains("clear", true) -> R.raw.night
-            description.contains("cloud", true) -> R.raw.cloud
-            description.contains("rain", true) -> R.raw.rain
-            description.contains("storm", true) -> R.raw.storm
+            isNight && main.contains("Clear", true) -> R.raw.night
+            main.contains("Cloud", true) -> R.raw.cloud
+            main.contains("Rain", true) -> R.raw.rain
+            main.contains("Storm", true) -> R.raw.storm
             else -> if (isNight) R.raw.night else R.raw.sun
         }
         lottieWeather.setAnimation(anim)
