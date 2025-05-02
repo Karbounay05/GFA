@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 
 class FermeListActivity : AppCompatActivity() {
@@ -43,11 +44,13 @@ class FermeListActivity : AppCompatActivity() {
     private fun chargerFermes(cultivateurId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$cultivateurId"
 
-        val request = JsonArrayRequest(Request.Method.GET, url, null,
+        val request = JsonObjectRequest(Request.Method.GET, url, null,
             { response ->
                 fermeList.clear()
-                for (i in 0 until response.length()) {
-                    val ferme = response.getJSONObject(i)
+                val fermesArray = response.getJSONArray("fermes") // ✅ on extrait le tableau "fermes"
+
+                for (i in 0 until fermesArray.length()) {
+                    val ferme = fermesArray.getJSONObject(i)
                     fermeList.add(
                         Ferme(
                             ferme.getInt("id"),

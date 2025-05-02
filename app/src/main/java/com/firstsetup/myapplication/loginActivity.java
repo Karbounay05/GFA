@@ -1,11 +1,13 @@
 package com.firstsetup.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,10 +84,17 @@ public class loginActivity extends AppCompatActivity {
                 response -> {
                     try {
                         int userId = response.getJSONObject("user").getInt("user_id");
-                        getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                                .edit()
-                                .putInt("cultivateur_id", userId)
-                                .apply();
+
+// Sauvegarde dans SharedPreferences (clé = cultivateur_id)
+                        SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("cultivateur_id", userId); // ✅ cette clé doit être exactement la même partout
+                        editor.apply();
+
+// Vérifie immédiatement si l'enregistrement a réussi
+                        int testId = prefs.getInt("cultivateur_id", -1);
+                        Log.d("LOGIN", "ID sauvegardé = " + testId); // ← Tu dois voir "ID sauvegardé = 11"
+
 
 
                         Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -108,6 +109,37 @@ class Acceuil : AppCompatActivity() {
 
     fun hideAccueilButtons() {}
     fun showAccueilButtons() {}
+    fun verifierFerme() {
+        val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
+        val userId = sharedPref.getInt("cultivateur_id", -1)
+
+        if (userId == -1) {
+            Toast.makeText(this, "Erreur : utilisateur non connecté", Toast.LENGTH_SHORT).show()
+            Log.e("FERME", "❌ cultivateur_id introuvable dans SharedPreferences")
+            return
+        }
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
+
+        val request = JsonObjectRequest(Request.Method.GET, url, null,
+            { response ->
+                // 🔥 Correction ici : on récupère le tableau directement
+                val fermesArray = response.getJSONArray("fermes")
+                val hasFerme = fermesArray != null && fermesArray.length() > 0
+
+                if (hasFerme) {
+                    startActivity(Intent(this, FermeListActivity::class.java))
+                } else {
+                    startActivity(Intent(this, GererFermeActivity::class.java))
+                }
+            },
+            { error ->
+                Toast.makeText(this, "Erreur lors de la vérification de la ferme", Toast.LENGTH_SHORT).show()
+                Log.e("FERME", "Erreur: ${error.message}")
+            })
+
+        Volley.newRequestQueue(this).add(request)
+    }
+
 
     private fun getWeatherUrl(): String {
         return "https://api.openweathermap.org/data/2.5/weather?q=$selectedCity&appid=$API_KEY&units=metric&lang=fr"
