@@ -43,7 +43,8 @@ class FermeListActivity : AppCompatActivity() {
     private fun chargerFermes(cultivateurId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$cultivateurId"
 
-        val request = JsonArrayRequest(Request.Method.GET, url, null,
+        val request = JsonArrayRequest(
+            Request.Method.GET, url, null,
             { response ->
                 fermeList.clear()
                 for (i in 0 until response.length()) {

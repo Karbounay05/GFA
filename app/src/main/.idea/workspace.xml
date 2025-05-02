@@ -1,7 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e1f29d3-a602-497e-a0e7-dc9815f1880a" name="Changes" comment="" />
+    <list default="true" id="4e1f29d3-a602-497e-a0e7-dc9815f1880a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/animation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/flower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/SuivreParcelleActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/drawable/circle_timer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/drawable/diamond_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/layout/activity_suivre_parcelle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../../build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/categories.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/categories.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/start.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/start.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/topics.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/topics.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AIFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AIFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Acceuil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Acceuil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AiAssistant.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AiAssistant.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterAnimalActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterAnimalActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterCultureActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterCultureActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterFermeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AjouterFermeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AnimalAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/AnimalAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ChatAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ChatAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/CultureAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/CultureAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Ferme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Ferme.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/FermeDetailActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/FermeDetailActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/FermeListActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/FermeListActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/GererFermeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/GererFermeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Message.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierAnimalActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierAnimalActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierCultureActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierCultureActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierFermeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ModifierFermeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page1Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page1Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page2Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page2Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page4Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/Page4Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ServicesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/ServicesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/SupprimerFermeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/SupprimerFermeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/introductionActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/IntroductionActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/loginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/logoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/LogoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/signupActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/SignupActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/com/firstsetup/myapplication/slideAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/com/firstsetup/myapplication/SlideAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/activity_modifier_animal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_modifier_animal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/activity_modifier_culture.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_modifier_culture.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/activity_modifier_ferme.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_modifier_ferme.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/activity_supprimer_ferme.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/activity_supprimer_ferme.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/ferme_detail_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/ferme_detail_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/login_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/login_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/layout/page2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/res/layout/page2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../settings.gradle.kts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,16 +72,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ali__workspace&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "urgencebranche2",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -51,6 +100,7 @@
       <updated>1744471394818</updated>
       <workItem from="1744471394823" duration="367000" />
       <workItem from="1745163494481" duration="63000" />
+      <workItem from="1746129826317" duration="17000" />
     </task>
     <servers />
   </component>

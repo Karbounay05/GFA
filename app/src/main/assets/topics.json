@@ -1,94 +1,156 @@
 {
   "Salut": {
-    "message": "👋 Bonjour à vous aussi ! De quoi avez-vous besoin aujourd'hui ?",
+    "message": "👋 Bonjour à vous aussi ! Bienvenue dans votre assistant agricole personnel. Je suis là pour vous aider à mieux gérer vos cultures, vos animaux et vos équipements. Par quoi souhaitez-vous commencer aujourd'hui ?",
     "next": "categories"
   },
+
   "Bonjour": {
-    "message": "😊 Bonjour ! Heureux de vous retrouver. Que puis-je faire pour vous ?",
+    "message": "😊 Bonjour ! Heureux de vous revoir. Avec moi, vous pouvez organiser votre ferme, soigner vos animaux, optimiser vos cultures ou recevoir des conseils météo. Que désirez-vous explorer ?",
     "next": "categories"
   },
+
   "Comment ça va ?": {
-    "message": "🤖 Toujours prêt à vous aider ! Par quoi voulez-vous commencer ?",
+    "message": "🤖 Toujours prêt et motivé à vous accompagner dans vos projets agricoles. Choisissez un domaine pour commencer votre optimisation de la ferme.",
     "next": "categories"
   },
 
   "Gestion de ferme": {
-    "message": "🏡 En gestion de ferme, je peux vous accompagner dans l'organisation des tâches, la gestion des équipements, et plus encore. Que souhaitez-vous explorer ?",
+    "message": "🏡 Une bonne gestion de ferme repose sur une organisation claire des tâches quotidiennes et un entretien régulier des équipements. Ensemble, nous pouvons structurer votre travail pour maximiser votre rendement agricole.",
     "options": ["Organiser les tâches", "Gérer les équipements", "Retour"]
   },
 
   "Organiser les tâches": {
-    "message": "📝 Planifier vos tâches vous aide à améliorer la productivité. Voulez-vous que je vous propose un exemple de planning ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "📝 Organiser les tâches agricoles est essentiel pour assurer le succès de votre ferme. Cela signifie planifier les activités en fonction des saisons, gérer les ressources humaines et techniques, et anticiper les imprévus climatiques. Voulez-vous voir un exemple de planning agricole adapté sur une semaine ?",
+    "options": ["Oui_OrganiserTaches", "Non_OrganiserTaches", "Retour"]
+  },
+
+  "Oui_OrganiserTaches": {
+    "message": "🗓️ Voici un exemple de planning hebdomadaire pour une ferme agricole :\n\n- **Lundi** : Inspection générale des champs, vérification des clôtures et du matériel.\n- **Mardi** : Semis de nouvelles cultures selon la saison.\n- **Mercredi** : Irrigation des plantations, contrôle du système d'irrigation.\n- **Jeudi** : Désherbage manuel ou traitement phytosanitaire naturel.\n- **Vendredi** : Récolte des produits arrivés à maturité, stockage.\n- **Samedi** : Nettoyage des abris pour animaux, entretien des équipements.\n- **Dimanche** : Repos pour les équipes, préparation des plans pour la semaine suivante.\n\nSouhaitez-vous passer à une autre catégorie ?",
+    "next": "categories"
+  },
+
+  "Non_OrganiserTaches": {
+    "message": "D'accord, nous restons disponibles si vous souhaitez explorer d'autres aspects de la gestion de votre ferme.",
+    "next": "categories"
   },
 
   "Gérer les équipements": {
-    "message": "🔧 Pour une ferme efficace, il est essentiel de suivre l'entretien de vos équipements. Besoin d'un modèle de suivi ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "🔧 Une ferme efficace nécessite des équipements en bon état. L'entretien régulier du matériel (tracteurs, semoirs, systèmes d'irrigation, outils manuels) permet d'augmenter leur durée de vie et de réduire les coûts imprévus de réparation. Voulez-vous découvrir un modèle d'entretien adapté aux fermes modernes ?",
+    "options": ["Oui_GererEquipements", "Non_GererEquipements", "Retour"]
+  },
+
+  "Oui_GererEquipements": {
+    "message": "🔩 Exemple d'entretien des équipements agricoles :\n\n- **Tracteur** : Changement d'huile moteur tous les 100h d'utilisation, contrôle de la pression des pneus chaque semaine.\n- **Semoir** : Nettoyage complet après chaque utilisation pour éviter les blocages.\n- **Système d'irrigation** : Inspection mensuelle des tuyaux, nettoyage des filtres.\n- **Outils manuels** : Nettoyage après chaque utilisation, affûtage régulier.\n\nN'oubliez pas de tenir un carnet d'entretien pour suivre les dates et les interventions effectuées.\n\nContinuer vers un autre sujet ?",
+    "next": "categories"
+  },
+
+  "Non_GererEquipements": {
+    "message": "Très bien, n'hésitez pas à revenir si vous souhaitez planifier l'entretien de vos équipements plus en détail.",
+    "next": "categories"
   },
 
   "Gestion des cultures": {
-    "message": "🌾 Concernant vos cultures, je peux vous aider sur les maladies, l'irrigation ou les périodes de plantation. Que souhaitez-vous ?",
+    "message": "🌾 Cultiver efficacement demande de connaître les maladies fréquentes, d'assurer une irrigation adaptée et de planifier les cycles de plantation. Par quoi souhaitez-vous commencer ?",
     "options": ["Détecter maladies", "Conseils irrigation", "Retour"]
   },
 
   "Détecter maladies": {
-    "message": "🔬 Pour détecter les maladies, observez les feuilles, tiges et fruits. Voulez-vous voir les signes les plus fréquents ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "🔬 Les maladies des plantes peuvent gravement impacter vos rendements. Voulez-vous découvrir les signes les plus fréquents pour agir rapidement ?",
+    "options": ["Oui_DetecterMaladies", "Non_DetecterMaladies", "Retour"]
+  },
+
+  "Oui_DetecterMaladies": {
+    "message": "🍃 Symptômes fréquents :\n- Jaunissement prématuré des feuilles\n- Taches noires, brunes ou jaunes sur les feuilles\n- Moisissure visible sur les tiges ou les fruits\n- Croissance ralentie des plantes\n\nDès qu'un symptôme apparaît, isolez la plante atteinte et désinfectez vos outils pour éviter la propagation.\n\nSouhaitez-vous passer à un autre sujet ?",
+    "next": "categories"
+  },
+
+  "Non_DetecterMaladies": {
+    "message": "Très bien, nous pouvons explorer d'autres sujets agricoles si vous le souhaitez.",
+    "next": "categories"
   },
 
   "Conseils irrigation": {
-    "message": "💧 L'irrigation est clé pour la santé de vos plantes. Voulez-vous des conseils adaptés à votre région ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "💧 L'irrigation correcte est essentielle pour la croissance saine des plantes. Voulez-vous découvrir des techniques adaptées selon votre région ?",
+    "options": ["Oui_Irrigation", "Non_Irrigation", "Retour"]
+  },
+
+  "Oui_Irrigation": {
+    "message": "💦 Conseils d'irrigation :\n\n- **Irrigation goutte-à-goutte** : Économique et précis pour les légumes et jeunes arbres.\n- **Arrosage matinal** : Limite l'évaporation et réduit les maladies fongiques.\n- **Capteurs d'humidité** : Aident à éviter le sur-arrosage.\n\nL'irrigation doit toujours être adaptée à la nature du sol (argileux, sableux, etc.).\n\nSouhaitez-vous explorer un autre domaine ?",
+    "next": "categories"
+  },
+
+  "Non_Irrigation": {
+    "message": "D'accord, d'autres conseils sont disponibles si besoin.",
+    "next": "categories"
   },
 
   "Gestion des animaux": {
-    "message": "🐄 Pour vos animaux, je peux vous assister sur leur santé, leur alimentation, ou leur reproduction. Que préférez-vous ?",
+    "message": "🐄 La gestion animale couvre la santé, l'alimentation et la reproduction. Voulez-vous parler de la santé ou de l'alimentation de vos animaux ?",
     "options": ["Suivi santé", "Gestion alimentation", "Retour"]
   },
 
   "Suivi santé": {
-    "message": "🏥 La santé animale est primordiale. Souhaitez-vous un guide pour reconnaître les signes de maladie ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "🏥 Une surveillance régulière permet de prévenir de nombreuses maladies. Voulez-vous voir un guide rapide pour identifier les premiers signes de problème de santé chez vos animaux ?",
+    "options": ["Oui_SanteAnimaux", "Non_SanteAnimaux", "Retour"]
+  },
+
+  "Oui_SanteAnimaux": {
+    "message": "🐾 Signes d'alerte :\n- Perte soudaine d'appétit\n- Toux, éternuements, respiration difficile\n- Boiterie ou difficulté à se déplacer\n- Comportement inhabituel (isolement, agitation)\n\nEn cas de doute, il est recommandé de consulter un vétérinaire rapidement.\n\nSouhaitez-vous continuer sur un autre sujet ?",
+    "next": "categories"
+  },
+
+  "Non_SanteAnimaux": {
+    "message": "Pas de souci, vous pouvez revenir à moi à tout moment.",
+    "next": "categories"
   },
 
   "Gestion alimentation": {
-    "message": "🥕 Une bonne alimentation garantit la productivité de vos animaux. Voulez-vous un modèle d'alimentation ?",
-    "options": ["Oui", "Non", "Retour"]
+    "message": "🥕 L'alimentation influence directement la santé et la productivité animale. Voulez-vous découvrir un modèle d'alimentation simple et efficace ?",
+    "options": ["Oui_AlimentationAnimaux", "Non_AlimentationAnimaux", "Retour"]
+  },
+
+  "Oui_AlimentationAnimaux": {
+    "message": "🍽️ Exemple de ration :\n\n- **Bovins adultes** : foin + compléments en minéraux + accès libre à l'eau.\n- **Volaille** : grains, légumes frais, calcium supplémentaire.\n- **Ovins/caprins** : herbe fraîche + supplément protéique en hiver.\n\nAdapter les apports selon l'âge et l'activité des animaux pour éviter carences ou excès.\n\nContinuer ?",
+    "next": "categories"
+  },
+
+  "Non_AlimentationAnimaux": {
+    "message": "Très bien, nous pouvons passer à un autre sujet.",
+    "next": "categories"
   },
 
   "Gestion de la météo": {
-    "message": "🌦️ La météo joue un rôle énorme en agriculture. Voulez-vous recevoir des alertes météo ou des conseils saisonniers ?",
+    "message": "🌦️ La météo a un impact énorme sur la réussite agricole. Voulez-vous recevoir des alertes météo ou découvrir des conseils saisonniers ?",
     "options": ["Recevoir alertes", "Conseils saisonniers", "Retour"]
   },
 
   "Recevoir alertes": {
-    "message": "📢 Je peux vous envoyer des notifications météo personnalisées. Voulez-vous configurer votre région ?",
-    "options": ["Oui", "Non", "Retour"]
-  },
-
-  "Conseils saisonniers": {
-    "message": "🌱 Adapter votre travail aux saisons est vital. Voulez-vous quelques conseils pour cette saison ?",
-    "options": ["Oui", "Non", "Retour"]
-  },
-
-  "Oui": {
-    "message": "✅ Parfait ! N'hésitez pas à demander plus de détails si besoin.",
+    "message": "📢 Pour recevoir des alertes météo locales personnalisées, veuillez renseigner votre région dans le prochain formulaire.",
     "next": "categories"
   },
 
-  "Non": {
-    "message": "👍 Aucun problème ! Nous pouvons passer à un autre sujet si vous voulez.",
+  "Conseils saisonniers": {
+    "message": "🌱 Les activités agricoles varient selon les saisons. Voulez-vous quelques conseils pratiques pour optimiser votre travail cette saison ?",
+    "options": ["Oui_ConseilsSaison", "Non_ConseilsSaison", "Retour"]
+  },
+
+  "Oui_ConseilsSaison": {
+    "message": "🗓️ Cette saison :\n- Nettoyer les champs pour la future culture\n- Réviser les équipements avant la haute saison\n- Planter les cultures adaptées à la météo actuelle\n\nSouhaitez-vous poursuivre ?",
+    "next": "categories"
+  },
+
+  "Non_ConseilsSaison": {
+    "message": "Très bien, je reste disponible pour d'autres conseils !",
     "next": "categories"
   },
 
   "Retour": {
-    "message": "🔙 D'accord, revenons au menu précédent.",
+    "message": "🔙 Revenir au menu principal.",
     "next": "categories"
   },
 
   "Terminer": {
-    "message": "🙏 Merci d'avoir utilisé notre assistant agricole ! À bientôt et bon courage pour vos projets. 🌾",
+    "message": "🙏 Merci beaucoup pour votre confiance. N'oubliez pas : une bonne gestion aujourd'hui garantit de meilleures récoltes demain ! 🌾",
     "options": []
   }
 }

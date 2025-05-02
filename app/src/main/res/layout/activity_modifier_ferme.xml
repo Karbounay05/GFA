@@ -1,82 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@android:color/white"
-    tools:context=".ModifierFermeActivity">
+    android:background="#A71EA162">
 
-    <TextView
-        android:id="@+id/titreModifier"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:text="Modifier la Ferme"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark"
+        android:background="@drawable/slide_background"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <EditText
-        android:id="@+id/editNomF"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Nom de la ferme"
-        android:backgroundTint="@android:color/holo_green_light"
-        android:textColorHint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/titreModifier"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/editSuperficie"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Superficie (ha)"
-        android:inputType="numberDecimal"
-        android:backgroundTint="@android:color/holo_green_light"
-        app:layout_constraintTop_toBottomOf="@id/editNomF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+            <!-- Image en haut -->
+            <ImageView
+                android:id="@+id/imageViewModifierFerme"
+                android:layout_width="83dp"
+                android:layout_height="99dp"
+                app:srcCompat="@drawable/addferme"
+                android:layout_gravity="center" />
 
-    <EditText
-        android:id="@+id/editLocalisation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Localisation"
-        android:backgroundTint="@android:color/holo_green_light"
-        app:layout_constraintTop_toBottomOf="@id/editSuperficie"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+            <!-- Titre -->
+            <TextView
+                android:id="@+id/titreModifier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modifier la Ferme"
+                android:textColor="#1EA162"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center" />
 
-    <EditText
-        android:id="@+id/editTypeSol"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Type de sol"
-        android:backgroundTint="@android:color/holo_green_light"
-        app:layout_constraintTop_toBottomOf="@id/editLocalisation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+            <!-- Nom ferme -->
+            <EditText
+                android:id="@+id/editNomF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nom de la ferme"
+                android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/btnModifierFerme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modifier"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/editTypeSol"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+            <!-- Superficie (SeekBar) -->
+            <SeekBar
+                android:id="@+id/seekBarSuperficie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="10"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/textSuperficieValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 hectares"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+
+            <!-- Localisation -->
+            <EditText
+                android:id="@+id/editLocalisation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Localisation"
+                android:layout_marginTop="16dp" />
+
+            <!-- Type de sol (Spinner) -->
+            <Spinner
+                android:id="@+id/spinnerTypeSol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <!-- Bouton Modifier -->
+            <Button
+                android:id="@+id/btnModifierFerme"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_background"
+                android:text="Modifier"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#1EA162" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

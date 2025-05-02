@@ -2,7 +2,9 @@ package com.firstsetup.myapplication
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
+import android.widget.CheckBox
+import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -12,8 +14,11 @@ import org.json.JSONObject
 
 class ModifierAnimalActivity : AppCompatActivity() {
 
-    private lateinit var nombreInput: EditText
-    private lateinit var etatInput: EditText
+    private lateinit var seekBarNombre: SeekBar
+    private lateinit var textNombre: TextView
+    private lateinit var checkboxBonneSante: CheckBox
+    private lateinit var checkboxMaladie: CheckBox
+    private lateinit var checkboxAutre: CheckBox
     private lateinit var btnModifier: Button
     private var animalId: Int = -1
 
@@ -21,32 +26,63 @@ class ModifierAnimalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modifier_animal)
 
-        nombreInput = findViewById(R.id.editNombre)
-        etatInput = findViewById(R.id.editStatutSanitaire)
+        // Initialisation
+        seekBarNombre = findViewById(R.id.seekBarNombre)
+        textNombre = findViewById(R.id.textNombre)
+        checkboxBonneSante = findViewById(R.id.checkboxBonneSante)
+        checkboxMaladie = findViewById(R.id.checkboxMaladie)
+        checkboxAutre = findViewById(R.id.checkboxAutre)
         btnModifier = findViewById(R.id.btnModifierAnimal)
 
-        // Récupérer les données
+        // Récupérer les données envoyées
         animalId = intent.getIntExtra("animal_id", -1)
-        nombreInput.setText(intent.getStringExtra("nombre"))
-        etatInput.setText(intent.getStringExtra("statut_sanitaire")) // 🛠️ correction ici (status_sanitaire → **statut_sanitaire**)
+        val nombre = intent.getStringExtra("nombre")?.toIntOrNull() ?: 0
+        val statutSanitaire = intent.getStringExtra("statut_sanitaire") ?: ""
 
+        seekBarNombre.progress = nombre
+        textNombre.text = "Nombre : $nombre"
+
+        // Sélectionner le bon checkbox en fonction du statut existant
+        when (statutSanitaire) {
+            "Bonne Santé" -> checkboxBonneSante.isChecked = true
+            "Maladie" -> checkboxMaladie.isChecked = true
+            "Autre" -> checkboxAutre.isChecked = true
+        }
+
+        // Mise à jour du texte quand on bouge le seekbar
+        seekBarNombre.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                textNombre.text = "Nombre : $progress"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        // Bouton Modifier
         btnModifier.setOnClickListener {
             modifierAnimal()
         }
     }
 
     private fun modifierAnimal() {
-        val nombreStr = nombreInput.text.toString()
-        val etat = etatInput.text.toString()
+        val nombre = seekBarNombre.progress
 
-        if (nombreStr.isBlank() || etat.isBlank()) {
-            Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
+        val statutSanitaire = when {
+            checkboxBonneSante.isChecked -> "Bonne Santé"
+            checkboxMaladie.isChecked -> "Maladie"
+            checkboxAutre.isChecked -> "Autre"
+            else -> ""
+        }
+
+        if (statutSanitaire.isBlank()) {
+            Toast.makeText(this, "Veuillez sélectionner un statut sanitaire", Toast.LENGTH_SHORT).show()
             return
         }
 
         val body = JSONObject().apply {
-            put("nombre", nombreStr.toInt()) // ✅ convertir en Int ici
-            put("statut_sanitaire", etat)    // ✅ orthographe correcte
+            put("nombre", nombre)
+            put("statut_sanitaire", statutSanitaire)
         }
 
         val url = "https://fluorescent-boiled-butter.glitch.me/animaux/$animalId"

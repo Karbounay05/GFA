@@ -54,6 +54,12 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
                 context.startActivity(intent)
             }
         }
+        holder.button2.setOnClickListener {
+            if (position == 0) { // Only for first slide
+                val intent = Intent(context, SuivreParcelleActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
         holder.button3.setOnClickListener {
             if (position == 0) {
 

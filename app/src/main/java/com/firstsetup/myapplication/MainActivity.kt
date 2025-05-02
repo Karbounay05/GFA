@@ -9,8 +9,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
-import java.util.*
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     private fun fetchWeather() {
         val queue = Volley.newRequestQueue(this)
 
-        val request = JsonObjectRequest(Request.Method.GET, URL, null,
+        val request = JsonObjectRequest(
+            Request.Method.GET, URL, null,
             { response ->
                 try {
                     Log.d("WEATHER", "Réponse reçue: $response") // Pour debug
@@ -46,7 +46,8 @@ class MainActivity : AppCompatActivity() {
                     val humidity = main?.optInt("humidity", 0)
 
                     val weatherArray = response.optJSONArray("weather")
-                    val description = weatherArray?.optJSONObject(0)?.optString("description", "Pas de données")
+                    val description =
+                        weatherArray?.optJSONObject(0)?.optString("description", "Pas de données")
 
                     val wind = response.optJSONObject("wind")
                     val windSpeed = wind?.optDouble("speed", 0.0)
@@ -64,7 +65,11 @@ class MainActivity : AppCompatActivity() {
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(this, "Erreur lors du traitement des données météo", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Erreur lors du traitement des données météo",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             },
             { error ->
