@@ -8,87 +8,49 @@
     android:layout_height="match_parent"
     tools:context=".Acceuil">
 
-    <!-- Main Content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A71EA162">
 
-        <!-- Label Région -->
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Région"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp" />
-
-        <!-- Spinner Ville -->
-        <Spinner
-            android:id="@+id/spinnerCities"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="40dp" />
-
-        <TextView
-            android:id="@+id/weatherText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Chargement de la météo..."
-            android:translationY="300dp"
-            android:translationX="100dp"
-            android:textSize="18sp" />
-
-
-
-
-
-        <!-- 🔥 FrameLayout moved to LAST so it appears on top 🔥 -->
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:layout_width="370dp"
-                android:layout_height="211dp"
-                android:layout_marginLeft="-2dp"
-                android:layout_marginTop="565dp"
-                android:background="@drawable/slide_background">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="382dp"
+                android:layout_height="164dp"
+                android:background="@drawable/slide_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.463"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="169dp" />
-            </FrameLayout>
+                    android:layout_width="362dp"
+                    android:layout_height="169dp"
+                    tools:layout_editor_absoluteX="2dp"
+                    tools:layout_editor_absoluteY="2dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieWeather"
-                android:layout_width="200dp"
-                android:translationX="100dp"
-                android:translationY="50dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/sun" />
+            <!-- Weather Fragment Container with fixed size -->
+            <FrameLayout
+                android:id="@+id/weatherFragmentContainer"
+                android:layout_width="362dp"
+                android:layout_height="570dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewPager" />
 
-
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"

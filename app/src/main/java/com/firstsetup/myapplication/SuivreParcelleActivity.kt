@@ -20,7 +20,8 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 
-class SuivreParcelleActivity : AppCompatActivity() {
+class
+SuivreParcelleActivity : AppCompatActivity() {
 
     private lateinit var progressCircle: ProgressBar
     private lateinit var timerText: TextView

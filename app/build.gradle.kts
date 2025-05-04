@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -47,17 +48,22 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation ("com.airbnb.android:lottie:6.1.0")
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+    implementation ("org.osmdroid:osmdroid-android:6.1.20")
+    implementation ("org.osmdroid:osmdroid-wms:6.1.20")
+    implementation ("org.osmdroid:osmdroid-mapsforge:6.1.20")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.preference.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
 
 
