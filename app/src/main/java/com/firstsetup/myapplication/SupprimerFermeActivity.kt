@@ -36,7 +36,8 @@ class SupprimerFermeActivity : AppCompatActivity() {
     private fun supprimerFerme(id: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$id"
 
-        val request = StringRequest(Request.Method.DELETE, url,
+        val request = StringRequest(
+            Request.Method.DELETE, url,
             {
                 Toast.makeText(this, "Ferme supprimée avec succès ✅", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FermeListActivity::class.java)
@@ -44,7 +45,8 @@ class SupprimerFermeActivity : AppCompatActivity() {
                 finish()
             },
             { error ->
-                Toast.makeText(this, "Erreur de suppression: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Erreur de suppression: ${error.message}", Toast.LENGTH_LONG)
+                    .show()
             })
 
         Volley.newRequestQueue(this).add(request)

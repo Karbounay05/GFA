@@ -69,7 +69,8 @@ class FermeDetailActivity : AppCompatActivity() {
     private fun chargerAnimaux() {
         val url = "https://fluorescent-boiled-butter.glitch.me/animaux/$fermeId"
 
-        val request = JsonObjectRequest(Request.Method.GET, url, null,
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
             { response ->
                 animaux.clear()
                 val array = response.getJSONArray("animaux")
@@ -102,7 +103,11 @@ class FermeDetailActivity : AppCompatActivity() {
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement animaux", error)
-                Toast.makeText(this, "Erreur chargement animaux: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Erreur chargement animaux: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         )
 
@@ -112,13 +117,15 @@ class FermeDetailActivity : AppCompatActivity() {
     private fun supprimerAnimal(animauxId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/animaux/$animauxId"
 
-        val request = StringRequest(Request.Method.DELETE, url,
+        val request = StringRequest(
+            Request.Method.DELETE, url,
             {
                 Toast.makeText(this, "Animal supprimé ✅", Toast.LENGTH_SHORT).show()
                 chargerAnimaux()
             },
             {
-                Toast.makeText(this, "Erreur suppression animal : ${it.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Erreur suppression animal : ${it.message}", Toast.LENGTH_LONG)
+                    .show()
             })
 
         Volley.newRequestQueue(this).add(request)
@@ -127,7 +134,8 @@ class FermeDetailActivity : AppCompatActivity() {
     private fun chargerCultures() {
         val url = "https://fluorescent-boiled-butter.glitch.me/culture/$fermeId"
 
-        val request = JsonObjectRequest(Request.Method.GET, url, null,
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
             { response ->
                 cultures.clear()
                 val array = response.getJSONArray("cultures")
@@ -162,7 +170,11 @@ class FermeDetailActivity : AppCompatActivity() {
             },
             { error ->
                 Log.e("FermeDetailActivity", "Erreur chargement cultures", error)
-                Toast.makeText(this, "Erreur chargement cultures: ${error.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Erreur chargement cultures: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         )
 
@@ -172,13 +184,18 @@ class FermeDetailActivity : AppCompatActivity() {
     private fun supprimerCulture(cultureId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/culture/$cultureId"
 
-        val request = StringRequest(Request.Method.DELETE, url,
+        val request = StringRequest(
+            Request.Method.DELETE, url,
             {
                 Toast.makeText(this, "Culture supprimée ✅", Toast.LENGTH_SHORT).show()
                 chargerCultures()
             },
             {
-                Toast.makeText(this, "Erreur suppression culture : ${it.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Erreur suppression culture : ${it.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             })
 
         Volley.newRequestQueue(this).add(request)

@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.List;
 
-public class slideAdapter extends RecyclerView.Adapter<slideAdapter.SlideViewHolder> {
+public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHolder> {
 
     private List<SlideItem> slideItems;
     private ViewPager2 viewPager2;
@@ -56,7 +56,7 @@ public class slideAdapter extends RecyclerView.Adapter<slideAdapter.SlideViewHol
     }
 
     // ✅ Fixed: assign viewPager2 in constructor
-    public slideAdapter(List<SlideItem> slideItems, ViewPager2 viewPager2) {
+    public SlideAdapter(List<SlideItem> slideItems, ViewPager2 viewPager2) {
         this.slideItems = slideItems;
         this.viewPager2 = viewPager2;
     }
@@ -84,7 +84,7 @@ public class slideAdapter extends RecyclerView.Adapter<slideAdapter.SlideViewHol
             holder.button.setText("Finish");
             holder.button.setOnClickListener(v -> {
                 android.content.Context context = v.getContext();
-                android.content.Intent intent = new android.content.Intent(context, loginActivity.class);
+                android.content.Intent intent = new android.content.Intent(context, LoginActivity.class);
                 context.startActivity(intent);
             });
         } else {

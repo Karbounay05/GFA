@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".logoActivity"
+            android:name=".LogoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,8 @@
         </activity>
 
 
-        <activity android:name=".introductionActivity" android:exported="true" />
-        <activity android:name=".loginActivity" android:exported="true" />
+        <activity android:name=".IntroductionActivity" android:exported="true" />
+        <activity android:name=".LoginActivity" android:exported="true" />
         <activity android:name=".Acceuil" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
         <activity android:name=".GererFermeActivity" android:exported="true" />
@@ -45,6 +45,7 @@
         <activity android:name=".AjouterAnimalActivity" android:exported="true" />
         <activity android:name=".ModifierAnimalActivity" android:exported="true" />
         <activity android:name=".ModifierCultureActivity" android:exported="true" />
+        <activity android:name=".SuivreParcelleActivity" android:exported="true" />
 
     </application>
 

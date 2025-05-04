@@ -2,13 +2,18 @@ package com.firstsetup.myapplication
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.SeekBar
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-import java.util.*
+import java.util.Calendar
 
 class AjouterAnimalActivity : AppCompatActivity() {
 
@@ -73,11 +78,18 @@ class AjouterAnimalActivity : AppCompatActivity() {
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this,
+            val datePickerDialog = DatePickerDialog(
+                this,
                 { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-                    selectedDateEntree = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDayOfMonth)
+                    selectedDateEntree = String.format(
+                        "%04d-%02d-%02d",
+                        selectedYear,
+                        selectedMonth + 1,
+                        selectedDayOfMonth
+                    )
                     buttonDateEntree.text = selectedDateEntree
-                }, year, month, day)
+                }, year, month, day
+            )
 
             datePickerDialog.show()
         }
@@ -132,7 +144,8 @@ class AjouterAnimalActivity : AppCompatActivity() {
 
         val url = "https://fluorescent-boiled-butter.glitch.me/animaux"
 
-        val request = JsonObjectRequest(Request.Method.POST, url, body,
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, body,
             {
                 Toast.makeText(this, "Animal ajouté ✅", Toast.LENGTH_SHORT).show()
                 finish()

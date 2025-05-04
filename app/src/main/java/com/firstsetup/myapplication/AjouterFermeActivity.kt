@@ -83,7 +83,8 @@ class AjouterFermeActivity : AppCompatActivity() {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes"
 
         // Requête POST avec Volley
-        val request = JsonObjectRequest(Request.Method.POST, url, body,
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, body,
             { response ->
                 Toast.makeText(this, "Ferme ajoutée ✅", Toast.LENGTH_SHORT).show()
 

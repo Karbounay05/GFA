@@ -1,6 +1,8 @@
 package com.firstsetup.myapplication
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import org.json.JSONObject
 
 class AiAssistant {
@@ -45,7 +47,7 @@ class AiAssistant {
         val nextNode = topicsData.optJSONObject(choice)
 
         if (nextNode != null) {
-            val message = nextNode.getString("message")
+            val message = nextNode.optString("message", "")
             val optionsArray = nextNode.optJSONArray("options")
             val options = mutableListOf<String>()
             if (optionsArray != null) {
@@ -54,13 +56,18 @@ class AiAssistant {
                 }
             }
 
+            // Affiche le message actuel
+            callback.onAiRespond(message, options)
+
+            // Gère le "next" après un petit délai pour fluidité
             val next = nextNode.optString("next", null)
             if (next != null && next == "categories") {
-                loadCategories(callback)
-            } else {
-                callback.onAiRespond(message, options)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loadCategories(callback)
+                }, 1000)
             }
         } else {
+            // Si la clé n'existe pas dans topics.json → on retourne au menu
             loadCategories(callback)
         }
     }

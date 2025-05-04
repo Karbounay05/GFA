@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class logoActivity extends AppCompatActivity {
+public class LogoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +48,16 @@ public class logoActivity extends AppCompatActivity {
                 int val = getSharedPreferences("MyPrefs", MODE_PRIVATE)
                         .getInt("val", 0);
                 if(val==0){
-                Intent intent = new Intent(logoActivity.this, introductionActivity.class);
+                Intent intent = new Intent(LogoActivity.this, IntroductionActivity.class);
                 startActivity(intent);
                 finish(); }
                 else if(val == 1){
 
-                    Intent intent = new Intent(logoActivity.this, Acceuil.class);
+                    Intent intent = new Intent(LogoActivity.this, Acceuil.class);
                     startActivity(intent);
                     finish();
                 }else if(val == 2){
-                    Intent intent = new Intent(logoActivity.this, loginActivity.class);
+                    Intent intent = new Intent(LogoActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }else{}

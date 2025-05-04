@@ -24,7 +24,7 @@ import com.firstsetup.myapplication.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText email, password;
 
     @Override
@@ -53,7 +53,7 @@ public class loginActivity extends AppCompatActivity {
                     User user = new User(emailInput, passwordInput);
                     sendUserToServer(user);
                 } else {
-                    Toast.makeText(loginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -62,7 +62,7 @@ public class loginActivity extends AppCompatActivity {
         signupButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(loginActivity.this, Page1Activity.class);
+                Intent intent = new Intent(LoginActivity.this, Page1Activity.class);
                 startActivity(intent);
             }
         });
@@ -97,17 +97,17 @@ public class loginActivity extends AppCompatActivity {
 
 
 
-                        Toast.makeText(loginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(loginActivity.this, Acceuil.class);
+                        Toast.makeText(LoginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, Acceuil.class);
                         startActivity(intent);
                         finish();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(loginActivity.this, "Erreur parsing réponse", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Erreur parsing réponse", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> Toast.makeText(loginActivity.this, "Server error: " + error.getMessage(), Toast.LENGTH_LONG).show()
+                error -> Toast.makeText(LoginActivity.this, "Server error: " + error.getMessage(), Toast.LENGTH_LONG).show()
         );
 
         queue.add(request);

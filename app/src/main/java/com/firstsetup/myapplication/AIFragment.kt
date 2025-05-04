@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
 
 class AIFragment : Fragment() {
 
@@ -240,8 +241,8 @@ class AIFragment : Fragment() {
                     isDragging = false
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    val moveX = kotlin.math.abs(event.rawX - startX)
-                    val moveY = kotlin.math.abs(event.rawY - startY)
+                    val moveX = abs(event.rawX - startX)
+                    val moveY = abs(event.rawY - startY)
 
                     if (moveX > 10 || moveY > 10) {
                         isDragging = true

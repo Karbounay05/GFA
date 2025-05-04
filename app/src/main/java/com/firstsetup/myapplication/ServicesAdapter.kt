@@ -32,31 +32,38 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
         val slideData = slideTexts[position]
         val context = holder.itemView.context
 
+        // Set texts (safe access)
         holder.slideText1.text = slideData.getOrNull(0) ?: ""
         holder.slideText2.text = slideData.getOrNull(1) ?: ""
         holder.slideText3.text = slideData.getOrNull(2) ?: ""
 
+        // Button backgrounds for 2 slides (3 images each)
         val imgIds = listOf(
-            R.drawable.ex1, R.drawable.ex3, R.drawable.ex2,
-            R.drawable.ex5, R.drawable.ex6, R.drawable.ex4
+            R.drawable.ex1, R.drawable.ex3, R.drawable.ex2, // Slide 1
+            R.drawable.ex5, R.drawable.ex6, R.drawable.ex4  // Slide 2
         )
+
         val startIndex = position * 3
         holder.button1.background = ContextCompat.getDrawable(context, imgIds[startIndex])
         holder.button2.background = ContextCompat.getDrawable(context, imgIds[startIndex + 1])
         holder.button3.background = ContextCompat.getDrawable(context, imgIds[startIndex + 2])
 
-        // 🔥 Bouton 1 : Gérer la ferme
         holder.button1.setOnClickListener {
-            if (position == 0) {
-                if (context is Acceuil) {
-                    context.verifierFerme()
-                }
+            if (position == 0) { // Only for first slide
+                val intent = Intent(context, GererFermeActivity::class.java)
+                context.startActivity(intent)
             }
         }
-
-        // 🔥 Bouton 3 : Assistant AI (2e slide)
+        holder.button2.setOnClickListener {
+            if (position == 0) { // Only for first slide
+                val intent = Intent(context, SuivreParcelleActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
         holder.button3.setOnClickListener {
-            if (position == 1) {
+            if (position == 0) {
+
+            }else if (position == 1) {
                 if (context is Acceuil) {
                     val aiFragment =
                         context.supportFragmentManager.findFragmentByTag("AI_FRAGMENT") as? AIFragment
