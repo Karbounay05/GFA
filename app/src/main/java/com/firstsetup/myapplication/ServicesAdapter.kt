@@ -49,10 +49,11 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
         holder.button3.background = ContextCompat.getDrawable(context, imgIds[startIndex + 2])
 
         holder.button1.setOnClickListener {
-            if (position == 0) { // Only for first slide
-                val intent = Intent(context, GererFermeActivity::class.java)
-                context.startActivity(intent)
-            }else if (position == 1) {
+            if (position == 0) {
+                if (context is Acceuil) {
+                    context.verifierFerme()
+                }
+        }else if (position == 1) {
                 val intent = Intent(context, RendementActivity::class.java)
                 context.startActivity(intent)
             }

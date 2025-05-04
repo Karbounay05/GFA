@@ -52,6 +52,7 @@ dependencies {
     implementation ("org.osmdroid:osmdroid-android:6.1.20")
     implementation ("org.osmdroid:osmdroid-wms:6.1.20")
     implementation ("org.osmdroid:osmdroid-mapsforge:6.1.20")
+    
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -63,7 +64,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    kapt("com.github.bumptech.glide:compiler:4.16.0")
+
 
 
 

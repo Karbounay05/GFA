@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 
-class ListeRendementsActivity : AppCompatActivity() {
-
+class ListeRendementsActivity : AppCompatActivity()
+/*
     private lateinit var recyclerView: RecyclerView
     private val cultivateurId = 5
 
@@ -53,3 +53,4 @@ class ListeRendementsActivity : AppCompatActivity() {
         queue.add(request)
     }
 }
+*/

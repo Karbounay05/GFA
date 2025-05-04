@@ -18,37 +18,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- Carte avec fond pour le ViewPager -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
-                android:layout_width="382dp"
+                android:layout_width="0dp"
                 android:layout_height="164dp"
                 android:background="@drawable/slide_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.463"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
-                    android:layout_width="362dp"
-                    android:layout_height="169dp"
-                    tools:layout_editor_absoluteX="2dp"
-                    tools:layout_editor_absoluteY="2dp" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Weather Fragment Container with fixed size -->
+            <!-- Conteneur météo -->
             <FrameLayout
                 android:id="@+id/weatherFragmentContainer"
-                android:layout_width="362dp"
-                android:layout_height="570dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager" />
-
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

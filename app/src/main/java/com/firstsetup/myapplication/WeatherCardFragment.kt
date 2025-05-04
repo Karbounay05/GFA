@@ -1,4 +1,4 @@
-package com.firstsetup.myapplication.weather
+package com.firstsetup.myapplication
 
 import android.graphics.Color
 import android.view.Gravity

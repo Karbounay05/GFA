@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONException
 
 class FermeListActivity : AppCompatActivity() {
 
@@ -40,9 +42,8 @@ class FermeListActivity : AppCompatActivity() {
         }
     }
 
-    private fun chargerFermes(cultivateurId: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$cultivateurId"
-
+    private fun chargerFermes(userId: Int) {
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -62,12 +63,16 @@ class FermeListActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             },
             { error ->
-                Log.e("FermeList", "Erreur requête : ${error.message}")
-                Toast.makeText(this, "Erreur serveur", Toast.LENGTH_SHORT).show()
-            })
+                Log.e("FERME", "Erreur: ${error.message}")
+                Toast.makeText(this, "Erreur réseau", Toast.LENGTH_SHORT).show()
+            }
+        )
+
 
         Volley.newRequestQueue(this).add(request)
     }
+
+
 
     data class Ferme(val id: Int, val nom: String, val localisation: String, val taille: Double, val typeSol: String)
 

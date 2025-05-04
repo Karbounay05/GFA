@@ -51,7 +51,6 @@
         <activity android:name=".ListeRendementsActivity" android:exported="true"/>
 
 
-
     </application>
 
 </manifest>
