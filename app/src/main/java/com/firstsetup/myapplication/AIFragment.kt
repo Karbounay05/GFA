@@ -11,7 +11,6 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.abs
 
 class AIFragment : Fragment() {
 
@@ -60,13 +59,11 @@ class AIFragment : Fragment() {
 
 
         closeButton.setOnClickListener {
-            (activity as? Acceuil)?.showAccueilButtons()
             requireActivity().supportFragmentManager.popBackStack()
         }
 
         minimizeButton.setOnClickListener {
             minimizePopup()
-            (activity as? Acceuil)?.showAccueilButtons()
         }
 
         aiBubble.setOnClickListener {
@@ -89,7 +86,6 @@ class AIFragment : Fragment() {
                 val clickY = event.rawY.toInt()
 
                 if (clickX < cardLeft || clickX > cardRight || clickY < cardTop || clickY > cardBottom) {
-                    (activity as? Acceuil)?.showAccueilButtons()
                     requireActivity().supportFragmentManager.popBackStack()
                 }
             }
@@ -164,7 +160,6 @@ class AIFragment : Fragment() {
             isSleeping = false
         }
 
-        (activity as? Acceuil)?.hideAccueilButtons() // 🔥 Hide buttons when expanding
 
         overlayBackground.visibility = View.VISIBLE
         overlayBackground.isClickable = true
@@ -241,8 +236,8 @@ class AIFragment : Fragment() {
                     isDragging = false
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    val moveX = abs(event.rawX - startX)
-                    val moveY = abs(event.rawY - startY)
+                    val moveX = kotlin.math.abs(event.rawX - startX)
+                    val moveY = kotlin.math.abs(event.rawY - startY)
 
                     if (moveX > 10 || moveY > 10) {
                         isDragging = true

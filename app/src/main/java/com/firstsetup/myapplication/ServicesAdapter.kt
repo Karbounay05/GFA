@@ -39,7 +39,7 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
 
         // Button backgrounds for 2 slides (3 images each)
         val imgIds = listOf(
-            R.drawable.ex1, R.drawable.ex3, R.drawable.ex2, // Slide 1
+            R.drawable.ex1, R.drawable.ex3, R.drawable.ex2, // Slide 1;;:
             R.drawable.ex5, R.drawable.ex6, R.drawable.ex4  // Slide 2
         )
 
@@ -52,11 +52,17 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
             if (position == 0) { // Only for first slide
                 val intent = Intent(context, GererFermeActivity::class.java)
                 context.startActivity(intent)
+            }else if (position == 1) {
+                val intent = Intent(context, RendementActivity::class.java)
+                context.startActivity(intent)
             }
         }
         holder.button2.setOnClickListener {
             if (position == 0) { // Only for first slide
                 val intent = Intent(context, SuivreParcelleActivity::class.java)
+                context.startActivity(intent)
+            }else if (position == 1) {
+                val intent = Intent(context, MapActivity::class.java)
                 context.startActivity(intent)
             }
         }
@@ -71,7 +77,6 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
                     if (aiFragment != null) {
                         aiFragment.expandPopup()
                     } else {
-                        context.hideAccueilButtons()
                         context.supportFragmentManager.beginTransaction()
                             .setCustomAnimations(
                                 R.anim.slide_in_bottom,
