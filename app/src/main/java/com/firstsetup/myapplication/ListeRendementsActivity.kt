@@ -23,8 +23,6 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import org.json.JSONArray
-import org.json.JSONObject
 
 class ListeRendementsActivity : AppCompatActivity() {
 
@@ -33,7 +31,14 @@ class ListeRendementsActivity : AppCompatActivity() {
     private lateinit var lineChart: LineChart
     private lateinit var spinnerAnnee: Spinner
     private var allRendements = listOf<Rendement>()
-    private var corbeille = mutableListOf<Rendement>()
+    private val handler = android.os.Handler()
+    private val refreshRunnable = object : Runnable {
+        override fun run() {
+            fetchRendements()
+            handler.postDelayed(this, 1500) // relancer toutes les 3s
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,57 +49,75 @@ class ListeRendementsActivity : AppCompatActivity() {
         lineChart = findViewById(R.id.lineChart)
         spinnerAnnee = findViewById(R.id.spinnerAnnee)
 
-        corbeille = loadCorbeille()
-
         fetchRendements()
 
         val btnCorbeille = findViewById<Button>(R.id.btnCorbeille)
         btnCorbeille.setOnClickListener {
             val intent = Intent(this, CorbeilleActivity::class.java)
-            intent.putParcelableArrayListExtra("corbeille", ArrayList(corbeille))
-            startActivity(intent)
+            startActivityForResult(intent, 1001)
         }
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean = false
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val rendement = (recyclerView.adapter as RendementAdapter).getItem(position)
+                val adapter = recyclerView.adapter as RendementAdapter
+                val rendement = adapter.getItem(position)
 
-                corbeille.add(rendement)
-                saveCorbeilleLocally()
+                Toast.makeText(this@ListeRendementsActivity, "🗑️ Suppression dans 4 secondes...", Toast.LENGTH_SHORT).show()
 
-                (recyclerView.adapter as RendementAdapter).removeItem(position)
-                Toast.makeText(this@ListeRendementsActivity, "🗑️ Supprimé : ${rendement.categorie}", Toast.LENGTH_SHORT).show()
+                // Laisse l'élément affiché pendant 4 secondes (y compris l'image)
+                recyclerView.postDelayed({
+                    // Appel API pour suppression logique
+                    val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/${rendement.id}"
+                    val queue = Volley.newRequestQueue(this@ListeRendementsActivity)
+                    val req = com.android.volley.toolbox.StringRequest(
+                        com.android.volley.Request.Method.DELETE, url,
+                        {
+                            // Supprimer de la liste locale et actualiser visuellement
+                            adapter.removeItem(position)
+                        },
+                        { error ->
+                            Toast.makeText(this@ListeRendementsActivity, "❌ Erreur suppression : ${error.message}", Toast.LENGTH_SHORT).show()
+                            adapter.notifyItemChanged(position) // Remet l’élément si erreur
+                        }
+                    )
+                    queue.add(req)
+                }, 1500)
             }
 
+
+
             override fun onChildDraw(
-                c: Canvas, recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float,
-                actionState: Int, isCurrentlyActive: Boolean
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
             ) {
                 val itemView = viewHolder.itemView
-                val paint = Paint()
-                paint.color = Color.RED
+                val paint = Paint().apply { color = Color.RED }
 
-                val icon = ContextCompat.getDrawable(this@ListeRendementsActivity, R.drawable.dropferme)
-                val iconMargin = (itemView.height - (icon?.intrinsicHeight ?: 0)) / 2
-
+                // Dessiner fond rouge à droite
                 val background = RectF(
                     itemView.right + dX,
                     itemView.top.toFloat(),
                     itemView.right.toFloat(),
                     itemView.bottom.toFloat()
                 )
-
                 c.drawRect(background, paint)
 
+                // Afficher icône dropferme à droite
+                val icon = ContextCompat.getDrawable(this@ListeRendementsActivity, R.drawable.dropferme)
                 icon?.let {
-                    val iconTop = itemView.top + iconMargin
-                    val iconLeft = itemView.right - iconMargin - it.intrinsicWidth
-                    val iconRight = itemView.right - iconMargin
-                    val iconBottom = iconTop + it.intrinsicHeight
+                    val iconSize = minOf(itemView.height, 100) // carré max 100px
+                    val iconTop = itemView.top + (itemView.height - iconSize) / 2
+                    val iconRight = itemView.right - 32
+                    val iconLeft = iconRight - iconSize
+                    val iconBottom = iconTop + iconSize
 
                     it.setBounds(iconLeft, iconTop, iconRight, iconBottom)
                     it.draw(c)
@@ -102,69 +125,35 @@ class ListeRendementsActivity : AppCompatActivity() {
 
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
             }
+
+
         })
 
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+
     }
 
-    private fun saveCorbeilleLocally() {
-        val prefs = getSharedPreferences("corbeille", MODE_PRIVATE)
-        val editor = prefs.edit()
-        val json = JSONArray()
-
-        for (item in corbeille) {
-            val obj = JSONObject()
-            obj.put("id", item.id)
-            obj.put("categorie", item.categorie)
-            obj.put("superficie", item.superficie)
-            obj.put("production", item.production)
-            obj.put("pertes", item.pertes)
-            obj.put("mois", item.mois)
-            obj.put("annee", item.annee)
-            obj.put("rendementParHa", item.rendementParHa)
-            obj.put("pertesParHa", item.pertesParHa)
-            json.put(obj)
-        }
-
-        editor.putString("liste", json.toString())
-        editor.apply()
+    override fun onResume() {
+        super.onResume()
+        handler.post(refreshRunnable) // démarre le refresh auto
     }
 
-    private fun loadCorbeille(): MutableList<Rendement> {
-        val prefs = getSharedPreferences("corbeille", MODE_PRIVATE)
-        val corbeille = mutableListOf<Rendement>()
-        val data = prefs.getString("liste", null) ?: return corbeille
-
-        val array = JSONArray(data)
-        for (i in 0 until array.length()) {
-            val obj = array.getJSONObject(i)
-            corbeille.add(
-                Rendement(
-                    id = obj.getInt("id"),
-                    categorie = obj.getString("categorie"),
-                    superficie = obj.getDouble("superficie"),
-                    production = obj.getDouble("production"),
-                    pertes = obj.getDouble("pertes"),
-                    mois = obj.getString("mois"),
-                    annee = obj.getString("annee"),
-                    rendementParHa = obj.getDouble("rendementParHa"),
-                    pertesParHa = obj.getDouble("pertesParHa")
-                )
-            )
-        }
-        return corbeille
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(refreshRunnable) // stop quand on quitte l’activité
     }
+
 
     private fun fetchRendements() {
         val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/$cultivateurId"
         val queue = Volley.newRequestQueue(this)
 
         val request = JsonObjectRequest(
-            url,
+            url, null,
             { response ->
                 val rendements = mutableListOf<Rendement>()
                 val array = response.getJSONArray("rendements")
-
                 for (i in 0 until array.length()) {
                     val item = array.getJSONObject(i)
                     rendements.add(
@@ -181,7 +170,6 @@ class ListeRendementsActivity : AppCompatActivity() {
                         )
                     )
                 }
-
                 allRendements = rendements
                 initialiserFiltrageParAnnee()
             },
@@ -189,7 +177,6 @@ class ListeRendementsActivity : AppCompatActivity() {
                 Toast.makeText(this, "❌ Erreur chargement : ${error.message}", Toast.LENGTH_LONG).show()
             }
         )
-
         queue.add(request)
     }
 
@@ -206,8 +193,7 @@ class ListeRendementsActivity : AppCompatActivity() {
 
         spinnerAnnee.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: android.view.View?, position: Int, id: Long) {
-                val annee = parent.getItemAtPosition(position).toString()
-                afficherFiltreParAnnee(annee)
+                afficherFiltreParAnnee(parent.getItemAtPosition(position).toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -219,8 +205,6 @@ class ListeRendementsActivity : AppCompatActivity() {
         recyclerView.adapter = RendementAdapter(rendementsParAnnee)
         afficherGraphique(rendementsParAnnee)
     }
-
-
 
     private fun afficherGraphique(rendements: List<Rendement>) {
         val entriesRendement = ArrayList<Entry>()
@@ -247,16 +231,22 @@ class ListeRendementsActivity : AppCompatActivity() {
             lineWidth = 2f
         }
 
-        val lineData = LineData(dataSetRendement, dataSetPertes)
-        lineChart.data = lineData
-
-        val xAxis = lineChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.granularity = 1f
-        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        lineChart.data = LineData(dataSetRendement, dataSetPertes)
+        lineChart.xAxis.apply {
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            valueFormatter = IndexAxisValueFormatter(labels)
+        }
 
         lineChart.axisRight.isEnabled = false
         lineChart.description.isEnabled = false
         lineChart.invalidate()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1001) {
+            fetchRendements() // recharger les rendements après suppression/restauration
+        }
     }
 }
