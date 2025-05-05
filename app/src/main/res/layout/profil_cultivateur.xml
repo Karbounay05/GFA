@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Photo de profil -->
+        <ImageView
+            android:id="@+id/imageProfil"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/baseline_person_24"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/circle_background"
+            android:scaleType="centerCrop" />
+
+        <!-- Nom complet -->
+        <TextView
+            android:id="@+id/textNom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom Prénom"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="email@example.com"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Carte résumé -->
+        <LinearLayout
+            android:id="@+id/summaryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:elevation="2dp"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Statistiques"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/textNbFermes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌾 Fermes : 0"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/textSuperficie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📐 Superficie totale : 0 ha"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/textNbAnimaux"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🐄 Animaux : 0"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/textNbCultures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌱 Cultures : 0"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Bouton retour ou déconnexion -->
+        <Button
+            android:id="@+id/btnRetour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retour"
+            android:backgroundTint="#6F0288D1"
+            android:textColor="#FFF"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -2,132 +2,181 @@ package com.firstsetup.myapplication
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.util.Log
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.animation.Easing
-import com.firstsetup.myapplication.R
-import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.firstsetup.myapplication.model.Ferme
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import org.json.JSONArray
+import java.text.SimpleDateFormat
+import java.util.*
 
-class
-SuivreParcelleActivity : AppCompatActivity() {
+class SuivreParcelleActivity : AppCompatActivity(), OnChartValueSelectedListener {
 
-    private lateinit var progressCircle: ProgressBar
+    private lateinit var spinnerFerme: Spinner
+    private lateinit var pieChartMain: PieChart
+    private lateinit var pieChartEtat: PieChart
+    private lateinit var barChartValeur: BarChart
     private lateinit var timerText: TextView
+    private lateinit var switchType: Switch
+
+    private var typeAffichage = "culture"
+    private var currentDataArray: JSONArray? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_suivre_parcelle)
 
-        val animationView = findViewById<LottieAnimationView>(R.id.lottieAnimationView)
-        val animationView2 = findViewById<LottieAnimationView>(R.id.lottieAnimationView2)
-        animationView.repeatCount = LottieDrawable.INFINITE
-        animationView.repeatMode = LottieDrawable.REVERSE
-        animationView.playAnimation()
-
-        animationView2.repeatCount = LottieDrawable.INFINITE
-        animationView2.playAnimation()
-
-        val pieChart = findViewById<PieChart>(R.id.pieChart)
-        progressCircle = findViewById(R.id.progress_circle)
+        spinnerFerme = findViewById(R.id.spinnerFerme)
+        pieChartMain = findViewById(R.id.pieChart)
+        pieChartEtat = findViewById(R.id.pieChartEtat)
+        barChartValeur = findViewById(R.id.barChartValeur)
         timerText = findViewById(R.id.timer_text)
+        switchType = findViewById(R.id.switchType)
 
-        val entries = listOf(
-            PieEntry(40f, "Blé"),
-            PieEntry(25f, "Maïs"),
-            PieEntry(20f, "Tomates"),
-            PieEntry(15f, "Autres")
-        )
+        pieChartMain.setOnChartValueSelectedListener(this)
 
-        val dataSet = PieDataSet(entries, "Cultures")
-        dataSet.colors = listOf(
-            Color.parseColor("#FFA726"),
-            Color.parseColor("#66BB6A"),
-            Color.parseColor("#29B6F6"),
-            Color.parseColor("#AB47BC")
-        )
-        dataSet.sliceSpace = 3f
-        dataSet.selectionShift = 5f
+        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1)
+        if (cultivateurId != -1) chargerFermes(cultivateurId)
 
-        val data = PieData(dataSet)
-        pieChart.data = data
-        pieChart.description.isEnabled = false
-        pieChart.centerText = "Répartition des cultures"
-        pieChart.setCenterTextSize(8f)
-        pieChart.setUsePercentValues(true)
-        pieChart.setEntryLabelColor(Color.BLACK)
-        pieChart.animateY(800, Easing.EaseInOutQuad)
-
-        // Spin animation
-        pieChart.spin(
-            15000,
-            0f,
-            360f,
-            Easing.Linear
-        )
-
-        val legend = pieChart.legend
-        legend.isEnabled = true
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-        legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.setDrawInside(false)
-        legend.textSize = 8f
-        legend.form = Legend.LegendForm.CIRCLE
-        legend.formSize = 8f
-
-        // Timer circulaire de 3000 secondes (50 minutes)
-        val totalSeconds = 3000
-        progressCircle.max = totalSeconds
-        progressCircle.progress = totalSeconds
-
-        val timer = object : CountDownTimer(totalSeconds * 1000L, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val secondsLeft = (millisUntilFinished / 1000).toInt()
-                progressCircle.progress = secondsLeft
-
-                val minutes = secondsLeft / 60
-                val seconds = secondsLeft % 60
-                timerText.text = String.format("%02d:%02d", minutes, seconds)
-            }
-
-            override fun onFinish() {
-                progressCircle.progress = 0
-                timerText.text = "00:00"
-            }
+        switchType.setOnCheckedChangeListener { _, isChecked ->
+            typeAffichage = if (isChecked) "animal" else "culture"
+            val selectedFerme = spinnerFerme.selectedItem as? Ferme
+            selectedFerme?.let { afficherGraphiquePrincipal(it.id) }
         }
+    }
 
-        timer.start()
-        val barChart = findViewById<BarChart>(R.id.barChart)
+    private fun chargerFermes(userId: Int) {
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
+        val request = JsonArrayRequest(
+            Request.Method.GET,
+            url,
+            null,
+            { response ->
+                val fermes = mutableListOf<Ferme>()
+                for (i in 0 until response.length()) {
+                    val obj = response.getJSONObject(i)
+                    fermes.add(
+                        Ferme(
+                            obj.getInt("id"),
+                            obj.getString("nom"),
+                            obj.getString("localisation"),
+                            obj.getDouble("taille"),
+                            obj.getString("type_sol")
+                        )
+                    )
+                }
 
-        val barEntries = listOf(
-            BarEntry(0f, 10f),
-            BarEntry(1f, 20f),
-            BarEntry(2f, 30f),
-            BarEntry(3f, 40f)
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fermes)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerFerme.adapter = adapter
+
+                spinnerFerme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                        afficherGraphiquePrincipal(fermes[position].id)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>) {}
+                }
+            },
+            { error -> Log.e("Volley", "Erreur chargement fermes: ${error.message}") }
+        )
+        Volley.newRequestQueue(this).add(request)
+    }
+
+    private fun afficherGraphiquePrincipal(fermeId: Int) {
+        val url = if (typeAffichage == "culture")
+            "https://fluorescent-boiled-butter.glitch.me/culture/$fermeId"
+        else
+            "https://fluorescent-boiled-butter.glitch.me/animaux/$fermeId"
+
+        val request = JsonObjectRequest(Request.Method.GET, url, null,
+            { response ->
+                currentDataArray = if (typeAffichage == "culture") response.getJSONArray("cultures") else response.getJSONArray("animaux")
+                val typeMap = mutableMapOf<String, Float>()
+
+                for (i in 0 until currentDataArray!!.length()) {
+                    val item = currentDataArray!!.getJSONObject(i)
+                    val type = if (typeAffichage == "culture") item.getString("type") else item.getString("espece")
+                    val valeur = if (typeAffichage == "culture")
+                        item.getString("surface").toFloatOrNull() ?: 0f
+                    else item.getInt("nombre").toFloat()
+
+                    typeMap[type] = typeMap.getOrDefault(type, 0f) + valeur
+                }
+
+                val pieEntries = typeMap.map { PieEntry(it.value, it.key) }
+                val dataSet = PieDataSet(pieEntries, "Répartition")
+                dataSet.colors = ColorTemplate.COLORFUL_COLORS.toList()
+                pieChartMain.data = PieData(dataSet)
+                pieChartMain.invalidate()
+            },
+            { Log.e("Volley", "Erreur graphique: ${it.message}") }
         )
 
-        val barDataSet = BarDataSet(barEntries, "Cultures")
-        barDataSet.color = Color.parseColor("#4CAF50") // green color
-
-        val barData = BarData(barDataSet)
-        barData.barWidth = 0.9f
-
-        barChart.data = barData
-        barChart.setFitBars(true)
-        barChart.description.isEnabled = false
-        barChart.animateY(1000)
-        barChart.invalidate()
+        Volley.newRequestQueue(this).add(request)
     }
+
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
+        val label = (e as? PieEntry)?.label ?: return
+        val champEtat = if (typeAffichage == "culture") "etat_sante" else "statut_sanitaire"
+        val champDate = if (typeAffichage == "culture") "date_plantation" else "date_entree"
+        val champValeur = if (typeAffichage == "culture") "surface" else "nombre"
+
+        val selected = (0 until currentDataArray!!.length())
+            .map { currentDataArray!!.getJSONObject(it) }
+            .find {
+                val type = if (typeAffichage == "culture") it.getString("type") else it.getString("espece")
+                type == label
+            } ?: return
+
+        val dateStr = selected.getString(champDate)
+        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        val dateDebut = formatter.parse(dateStr) ?: Date()
+        val diffJours = ((Date().time - dateDebut.time) / (1000 * 60 * 60 * 24))
+        val diffSemaines = diffJours / 7
+
+        timerText.text = "Depuis : $diffJours jours ($diffSemaines semaines)"
+
+        val etat = selected.getString(champEtat)
+        val valeur = if (typeAffichage == "culture") selected.getString("surface").toFloatOrNull() ?: 0f
+        else selected.getInt("nombre").toFloat()
+
+        // PieChart état
+        val etatEntries = listOf(PieEntry(1f, etat))
+        val etatSet = PieDataSet(etatEntries, "État de santé")
+        etatSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
+        pieChartEtat.data = PieData(etatSet)
+        pieChartEtat.invalidate()
+
+        // BarChart valeur
+        val barEntries = listOf(BarEntry(0f, valeur))
+        val barDataSet = BarDataSet(barEntries, if (typeAffichage == "culture") "Surface (ha)" else "Nombre")
+        barDataSet.color = Color.rgb(100, 149, 237)
+        val barData = BarData(barDataSet)
+        barData.barWidth = 0.4f
+
+        barChartValeur.data = barData
+        barChartValeur.description.text = ""
+        barChartValeur.setFitBars(true)
+        barChartValeur.axisLeft.axisMinimum = 0f
+        barChartValeur.axisRight.isEnabled = false
+        barChartValeur.xAxis.valueFormatter = IndexAxisValueFormatter(listOf(label))
+        barChartValeur.xAxis.granularity = 1f
+        barChartValeur.invalidate()
+    }
+
+    override fun onNothingSelected() {}
 }

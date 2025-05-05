@@ -52,12 +52,17 @@ class Acceuil : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {}
-                R.id.nav_settings -> {}
+                R.id.nav_home -> {
+                    // déjà sur l'accueil, ne rien faire
+                }
+                R.id.nav_profil -> {
+                    startActivity(Intent(this, CultivateurProfileActivity::class.java))
+                }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
 
         // Charger le fragment météo
         supportFragmentManager.beginTransaction()

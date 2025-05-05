@@ -49,8 +49,8 @@
         <activity android:name=".SuivreParcelleActivity" android:exported="true" />
         <activity android:name=".RendementActivity" android:exported="true"/>
         <activity android:name=".ListeRendementsActivity" android:exported="true"/>
-
-
+        <activity android:name=".CultivateurProfileActivity" android:exported="true"/>
+        <activity android:name=".AideActivity" android:exported="true"/>
     </application>
 
 </manifest>

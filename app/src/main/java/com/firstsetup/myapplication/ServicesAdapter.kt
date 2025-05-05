@@ -69,7 +69,8 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
         }
         holder.button3.setOnClickListener {
             if (position == 0) {
-
+                val intent = Intent(context, AideActivity::class.java)
+                context.startActivity(intent)
             }else if (position == 1) {
                 if (context is Acceuil) {
                     val aiFragment =
