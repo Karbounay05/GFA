@@ -36,25 +36,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/inputMois"
-            android:hint="Mois (ex: Mai)"
+        <TextView
+            android:id="@+id/textDateChoisie"
+            android:text="Sélectionner une date"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:background="#EEEEEE"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="#000000" />
 
-        <EditText
-            android:id="@+id/inputAnnee"
-            android:hint="Année (ex: 2025)"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnEnvoyerRendement"
-            android:text="Envoyer"
+            android:text="Calculer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/textRendementParHa"
+            android:text="Rendement par hectare : -"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textPertesParHa"
+            android:text="Pertes par hectare : -"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btnVoirRendements"
             android:text="Voir mes rendements"
