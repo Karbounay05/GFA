@@ -11,16 +11,37 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.firstsetup.myapplication.databinding.ActivityAjouterFermeBinding
 import org.json.JSONObject
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 
 class AjouterFermeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAjouterFermeBinding
     private var superficieValue: Int = 10 // valeur par défaut
 
+    private lateinit var pingCard: CardView
+    private lateinit var pingText: TextView
+    private lateinit var pingProgress: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAjouterFermeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val fromMap = intent.getBooleanExtra("fromMap", false)
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
+        pingCard = findViewById(R.id.pingCard)
+        pingText = findViewById(R.id.pingText)
+        pingProgress = findViewById(R.id.pingProgress)
 
         // 🌀 Initialiser le Spinner avec les types de sol
         val adapter = ArrayAdapter.createFromResource(
@@ -30,6 +51,9 @@ class AjouterFermeActivity : AppCompatActivity() {
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerTypeSol.adapter = adapter
+        if (fromMap) {
+            binding.btnAjouterFerme.text = "Retour à la carte"
+        }
 
         // 📏 Gérer la SeekBar de superficie
         binding.seekBarSuperficie.progress = superficieValue
@@ -47,8 +71,22 @@ class AjouterFermeActivity : AppCompatActivity() {
 
         // ➕ Bouton ajouter la ferme
         binding.btnAjouterFerme.setOnClickListener {
-            ajouterFerme()
+            if (fromMap) {
+                pingCard.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    pingCard.visibility = View.GONE
+                }, 10000)
+                ajouterFermeInMap()
+            } else {
+                // comportement normal
+                pingCard.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    pingCard.visibility = View.GONE
+                }, 10000)
+                ajouterFerme()
+            }
         }
+
     }
 
     private fun ajouterFerme() {
@@ -100,4 +138,67 @@ class AjouterFermeActivity : AppCompatActivity() {
         // Ajouter la requête à la file
         Volley.newRequestQueue(this).add(request)
     }
+
+    fun ajouterFermeInMap() {
+        val nom = binding.editNomF.text.toString().trim()
+        val localisation = binding.editLocalisation.text.toString().trim()
+        val typeSol = binding.spinnerTypeSol.selectedItem.toString()
+        val superficie = superficieValue
+
+        if (nom.isEmpty() || localisation.isEmpty()) {
+            Toast.makeText(this, "Remplis tous les champs", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            .getInt("cultivateur_id", -1)
+
+        if (cultivateurId == -1) {
+            Toast.makeText(this, "Erreur : identifiant cultivateur manquant ❌", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // ✅ Récupérer la position depuis l'intent
+        val latitude = intent.getDoubleExtra("latitude", 0.0)
+        val longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        // ✅ Construire le body avec lat/lon inclus
+        val body = JSONObject().apply {
+            put("nom", nom)
+            put("taille", superficie)
+            put("localisation", localisation)
+            put("type_sol", typeSol)
+            put("cultivateur_id", cultivateurId)
+            put("lat", latitude)
+            put("lon", longitude)
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
+
+        val request = JsonObjectRequest(
+            Request.Method.POST, url, body,
+            { response ->
+                Toast.makeText(this, "Ferme ajoutée à la carte 🗺️", Toast.LENGTH_SHORT).show()
+
+                // ✅ Renvoyer les données à MapActivity
+                val returnIntent = Intent().apply {
+                    putExtra("lat", latitude)
+                    putExtra("lon", longitude)
+                    putExtra("nom", nom)
+                    putExtra("taille", superficie)
+                    putExtra("localisation", localisation)
+                    putExtra("type_sol", typeSol)
+                }
+
+                setResult(RESULT_OK, returnIntent)
+                finish()
+            },
+            { error ->
+                Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
+            })
+
+        Volley.newRequestQueue(this).add(request)
+    }
+
+
 }

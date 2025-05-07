@@ -44,6 +44,9 @@ class ListeRendementsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_liste_rendements)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         recyclerView = findViewById(R.id.recyclerViewRendements)
         recyclerView.layoutManager = LinearLayoutManager(this)
         lineChart = findViewById(R.id.lineChart)

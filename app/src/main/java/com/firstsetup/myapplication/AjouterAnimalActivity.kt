@@ -2,13 +2,18 @@ package com.firstsetup.myapplication
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -30,9 +35,20 @@ class AjouterAnimalActivity : AppCompatActivity() {
     private var selectedNombre: Int = 0
     private var selectedDateEntree: String = ""
 
+    private lateinit var pingCard: CardView
+    private lateinit var pingText: TextView
+    private lateinit var pingProgress: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajouter_animal)
+
+        pingCard = findViewById(R.id.pingCard)
+        pingText = findViewById(R.id.pingText)
+        pingProgress = findViewById(R.id.pingProgress)
+
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
 
         spinnerEspece = findViewById(R.id.spinnerEspece)
         seekBarNombre = findViewById(R.id.seekBarNombre)
@@ -46,7 +62,7 @@ class AjouterAnimalActivity : AppCompatActivity() {
         fermeId = intent.getIntExtra("ferme_id", -1)
 
         // Spinner espèces avec image
-        val especes = listOf("Vache", "Mouton", "Poulet", "Chèvre", "chien", "âne", "dinde")
+        val especes = listOf("Vache", "Mouton", "Poulet", "Chèvre", "Chien", "Âne", "Dinde")
         val images = listOf(
             R.drawable.ic_vache,
             R.drawable.ic_mouton,
@@ -115,6 +131,10 @@ class AjouterAnimalActivity : AppCompatActivity() {
         }
 
         btnAjouterAnimal.setOnClickListener {
+            pingCard.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                pingCard.visibility = View.GONE
+            }, 10000)
             ajouterAnimal()
         }
     }

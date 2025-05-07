@@ -14,6 +14,11 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import java.util.Calendar
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.ProgressBar
+import androidx.cardview.widget.CardView
 
 class AjouterCultureActivity : AppCompatActivity() {
 
@@ -30,9 +35,20 @@ class AjouterCultureActivity : AppCompatActivity() {
     private var fermeId: Int = -1
     private var selectedDatePlantation: String = ""
 
+    private lateinit var pingCard: CardView
+    private lateinit var pingText: TextView
+    private lateinit var pingProgress: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajouter_culture)
+
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
+        pingCard = findViewById(R.id.pingCard)
+        pingText = findViewById(R.id.pingText)
+        pingProgress = findViewById(R.id.pingProgress)
 
         // Initialisation
         spinnerTypeCulture = findViewById(R.id.spinnerTypeCulture)
@@ -114,6 +130,10 @@ class AjouterCultureActivity : AppCompatActivity() {
 
         // Ajouter Culture
         btnAjouterCulture.setOnClickListener {
+            pingCard.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                pingCard.visibility = View.GONE
+            }, 10000)
             ajouterCulture()
         }
     }

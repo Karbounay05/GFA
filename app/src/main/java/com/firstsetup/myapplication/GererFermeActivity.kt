@@ -13,6 +13,9 @@ class GererFermeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gerer_ferme)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         val moveUp = AnimationUtils.loadAnimation(this, R.anim.move_up2)
 
         val frame2 = findViewById<FrameLayout>(R.id.frameLayout2)

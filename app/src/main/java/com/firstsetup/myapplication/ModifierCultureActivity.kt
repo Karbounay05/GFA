@@ -30,6 +30,9 @@ class ModifierCultureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modifier_culture)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         // Initialisation
         textSurface = findViewById(R.id.textSurface)
         seekBarSurface = findViewById(R.id.seekBarSurface)

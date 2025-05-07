@@ -2,92 +2,101 @@ package com.firstsetup.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.SeekBar
-import android.widget.Spinner
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.firstsetup.myapplication.databinding.ActivityModifierFermeBinding
 import org.json.JSONObject
+
 
 class ModifierFermeActivity : AppCompatActivity() {
 
-    private lateinit var editNom: EditText
-    private lateinit var seekBarSuperficie: SeekBar
-    private lateinit var textSuperficieValue: TextView
-    private lateinit var editLocalisation: EditText
-    private lateinit var spinnerTypeSol: Spinner
-    private lateinit var btnModifier: Button
-
+    private lateinit var binding: ActivityModifierFermeBinding
+    private var superficieValue: Int = 10 // valeur par défaut
     private var fermeId: Int = -1
+
+    private lateinit var pingCard: CardView
+    private lateinit var pingText: TextView
+    private lateinit var pingProgress: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_modifier_ferme)
+        binding = ActivityModifierFermeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialisation
-        editNom = findViewById(R.id.editNomF)
-        seekBarSuperficie = findViewById(R.id.seekBarSuperficie)
-        textSuperficieValue = findViewById(R.id.textSuperficieValue)
-        editLocalisation = findViewById(R.id.editLocalisation)
-        spinnerTypeSol = findViewById(R.id.spinnerTypeSol)
-        btnModifier = findViewById(R.id.btnModifierFerme)
+        val fromMap = intent.getBooleanExtra("fromMap", false)
 
-        // Récupérer les données envoyées
+        // 🌀 Initialiser le Spinner avec les types de sol
+        val typesSol = listOf("Argileux", "Sablonneux", "Limoneux", "Tourbeux")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, typesSol)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerTypeSol.adapter = adapter
+
+        // 🧠 Récupérer les données
         fermeId = intent.getIntExtra("ferme_id", -1)
         val nom = intent.getStringExtra("nom") ?: ""
         val superficie = intent.getStringExtra("superficie")?.toDoubleOrNull() ?: 0.0
         val localisation = intent.getStringExtra("localisation") ?: ""
         val typeSol = intent.getStringExtra("type_sol") ?: ""
 
-        // Remplir les champs
-        editNom.setText(nom)
-        seekBarSuperficie.progress = superficie.toInt()
-        textSuperficieValue.text = "${superficie.toInt()} hectares"
-        editLocalisation.setText(localisation)
+        // 🎯 Remplir les champs
+        binding.editNomF.setText(nom)
+        superficieValue = superficie.toInt()
+        binding.seekBarSuperficie.progress = superficieValue
+        binding.textSuperficieValue.text = "$superficieValue hectares"
+        binding.editLocalisation.setText(localisation)
+        binding.spinnerTypeSol.setSelection(typesSol.indexOfFirst { it.equals(typeSol, true) }.coerceAtLeast(0))
 
-        // Spinner Type de Sol
-        val typesSol = listOf("Argileux", "Sablonneux", "Limoneux", "Tourbeux")
-        spinnerTypeSol.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, typesSol)
-        spinnerTypeSol.setSelection(
-            typesSol.indexOfFirst { it.equals(typeSol, ignoreCase = true) }.coerceAtLeast(0)
-        )
-
-        // Mettre à jour la superficie dynamiquement quand on bouge le SeekBar
-        seekBarSuperficie.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                textSuperficieValue.text = "$progress hectares"
+        // 📏 Gérer la SeekBar de superficie
+        binding.seekBarSuperficie.setOnSeekBarChangeListener(object : android.widget.SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: android.widget.SeekBar?, progress: Int, fromUser: Boolean) {
+                superficieValue = progress
+                binding.textSuperficieValue.text = "$progress hectares"
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {}
         })
 
-        // Action bouton
-        btnModifier.setOnClickListener {
-            modifierFerme()
+        if (fromMap) {
+            binding.btnModifierFerme.text = "Retour à la carte"
         }
+
+
+
+            binding.btnModifierFerme.setOnClickListener {
+                if (fromMap) {
+                    modifierFermeEtRetourCarte()
+                } else {
+                    modifierFerme()
+                }
+            }
+
+
     }
 
     private fun modifierFerme() {
-        val nom = editNom.text.toString()
-        val superficie = seekBarSuperficie.progress
-        val localisation = editLocalisation.text.toString()
-        val typeSol = spinnerTypeSol.selectedItem.toString()
+        val nom = binding.editNomF.text.toString().trim()
+        val localisation = binding.editLocalisation.text.toString().trim()
+        val typeSol = binding.spinnerTypeSol.selectedItem.toString()
 
-        if (nom.isBlank() || superficie == 0 || localisation.isBlank()) {
+        if (nom.isEmpty() || localisation.isEmpty() || superficieValue == 0) {
             Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
             return
         }
 
         val body = JSONObject().apply {
             put("nom", nom)
-            put("taille", superficie)
+            put("taille", superficieValue)
             put("localisation", localisation)
             put("type_sol", typeSol)
         }
@@ -97,15 +106,58 @@ class ModifierFermeActivity : AppCompatActivity() {
         val request = JsonObjectRequest(
             Request.Method.PUT, url, body,
             {
-                Toast.makeText(this, "Ferme modifiée avec succès ✅", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, FermeListActivity::class.java)
-                startActivity(intent)
+                Toast.makeText(this, "Ferme modifiée ✅", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, FermeListActivity::class.java))
                 finish()
             },
             {
                 Toast.makeText(this, "Erreur : ${it.message}", Toast.LENGTH_LONG).show()
-            })
+            }
+        )
 
         Volley.newRequestQueue(this).add(request)
     }
+
+    private fun modifierFermeEtRetourCarte() {
+        val nom = binding.editNomF.text.toString().trim()
+        val localisation = binding.editLocalisation.text.toString().trim()
+        val typeSol = binding.spinnerTypeSol.selectedItem.toString()
+
+        if (nom.isEmpty() || localisation.isEmpty()) {
+            Toast.makeText(this, "Tous les champs sont requis", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val body = JSONObject().apply {
+            put("nom", nom)
+            put("taille", superficieValue)
+            put("localisation", localisation)
+            put("type_sol", typeSol)
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$fermeId"
+
+        val request = JsonObjectRequest(
+            Request.Method.PUT, url, body,
+            {
+                Toast.makeText(this, "Modifié 🛠️", Toast.LENGTH_SHORT).show()
+                val returnIntent = Intent().apply {
+                    putExtra("lat", intent.getDoubleExtra("latitude", 0.0))
+                    putExtra("lon", intent.getDoubleExtra("longitude", 0.0))
+                    putExtra("nom", nom)
+                    putExtra("taille", superficieValue)
+                    putExtra("localisation", localisation)
+                    putExtra("type_sol", typeSol)
+                }
+                setResult(RESULT_OK, returnIntent)
+                finish()
+            },
+            {
+                Toast.makeText(this, "Erreur : ${it.message}", Toast.LENGTH_LONG).show()
+            }
+        )
+
+        Volley.newRequestQueue(this).add(request)
+    }
+
 }

@@ -27,6 +27,9 @@ public class VerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifcation);
 
+        ServerPing serverPing = new ServerPing();
+        serverPing.pingServer(this);
+
         codeInput = findViewById(R.id.codeInput);
         verifyBtn = findViewById(R.id.verifyBtn);
 

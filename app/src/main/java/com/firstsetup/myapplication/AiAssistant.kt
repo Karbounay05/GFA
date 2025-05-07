@@ -1,84 +1,44 @@
 package com.firstsetup.myapplication
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 import org.json.JSONObject
 
 class AiAssistant {
 
-    private lateinit var startData: JSONObject
-    private lateinit var categoriesData: JSONObject
-    private lateinit var topicsData: JSONObject
-
-    private var currentState = "start"
-
     interface Callback {
-        fun onAiRespond(message: String, options: List<String>)
+        fun onAiRespond(message: String)
     }
 
-    fun loadConversation(context: Context) {
-        startData = loadJsonFromAssets(context, "start.json")
-        categoriesData = loadJsonFromAssets(context, "categories.json")
-        topicsData = loadJsonFromAssets(context, "topics.json")
-    }
+        fun askQuestion(context: Context, question: String, callback: Callback) {
+            val url = "https://fluorescent-boiled-butter.glitch.me/ask-ai"
 
-    private fun loadJsonFromAssets(context: Context, fileName: String): JSONObject {
-        val inputStream = context.assets.open(fileName)
-        val size = inputStream.available()
-        val buffer = ByteArray(size)
-        inputStream.read(buffer)
-        inputStream.close()
-        val json = String(buffer, Charsets.UTF_8)
-        return JSONObject(json)
-    }
+            val sharedPref = context.getSharedPreferences("user", Context.MODE_PRIVATE)
+            val cultivateurId = sharedPref.getInt("cultivateur_id", -1)
 
-    fun startConversation(callback: Callback) {
-        val message = startData.getString("message")
-        val optionsArray = startData.getJSONArray("options")
-        val options = mutableListOf<String>()
-        for (i in 0 until optionsArray.length()) {
-            options.add(optionsArray.getString(i))
-        }
-        callback.onAiRespond(message, options)
-    }
+            val requestBody = JSONObject().apply {
+                put("cultivateurId", cultivateurId)
+                put("question", question)
+            }
 
-    fun handleUserChoice(choice: String, callback: Callback) {
-        val nextNode = topicsData.optJSONObject(choice)
-
-        if (nextNode != null) {
-            val message = nextNode.optString("message", "")
-            val optionsArray = nextNode.optJSONArray("options")
-            val options = mutableListOf<String>()
-            if (optionsArray != null) {
-                for (i in 0 until optionsArray.length()) {
-                    options.add(optionsArray.getString(i))
+            val request = object : JsonObjectRequest(
+                Method.POST, url, requestBody,
+                { response ->
+                    val answer = response.optString("answer", "Aucune réponse")
+                    callback.onAiRespond(answer)
+                },
+                { error ->
+                    callback.onAiRespond("Erreur réseau : ${error.message}")
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    return hashMapOf("Content-Type" to "application/json")
                 }
             }
 
-            // Affiche le message actuel
-            callback.onAiRespond(message, options)
-
-            // Gère le "next" après un petit délai pour fluidité
-            val next = nextNode.optString("next", null)
-            if (next != null && next == "categories") {
-                Handler(Looper.getMainLooper()).postDelayed({
-                    loadCategories(callback)
-                }, 1000)
-            }
-        } else {
-            // Si la clé n'existe pas dans topics.json → on retourne au menu
-            loadCategories(callback)
+            Volley.newRequestQueue(context).add(request)
         }
     }
 
-    private fun loadCategories(callback: Callback) {
-        val message = categoriesData.getString("message")
-        val optionsArray = categoriesData.getJSONArray("options")
-        val options = mutableListOf<String>()
-        for (i in 0 until optionsArray.length()) {
-            options.add(optionsArray.getString(i))
-        }
-        callback.onAiRespond(message, options)
-    }
-}

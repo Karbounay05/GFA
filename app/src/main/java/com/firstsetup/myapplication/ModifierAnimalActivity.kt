@@ -26,6 +26,9 @@ class ModifierAnimalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modifier_animal)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         // Initialisation
         seekBarNombre = findViewById(R.id.seekBarNombre)
         textNombre = findViewById(R.id.textNombre)

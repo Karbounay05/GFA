@@ -9,6 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 
 class CorbeilleActivity : AppCompatActivity(), CorbeilleAdapter.ActionListener {
 
@@ -24,16 +30,32 @@ class CorbeilleActivity : AppCompatActivity(), CorbeilleAdapter.ActionListener {
         }
     }
 
+    private lateinit var pingCard: CardView
+    private lateinit var pingText: TextView
+    private lateinit var pingProgress: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_corbeille)
+
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
+        pingCard = findViewById(R.id.pingCard)
+        pingText = findViewById(R.id.pingText)
+        pingProgress = findViewById(R.id.pingProgress)
 
         recyclerView = findViewById(R.id.recyclerViewCorbeille)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = CorbeilleAdapter(rendements, this)
         recyclerView.adapter = adapter
+
+        pingCard.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            pingCard.visibility = View.GONE
+        }, 5000)
 
         chargerRendementsSupprimes()
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.firstsetup.myapplication.server.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +27,9 @@ public class Page4Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.page4);
+
+        ServerPing serverPing = new ServerPing();
+        serverPing.pingServer(this);
 
         passwordEditText = findViewById(R.id.editText);
         confirmPasswordEditText = findViewById(R.id.editText2);
