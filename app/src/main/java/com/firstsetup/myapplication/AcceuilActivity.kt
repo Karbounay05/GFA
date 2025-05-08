@@ -10,14 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.navigation.NavigationView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.firstsetup.myapplication.weather.WeatherCardFragment
 
-class Acceuil : AppCompatActivity() {
+class AcceuilActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
@@ -31,16 +30,15 @@ class Acceuil : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigation_view)
         viewPager = findViewById(R.id.viewPager)
-
         toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
             R.string.open_drawer,
             R.string.close_drawer
         )
+
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val slides = listOf(
@@ -72,7 +70,9 @@ class Acceuil : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    fun verifierFerme() {
+}
+
+   /** fun verifierFerme() {
         val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
         val userId = sharedPref.getInt("cultivateur_id", -1)
 
@@ -111,3 +111,4 @@ class Acceuil : AppCompatActivity() {
         // à implémenter si nécessaire
     }
 }
+*/

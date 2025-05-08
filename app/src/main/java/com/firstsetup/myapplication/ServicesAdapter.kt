@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ServicesAdapter(private val slideTexts: List<List<String>>) :
     RecyclerView.Adapter<ServicesAdapter.SlideViewHolder>() {
 
-    class SlideViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        class SlideViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val slideText1: TextView = itemView.findViewById(R.id.slideText)
         val slideText2: TextView = itemView.findViewById(R.id.slideText2)
         val slideText3: TextView = itemView.findViewById(R.id.slideText3)
@@ -70,7 +70,7 @@ class ServicesAdapter(private val slideTexts: List<List<String>>) :
             if (position == 0) {
 
             }else if (position == 1) {
-                if (context is Acceuil) {
+                if (context is AcceuilActivity) {
                     val aiFragment =
                         context.supportFragmentManager.findFragmentByTag("AI_FRAGMENT") as? AIFragment
 

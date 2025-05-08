@@ -200,5 +200,4 @@ class AjouterFermeActivity : AppCompatActivity() {
         Volley.newRequestQueue(this).add(request)
     }
 
-
 }

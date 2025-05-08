@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.firstsetup.myapplication.server.PingService;
 
 
 public class LogoActivity extends AppCompatActivity {
@@ -59,7 +58,7 @@ public class LogoActivity extends AppCompatActivity {
                 finish(); }
                 else if(val == 1){
 
-                    Intent intent = new Intent(LogoActivity.this, Acceuil.class);
+                    Intent intent = new Intent(LogoActivity.this, AcceuilActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(val == 2){

@@ -112,9 +112,7 @@ class MapActivity : AppCompatActivity() {
         val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
             .getInt("cultivateur_id", -1)
 
-        if (cultivateurId != -1) {
-            chargerFermesDepuisAPI(cultivateurId)
-        } else {
+        if (cultivateurId == -1) {
             Toast.makeText(this, "Utilisateur non connecté ❌", Toast.LENGTH_LONG).show()
         }
 
@@ -279,40 +277,12 @@ class MapActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            val lat = data.getDoubleExtra("lat", 0.0)
-            val lon = data.getDoubleExtra("lon", 0.0)
-            val nom = data.getStringExtra("nom") ?: "Ferme"
-            val taille = data.getIntExtra("taille", 0)
-            val localisation = data.getStringExtra("localisation") ?: "-"
-            val typeSol = data.getStringExtra("type_sol") ?: "-"
-            val fermeId = data.getIntExtra("ferme_id", -1)
+            val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                .getInt("cultivateur_id", -1)
 
-            val point = GeoPoint(lat, lon)
-
-            // 🔁 Supprimer ancien marqueur s'il existe
-            val oldMarker = markers.find { it.id == fermeId.toString() }
-            if (oldMarker != null) {
-                map.overlays.remove(oldMarker)
-                markers.remove(oldMarker)
+            if (cultivateurId != -1) {
+                chargerFermesDepuisAPI(cultivateurId)
             }
-
-            // ➕ Ajouter le nouveau marqueur
-            val marker = Marker(map).apply {
-                position = point
-                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                icon = getResizedDrawable(R.drawable.addferme, 60, 60)
-                title = "🚜 $nom\n📐 $taille ha\n📍 $localisation\n🧱 $typeSol"
-                setDraggable(true)
-                relatedObject = "size"
-                id = fermeId.toString()
-            }
-
-            map.overlays.add(marker)
-            markers.add(marker)
-            marker.showInfoWindow()
-            setupMarkerClick(marker)
-            map.invalidate()
-            refreshLegend()
         }
     }
 
@@ -320,9 +290,11 @@ class MapActivity : AppCompatActivity() {
     private fun chargerFermesDepuisAPI(userId: Int) {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map/$userId"
 
-        // 🔄 Supprimer anciens marqueurs
-        val toRemove = map.overlays.filter { it is Marker && (it as Marker).relatedObject == "size" }
-        map.overlays.removeAll(toRemove)
+        // ✅ Remove all 'size' markers from map and marker list
+        val toRemove = markers.filter { it.relatedObject == "size" }
+        for (marker in toRemove) {
+            map.overlays.remove(marker)
+        }
         markers.removeAll(toRemove)
 
         val request = JsonArrayRequest(
@@ -349,6 +321,7 @@ class MapActivity : AppCompatActivity() {
                             setDraggable(true)
                             relatedObject = "size"
                         }
+
                         map.overlays.add(marker)
                         markers.add(marker)
                         setupMarkerClick(marker)
@@ -366,43 +339,43 @@ class MapActivity : AppCompatActivity() {
         Volley.newRequestQueue(this).add(request)
     }
 
-   /* private fun envoyerFermeVersServeur(
-        nom: String,
-        localisation: String,
-        taille: Int,
-        type_sol: String,
-        lat: Double,
-        lon: Double,
-        cultivateur_id: Int
-    ) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
-        val jsonBody = JSONObject()
+    /* private fun envoyerFermeVersServeur(
+         nom: String,
+         localisation: String,
+         taille: Int,
+         type_sol: String,
+         lat: Double,
+         lon: Double,
+         cultivateur_id: Int
+     ) {
+         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
+         val jsonBody = JSONObject()
 
-        try {
-            jsonBody.put("nom", nom)
-            jsonBody.put("localisation", localisation)
-            jsonBody.put("taille", taille)
-            jsonBody.put("type_sol", type_sol)
-            jsonBody.put("lat", lat)
-            jsonBody.put("lon", lon)
-            jsonBody.put("cultivateur_id", cultivateur_id)
-        } catch (e: Exception) {
-            Toast.makeText(this, "❌ Erreur JSON: ${e.message}", Toast.LENGTH_SHORT).show()
-            return
-        }
+         try {
+             jsonBody.put("nom", nom)
+             jsonBody.put("localisation", localisation)
+             jsonBody.put("taille", taille)
+             jsonBody.put("type_sol", type_sol)
+             jsonBody.put("lat", lat)
+             jsonBody.put("lon", lon)
+             jsonBody.put("cultivateur_id", cultivateur_id)
+         } catch (e: Exception) {
+             Toast.makeText(this, "❌ Erreur JSON: ${e.message}", Toast.LENGTH_SHORT).show()
+             return
+         }
 
-        val request = object : com.android.volley.toolbox.JsonObjectRequest(
-            Request.Method.POST, url, jsonBody,
-            { response ->
-                Toast.makeText(this, "✅ Ferme ajoutée avec succès", Toast.LENGTH_SHORT).show()
-            },
-            { error ->
-                Toast.makeText(this, "❌ Erreur d’envoi: ${error.message}", Toast.LENGTH_LONG).show()
-            }
-        ) {}
+         val request = object : com.android.volley.toolbox.JsonObjectRequest(
+             Request.Method.POST, url, jsonBody,
+             { response ->
+                 Toast.makeText(this, "✅ Ferme ajoutée avec succès", Toast.LENGTH_SHORT).show()
+             },
+             { error ->
+                 Toast.makeText(this, "❌ Erreur d’envoi: ${error.message}", Toast.LENGTH_LONG).show()
+             }
+         ) {}
 
-        com.android.volley.toolbox.Volley.newRequestQueue(this).add(request)
-    }*/
+         com.android.volley.toolbox.Volley.newRequestQueue(this).add(request)
+     }*/
 
     private fun setupMarkerClick(marker: Marker) {
         val markerCard = findViewById<LinearLayout>(R.id.markerCard)
@@ -579,11 +552,16 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun refreshLegend() {
+        markerCountMap.clear()  // 🧼 Clear the previous counts to avoid accumulation
+
         val counts = mutableMapOf<String, Int>()
         for (marker in markers) {
             val type = marker.relatedObject as? String ?: continue
             counts[type] = counts.getOrDefault(type, 0) + 1
         }
+
+        markerCountMap.putAll(counts) // 🔁 Resynchronize the counter map
+
         legendPanel.removeAllViews()
         val title = TextView(this).apply {
             text = "🗺 Legend:"
@@ -608,6 +586,7 @@ class MapActivity : AppCompatActivity() {
             legendPanel.addView(line)
         }
     }
+
 
 
     private fun extractNomFromTitle(title: String): String {

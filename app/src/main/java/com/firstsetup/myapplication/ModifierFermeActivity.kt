@@ -17,7 +17,6 @@ import com.android.volley.toolbox.Volley
 import com.firstsetup.myapplication.databinding.ActivityModifierFermeBinding
 import org.json.JSONObject
 
-
 class ModifierFermeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityModifierFermeBinding
@@ -71,17 +70,15 @@ class ModifierFermeActivity : AppCompatActivity() {
             binding.btnModifierFerme.text = "Retour à la carte"
         }
 
+        binding.btnModifierFerme.setOnClickListener {
 
 
-            binding.btnModifierFerme.setOnClickListener {
-                if (fromMap) {
-                    modifierFermeEtRetourCarte()
-                } else {
-                    modifierFerme()
-                }
+            if (fromMap) {
+                modifierFermeEtRetourCarte()
+            } else {
+                modifierFerme()
             }
-
-
+        }
     }
 
     private fun modifierFerme() {
@@ -142,8 +139,7 @@ class ModifierFermeActivity : AppCompatActivity() {
             {
                 Toast.makeText(this, "Modifié 🛠️", Toast.LENGTH_SHORT).show()
                 val returnIntent = Intent().apply {
-                    putExtra("lat", intent.getDoubleExtra("latitude", 0.0))
-                    putExtra("lon", intent.getDoubleExtra("longitude", 0.0))
+                    putExtra("ferme_id", fermeId)
                     putExtra("nom", nom)
                     putExtra("taille", superficieValue)
                     putExtra("localisation", localisation)
@@ -159,5 +155,4 @@ class ModifierFermeActivity : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(request)
     }
-
 }

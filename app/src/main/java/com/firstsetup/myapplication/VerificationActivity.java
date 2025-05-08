@@ -60,7 +60,7 @@ public class VerificationActivity extends AppCompatActivity {
                 response -> {
                     Toast.makeText(this, "Email vérifié avec succès 🎉", Toast.LENGTH_SHORT).show();
                     // redirige vers la page principale
-                    startActivity(new Intent(this, Acceuil.class));
+                    startActivity(new Intent(this, AcceuilActivity.class));
                     finish();
                 },
                 error -> {
