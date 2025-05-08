@@ -52,9 +52,20 @@ class SuivreParcelleActivity : AppCompatActivity(), OnChartValueSelectedListener
 
         switchType.setOnCheckedChangeListener { _, isChecked ->
             typeAffichage = if (isChecked) "animal" else "culture"
+            clearDetailCharts() // 👈 ici aussi
             val selectedFerme = spinnerFerme.selectedItem as? Ferme
             selectedFerme?.let { afficherGraphiquePrincipal(it.id) }
         }
+
+    }
+    private fun clearDetailCharts() {
+        pieChartEtat.clear()
+        pieChartEtat.invalidate()
+
+        barChartValeur.clear()
+        barChartValeur.invalidate()
+
+        timerText.text = ""
     }
 
     private fun chargerFermes() {
@@ -96,6 +107,7 @@ class SuivreParcelleActivity : AppCompatActivity(), OnChartValueSelectedListener
 
                     spinnerFerme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                            clearDetailCharts() // 👈 Reset quand ferme change
                             afficherGraphiquePrincipal(fermes[position].id)
                         }
 
