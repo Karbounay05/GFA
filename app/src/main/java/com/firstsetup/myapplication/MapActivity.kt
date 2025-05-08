@@ -440,10 +440,19 @@ class MapActivity : AppCompatActivity() {
 
             // 🔁 Bouton GO TO
             gotoBtn.setOnClickListener {
-                val intent = Intent(this, FermeListActivity::class.java)
-                intent.putExtra("nom", m.title)
-                startActivity(intent)
+                val prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                val cultivateurId = prefs.getInt("cultivateur_id", -1)
+
+                if (cultivateurId != -1) {
+                    val intent = Intent(this, FermeListActivity::class.java)
+                    intent.putExtra("cultivateur_id", cultivateurId)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "❌ Cultivateur non connecté", Toast.LENGTH_SHORT).show()
+                }
             }
+
+
 
             modifierButton.setOnClickListener {
                 val intent = Intent(this, ModifierFermeActivity::class.java)
