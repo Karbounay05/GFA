@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley
 import com.firstsetup.myapplication.model.Ferme
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import org.json.JSONArray
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,8 +48,7 @@ class SuivreParcelleActivity : AppCompatActivity(), OnChartValueSelectedListener
 
         pieChartMain.setOnChartValueSelectedListener(this)
 
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1)
-        if (cultivateurId != -1) chargerFermes(cultivateurId)
+     chargerFermes()
 
         switchType.setOnCheckedChangeListener { _, isChecked ->
             typeAffichage = if (isChecked) "animal" else "culture"
@@ -57,43 +57,70 @@ class SuivreParcelleActivity : AppCompatActivity(), OnChartValueSelectedListener
         }
     }
 
-    private fun chargerFermes(userId: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
-        val request = JsonArrayRequest(
+    private fun chargerFermes() {
+        val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
+        val token = sharedPref.getString("jwt_token", null)
+
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "Erreur : utilisateur non connecté", Toast.LENGTH_SHORT).show()
+            Log.e("FERME", "❌ Token manquant dans SharedPreferences")
+            return
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/mes-fermes"
+
+        val request = object : com.android.volley.toolbox.StringRequest(
             Request.Method.GET,
             url,
-            null,
             { response ->
                 val fermes = mutableListOf<Ferme>()
-                for (i in 0 until response.length()) {
-                    val obj = response.getJSONObject(i)
-                    fermes.add(
-                        Ferme(
-                            obj.getInt("id"),
-                            obj.getString("nom"),
-                            obj.getString("localisation"),
-                            obj.getDouble("taille"),
-                            obj.getString("type_sol")
+                try {
+                    val json = JSONObject(response)
+                    val fermeArray = json.getJSONArray("fermes")
+                    for (i in 0 until fermeArray.length()) {
+                        val obj = fermeArray.getJSONObject(i)
+                        fermes.add(
+                            Ferme(
+                                obj.getInt("id"),
+                                obj.getString("nom"),
+                                obj.getString("localisation"),
+                                obj.getDouble("taille"),
+                                obj.getString("type_sol")
+                            )
                         )
-                    )
-                }
-
-                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fermes)
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerFerme.adapter = adapter
-
-                spinnerFerme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                        afficherGraphiquePrincipal(fermes[position].id)
                     }
 
-                    override fun onNothingSelected(parent: AdapterView<*>) {}
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fermes)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinnerFerme.adapter = adapter
+
+                    spinnerFerme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                            afficherGraphiquePrincipal(fermes[position].id)
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>) {}
+                    }
+
+                } catch (e: Exception) {
+                    Log.e("FERME", "Parsing error", e)
                 }
             },
-            { error -> Log.e("Volley", "Erreur chargement fermes: ${error.message}") }
-        )
+            { error ->
+                Log.e("FERME", "Erreur réseau: ${error.message}")
+                Toast.makeText(this, "Erreur réseau ou token refusé", Toast.LENGTH_SHORT).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
         Volley.newRequestQueue(this).add(request)
     }
+
 
     private fun afficherGraphiquePrincipal(fermeId: Int) {
         val url = if (typeAffichage == "culture")

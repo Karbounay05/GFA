@@ -59,12 +59,15 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textOublierMotDePasse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Oublier le mot du passe"
+        android:text="Mot de passe oublié ?"
         android:textSize="16sp"
+        android:textColor="#0288D1"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/password"
         app:layout_constraintStart_toStartOf="@+id/password"
         app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -73,13 +76,13 @@
         android:id="@+id/btnSubmit2"
         android:layout_width="211dp"
         android:layout_height="45dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/button_background"
-        android:onClick="@+id/buttonClicked"
         android:text="S'authentifier"
-        app:layout_constraintEnd_toEndOf="@+id/btnSubmit"
-        app:layout_constraintStart_toStartOf="@+id/btnSubmit"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/textOublierMotDePasse"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -88,9 +91,10 @@
         android:layout_marginTop="12dp"
         android:text="ou"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnSubmit"
-        app:layout_constraintStart_toStartOf="@+id/btnSubmit"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnSubmit"
@@ -99,9 +103,10 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/button_background"
         android:text="S'inscrire"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"

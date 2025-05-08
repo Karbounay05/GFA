@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 
@@ -41,30 +42,59 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-
-        Button signupButton = findViewById(R.id.btnSubmit2);
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        TextView forgotPassword = findViewById(R.id.textOublierMotDePasse);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailInput = email.getText().toString().trim();
-                String passwordInput = password.getText().toString().trim();
 
-                if (!emailInput.isEmpty() && !passwordInput.isEmpty()) {
-                    User user = new User(emailInput, passwordInput);
-                    sendUserToServer(user);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                if (emailInput.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Entrez votre e-mail d’abord", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                JSONObject body = new JSONObject();
+                try {
+                    body.put("email", emailInput);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                JsonObjectRequest request = new JsonObjectRequest(
+                        Request.Method.POST,
+                        "https://fluorescent-boiled-butter.glitch.me/demanderResetMotDePasse",
+                        body,
+                        response -> {
+                            Toast.makeText(LoginActivity.this, "📧 Vérifie ton e-mail !", Toast.LENGTH_LONG).show();
+                        },
+                        error -> {
+                            Toast.makeText(LoginActivity.this, "Erreur : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                );
+
+                Volley.newRequestQueue(LoginActivity.this).add(request);
+            }
+        });
+        // Bouton de connexion
+        Button loginButton = findViewById(R.id.btnSubmit2);
+        loginButton.setOnClickListener(v -> {
+            String emailInput = email.getText().toString().trim();
+            String passwordInput = password.getText().toString().trim();
+
+            if (!emailInput.isEmpty() && !passwordInput.isEmpty()) {
+                User user = new User(emailInput, passwordInput);
+                sendUserToServer(user);
+            } else {
+                Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button signupButton2 = findViewById(R.id.btnSubmit);
-        signupButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Page1Activity.class);
-                startActivity(intent);
-            }
+        // Bouton d'inscription
+        Button signupButton = findViewById(R.id.btnSubmit);
+        signupButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, Page1Activity.class);
+            startActivity(intent);
         });
     }
 
@@ -83,32 +113,33 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     try {
-                        int userId = response.getJSONObject("user").getInt("user_id");
+                        // Récupération du token JWT et de l'ID utilisateur
+                        String token = response.getString("token");
+                        int userId = response.getInt("user_id");
 
-// Sauvegarde dans SharedPreferences (clé = cultivateur_id)
+                        // Sauvegarde dans SharedPreferences
                         SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
                         SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("cultivateur_id", userId); // ✅ cette clé doit être exactement la même partout
+                        editor.putInt("cultivateur_id", userId);
+                        editor.putString("jwt_token", token); // 🔐 Enregistrement du JWT
                         editor.apply();
 
-// Vérifie immédiatement si l'enregistrement a réussi
-                        int testId = prefs.getInt("cultivateur_id", -1);
-                        Log.d("LOGIN", "ID sauvegardé = " + testId); // ← Tu dois voir "ID sauvegardé = 11"
+                        Log.d("LOGIN", "Token JWT: " + token);
+                        Log.d("LOGIN", "ID sauvegardé = " + userId);
 
-
-
-                        Toast.makeText(LoginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, Acceuil.class);
-                        startActivity(intent);
+                        Toast.makeText(LoginActivity.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, Acceuil.class));
                         finish();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Erreur parsing réponse", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Erreur lors du traitement de la réponse", Toast.LENGTH_SHORT).show();
                     }
                 },
-                error -> Toast.makeText(LoginActivity.this, "Server error: " + error.getMessage(), Toast.LENGTH_LONG).show()
-        );
+                error -> {
+                    Toast.makeText(LoginActivity.this, "Erreur serveur : " + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("LOGIN", "Erreur: ", error);
+                });
 
         queue.add(request);
     }

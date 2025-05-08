@@ -78,21 +78,20 @@ class Acceuil : AppCompatActivity() {
     }
     fun verifierFerme() {
         val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
-        val userId = sharedPref.getInt("cultivateur_id", -1)
+        val token = sharedPref.getString("jwt_token", null)
 
-        if (userId == -1) {
+        if (token.isNullOrEmpty()) {
             Toast.makeText(this, "Erreur : utilisateur non connecté", Toast.LENGTH_SHORT).show()
-            Log.e("FERME", "❌ cultivateur_id introuvable dans SharedPreferences")
+            Log.e("FERME", "❌ Token manquant dans SharedPreferences")
             return
         }
 
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
+        val url = "https://fluorescent-boiled-butter.glitch.me/mes-fermes"
 
-        val request = JsonArrayRequest(
-            Request.Method.GET, url, null,
+        val request = object : JsonObjectRequest(Method.GET, url, null,
             { response ->
-                val hasFerme = response.length() > 0
-                if (hasFerme) {
+                val fermes = response.getJSONArray("fermes")
+                if (fermes.length() > 0) {
                     startActivity(Intent(this, FermeListActivity::class.java))
                 } else {
                     startActivity(Intent(this, GererFermeActivity::class.java))
@@ -102,10 +101,17 @@ class Acceuil : AppCompatActivity() {
                 Toast.makeText(this, "Erreur lors de la vérification de la ferme", Toast.LENGTH_SHORT).show()
                 Log.e("FERME", "Erreur: ${error.message}")
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
+
 
     fun hideAccueilButtons() {
         // à implémenter si nécessaire

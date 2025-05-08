@@ -11,7 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.firstsetup.myapplication.databinding.ActivityAjouterFermeBinding
 import org.json.JSONObject
-
+import com.auth0.android.jwt.JWT
 class AjouterFermeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAjouterFermeBinding
@@ -62,14 +62,18 @@ class AjouterFermeActivity : AppCompatActivity() {
             return
         }
 
-        // Récupérer l'ID du cultivateur depuis SharedPreferences
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            .getInt("cultivateur_id", -1)
-
-        if (cultivateurId == -1) {
-            Toast.makeText(this, "Erreur : identifiant cultivateur manquant ❌", Toast.LENGTH_LONG).show()
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+        if (token == null) {
+            Toast.makeText(this, "JWT manquant", Toast.LENGTH_LONG).show()
             return
         }
+        val jwt = JWT(token)
+        val cultivateurId = jwt.getClaim("user_id").asInt()
+        if (cultivateurId == null) {
+            Toast.makeText(this, "Token invalide", Toast.LENGTH_LONG).show()
+            return
+        }
+
 
         // Préparer le corps JSON de la requête
         val body = JSONObject().apply {

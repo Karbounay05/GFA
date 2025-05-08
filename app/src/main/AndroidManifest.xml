@@ -51,6 +51,7 @@
         <activity android:name=".ListeRendementsActivity" android:exported="true"/>
         <activity android:name=".CultivateurProfileActivity" android:exported="true"/>
         <activity android:name=".AideActivity" android:exported="true"/>
+        <activity android:name=".ChangerMotDePasseActivity" android:exported="true"/>
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@ dependencies {
     implementation ("org.osmdroid:osmdroid-android:6.1.20")
     implementation ("org.osmdroid:osmdroid-wms:6.1.20")
     implementation ("org.osmdroid:osmdroid-mapsforge:6.1.20")
-    
+    implementation ("com.auth0.android:jwtdecode:2.0.1")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

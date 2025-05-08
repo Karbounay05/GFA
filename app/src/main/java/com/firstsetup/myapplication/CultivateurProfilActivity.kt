@@ -1,7 +1,9 @@
 package com.firstsetup.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +35,11 @@ class CultivateurProfileActivity : AppCompatActivity() {
         textNbAnimaux = findViewById(R.id.textNbAnimaux)
         textNbCultures = findViewById(R.id.textNbCultures)
         imageProfil = findViewById(R.id.imageProfil)
+        val btnChangerMotDePasse = findViewById<Button>(R.id.btnChangerMotDePasse)
+        btnChangerMotDePasse.setOnClickListener {
+            val intent = Intent(this, ChangerMotDePasseActivity::class.java)
+            startActivity(intent)
+        }
 
         val userId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1)
         if (userId != -1) {

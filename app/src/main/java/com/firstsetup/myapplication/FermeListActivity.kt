@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
+import org.json.JSONObject
 
 class FermeListActivity : AppCompatActivity() {
 
@@ -33,45 +35,57 @@ class FermeListActivity : AppCompatActivity() {
         adapter = FermeAdapter(fermeList)
         recyclerView.adapter = adapter
 
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1)
-
-        if (cultivateurId != -1) {
-            chargerFermes(cultivateurId)
-        } else {
-            Toast.makeText(this, "Erreur : utilisateur non connecté", Toast.LENGTH_LONG).show()
-        }
+      chargerFermes()
     }
 
-    private fun chargerFermes(userId: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$userId"
-        val request = JsonArrayRequest(
-            Request.Method.GET, url, null,
+    private fun chargerFermes() {
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+        Log.d("TOKEN_DEBUG", "Token = $token")
+
+        if (token == null) {
+            Toast.makeText(this, "Token manquant ❌", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/mes-fermes"
+
+        val request = object : StringRequest(Request.Method.GET, url,
             { response ->
                 fermeList.clear()
-                for (i in 0 until response.length()) {
-                    val ferme = response.getJSONObject(i)
-                    fermeList.add(
-                        Ferme(
-                            ferme.getInt("id"),
-                            ferme.getString("nom"),
-                            ferme.getString("localisation"),
-                            ferme.getDouble("taille"),
-                            ferme.getString("type_sol")
+                try {
+                    val json = JSONObject(response)
+                    val fermes = json.getJSONArray("fermes")
+                    for (i in 0 until fermes.length()) {
+                        val ferme = fermes.getJSONObject(i)
+                        fermeList.add(
+                            Ferme(
+                                ferme.getInt("id"),
+                                ferme.getString("nom"),
+                                ferme.getString("localisation"),
+                                ferme.getDouble("taille"),
+                                ferme.getString("type_sol")
+                            )
                         )
-                    )
+                    }
+                    adapter.notifyDataSetChanged()
+                } catch (e: Exception) {
+                    Log.e("FERME", "Parsing error", e)
                 }
-                adapter.notifyDataSetChanged()
             },
             { error ->
-                Log.e("FERME", "Erreur: ${error.message}")
-                Toast.makeText(this, "Erreur réseau", Toast.LENGTH_SHORT).show()
+                Log.e("FERME", "Erreur réseau: ${error.message}")
+                Toast.makeText(this, "Erreur réseau ou token refusé", Toast.LENGTH_SHORT).show()
             }
-        )
-
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
-
 
 
     data class Ferme(val id: Int, val nom: String, val localisation: String, val taille: Double, val typeSol: String)
