@@ -41,26 +41,37 @@ class CultivateurProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val userId = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("cultivateur_id", -1)
-        if (userId != -1) {
-            chargerProfil(userId)
-        } else {
-            Toast.makeText(this, "Utilisateur non connecté", Toast.LENGTH_SHORT).show()
-        }
+
+            chargerProfil()
     }
+    private fun chargerProfil() {
+        val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
+        val token = sharedPref.getString("jwt_token", null)
 
-    private fun chargerProfil(id: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/profil/$id"
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "Erreur : utilisateur non connecté", Toast.LENGTH_SHORT).show()
+            Log.e("PROFIL", "❌ Token manquant dans SharedPreferences")
+            return
+        }
 
-        val request = JsonObjectRequest(Request.Method.GET, url, null,
+        val url = "https://fluorescent-boiled-butter.glitch.me/profil"  // 👈 sans ID
+
+        val request = object : JsonObjectRequest(Method.GET, url, null,
             { response -> afficherInfos(response) },
             { error ->
                 Toast.makeText(this, "Erreur serveur", Toast.LENGTH_SHORT).show()
                 Log.e("Profil", "❌ ${error.message}")
-            })
+            }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
+
 
     private fun afficherInfos(json: JSONObject) {
         textNom.text = "${json.getString("nom")} ${json.getString("prenom")}"

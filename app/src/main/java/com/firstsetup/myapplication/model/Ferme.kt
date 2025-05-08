@@ -6,5 +6,8 @@ data class Ferme(
     val localisation: String,
     val taille: Double,
     val typeSol: String
-
-)
+) {
+    override fun toString(): String {
+        return nom // ✅ Seul le nom sera affiché dans le Spinner
+    }
+}
