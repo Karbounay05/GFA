@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class LogoActivity extends AppCompatActivity {
 
     @Override
@@ -40,6 +41,10 @@ public class LogoActivity extends AppCompatActivity {
         animationSet2.addAnimation(moveUp2);
         animationSet2.setDuration(2000);
         textView2.startAnimation(animationSet2);
+
+        // ** Wake up Glitch server as soon as the app launches**
+        ServerPing serverPing = new ServerPing();
+        serverPing.pingServer(this);
 
         // **Wait for 5 seconds and go to MainActivity**
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {

@@ -95,7 +95,13 @@
                 android:textColor="@android:color/white"
                 android:backgroundTint="#1EA162" />
 
+            <include
+                layout="@layout/ping_card"
+                android:id="@+id/pingCard"
+                android:visibility="gone" />
+
         </LinearLayout>
+
 
     </FrameLayout>
 

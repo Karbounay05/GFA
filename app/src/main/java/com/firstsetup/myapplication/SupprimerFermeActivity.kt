@@ -16,6 +16,9 @@ class SupprimerFermeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_supprimer_ferme)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         val fermeId = intent.getIntExtra("ferme_id", -1)
         val btnSupprimer = findViewById<Button>(R.id.btnSupprimer)
 

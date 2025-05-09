@@ -14,6 +14,8 @@ public class IntroductionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ServerPing serverPing = new ServerPing();
+        serverPing.pingServer(this);
 
         // Initialize the ViewPager2
         ViewPager2 viewPager = findViewById(R.id.viewPagerDone);

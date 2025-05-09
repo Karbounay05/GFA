@@ -32,6 +32,9 @@ class FermeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ferme_detail_activity)
 
+        val serverPing = ServerPing()  // Create an instance of the ServerPing class
+        serverPing.pingServer(this)
+
         Toast.makeText(this, "🚀 Bienvenue sur FermeDetailActivity", Toast.LENGTH_SHORT).show()
 
         titreFermes = findViewById(R.id.titreFermes)

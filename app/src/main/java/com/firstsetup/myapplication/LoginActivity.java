@@ -3,15 +3,18 @@ package com.firstsetup.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -27,13 +30,21 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     EditText email, password;
-
+    private CardView pingCard;
+    private TextView pingText;
+    private ProgressBar pingProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login_activity);
+        pingCard = findViewById(R.id.pingCard);
+        pingText = findViewById(R.id.pingText);
+        pingProgress = findViewById(R.id.pingProgress);
 
+// Show card and ping server
+        ServerPing serverPing = new ServerPing();
+        serverPing.pingServer(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                 String emailInput = email.getText().toString().trim();
 
                 if (emailInput.isEmpty()) {
+                    pingCard.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(() -> pingCard.setVisibility(View.GONE), 10000);
                     Toast.makeText(LoginActivity.this, "Entrez votre e-mail d’abord", Toast.LENGTH_SHORT).show();
                     return;
                 }
