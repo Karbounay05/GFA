@@ -37,22 +37,33 @@ class SupprimerFermeActivity : AppCompatActivity() {
     }
 
     private fun supprimerFerme(id: Int) {
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "Utilisateur non connecté ❌", Toast.LENGTH_LONG).show()
+            return
+        }
+
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/$id"
 
-        val request = StringRequest(
-            Request.Method.DELETE, url,
+        val request = object : StringRequest(
+            Method.DELETE, url,
             {
                 Toast.makeText(this, "Ferme supprimée avec succès ✅", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, FermeListActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, FermeListActivity::class.java))
                 finish()
             },
             { error ->
-                Toast.makeText(this, "Erreur de suppression: ${error.message}", Toast.LENGTH_LONG)
-                    .show()
-            })
+                Toast.makeText(this, "Erreur de suppression: ${error.message}", Toast.LENGTH_LONG).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
+
 
 }

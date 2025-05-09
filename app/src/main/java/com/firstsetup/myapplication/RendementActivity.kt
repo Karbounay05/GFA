@@ -32,7 +32,7 @@ class RendementActivity : AppCompatActivity() {
     private var moisChoisi = ""
     private var anneeChoisie = ""
 
-    private val cultivateurId = 5 // You can replace this with dynamic value
+
     private lateinit var pingCard: CardView
     private lateinit var pingText: TextView
     private lateinit var pingProgress: ProgressBar
@@ -105,12 +105,14 @@ class RendementActivity : AppCompatActivity() {
     }
 
     private fun calculerEtEnvoyer() {
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+
         val categorie = spinnerCategorie.selectedItem.toString()
         val superficie = seekBarSuperficie.progress.toDouble()
         val production = inputProduction.text.toString().toDoubleOrNull()
         val pertes = inputPertes.text.toString().toDoubleOrNull()
 
-        if (categorie.isEmpty() || superficie == null || superficie == 0.0 || production == null || pertes == null || moisChoisi.isEmpty() || anneeChoisie.isEmpty()) {
+        if (categorie.isEmpty() || superficie == 0.0 || production == null || pertes == null || moisChoisi.isEmpty() || anneeChoisie.isEmpty()) {
             Toast.makeText(this, "Veuillez remplir tous les champs et sélectionner la date", Toast.LENGTH_LONG).show()
             return
         }
@@ -125,7 +127,6 @@ class RendementActivity : AppCompatActivity() {
 
         textRendementParHa.text = "Rendement par hectare : %.2f".format(rendementParHa)
         textPertesParHa.text = "Pertes par hectare : %.2f".format(pertesParHa)
-
 
         val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements"
         val queue = Volley.newRequestQueue(this)
@@ -142,20 +143,25 @@ class RendementActivity : AppCompatActivity() {
             override fun getBodyContentType(): String = "application/json"
 
             override fun getBody(): ByteArray {
-                val json = JSONObject()
-                json.put("cultivateur_id", cultivateurId)
-                json.put("categorie", categorie)
-                json.put("superficie", superficie)
-                json.put("production", production)
-                json.put("pertes", pertes)
-                json.put("mois", moisChoisi)
-                json.put("annee", anneeChoisie)
-                json.put("rendement_par_ha", rendementParHa)
-                json.put("pertes_par_ha", pertesParHa)
+                val json = JSONObject().apply {
+                    put("categorie", categorie)
+                    put("superficie", superficie)
+                    put("production", production)
+                    put("pertes", pertes)
+                    put("mois", moisChoisi)
+                    put("annee", anneeChoisie)
+                    put("rendement_par_ha", rendementParHa)
+                    put("pertes_par_ha", pertesParHa)
+                }
                 return json.toString().toByteArray()
+            }
+
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
             }
         }
 
         queue.add(request)
     }
+
 }

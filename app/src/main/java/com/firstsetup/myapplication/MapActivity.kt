@@ -27,6 +27,7 @@ import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.MapEventsOverlay
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import org.osmdroid.views.overlay.Polygon
@@ -109,12 +110,16 @@ class MapActivity : AppCompatActivity() {
             markerListCard.visibility = if (isMarkerListVisible) View.VISIBLE else View.GONE
         }
 
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            .getInt("cultivateur_id", -1)
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
 
-        if (cultivateurId == -1) {
+        if (token.isNullOrEmpty()) {
             Toast.makeText(this, "Utilisateur non connecté ❌", Toast.LENGTH_LONG).show()
+        } else {
+            // Tu peux maintenant utiliser le token pour tes requêtes
+            // par exemple lancer une fonction qui dépend de l'utilisateur connecté
+            chargerFermesDepuisAPI() // ou autre fonction
         }
+
 
         markerListCard.setOnTouchListener { view, event ->
             when (event.action) {
@@ -277,29 +282,32 @@ class MapActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                .getInt("cultivateur_id", -1)
-
-            if (cultivateurId != -1) {
-                chargerFermesDepuisAPI(cultivateurId)
-            }
+            chargerFermesDepuisAPI()
         }
     }
 
 
-    private fun chargerFermesDepuisAPI(userId: Int) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map/$userId"
+    private fun chargerFermesDepuisAPI() {
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
 
-        // ✅ Remove all 'size' markers from map and marker list
-        val toRemove = markers.filter { it.relatedObject == "size" }
-        for (marker in toRemove) {
-            map.overlays.remove(marker)
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "❌ Token manquant", Toast.LENGTH_SHORT).show()
+            return
         }
-        markers.removeAll(toRemove)
 
-        val request = JsonArrayRequest(
-            Request.Method.GET, url, null,
+        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
+
+        val request = object : JsonArrayRequest(
+            Method.GET, url, null,
             { response ->
+                // Clear anciens marqueurs
+                val toRemove = markers.filter { it.relatedObject == "size" }
+                for (marker in toRemove) {
+                    map.overlays.remove(marker)
+                }
+                markers.removeAll(toRemove)
+
+                // Ajout nouveaux marqueurs
                 for (i in 0 until response.length()) {
                     val ferme = response.getJSONObject(i)
                     val nom = ferme.getString("nom")
@@ -334,48 +342,16 @@ class MapActivity : AppCompatActivity() {
             { error ->
                 Toast.makeText(this, "❌ Erreur réseau : ${error.message}", Toast.LENGTH_SHORT).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
         Volley.newRequestQueue(this).add(request)
     }
 
-    /* private fun envoyerFermeVersServeur(
-         nom: String,
-         localisation: String,
-         taille: Int,
-         type_sol: String,
-         lat: Double,
-         lon: Double,
-         cultivateur_id: Int
-     ) {
-         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
-         val jsonBody = JSONObject()
 
-         try {
-             jsonBody.put("nom", nom)
-             jsonBody.put("localisation", localisation)
-             jsonBody.put("taille", taille)
-             jsonBody.put("type_sol", type_sol)
-             jsonBody.put("lat", lat)
-             jsonBody.put("lon", lon)
-             jsonBody.put("cultivateur_id", cultivateur_id)
-         } catch (e: Exception) {
-             Toast.makeText(this, "❌ Erreur JSON: ${e.message}", Toast.LENGTH_SHORT).show()
-             return
-         }
-
-         val request = object : com.android.volley.toolbox.JsonObjectRequest(
-             Request.Method.POST, url, jsonBody,
-             { response ->
-                 Toast.makeText(this, "✅ Ferme ajoutée avec succès", Toast.LENGTH_SHORT).show()
-             },
-             { error ->
-                 Toast.makeText(this, "❌ Erreur d’envoi: ${error.message}", Toast.LENGTH_LONG).show()
-             }
-         ) {}
-
-         com.android.volley.toolbox.Volley.newRequestQueue(this).add(request)
-     }*/
 
     private fun setupMarkerClick(marker: Marker) {
         val markerCard = findViewById<LinearLayout>(R.id.markerCard)
@@ -401,13 +377,11 @@ class MapActivity : AppCompatActivity() {
 
                 builder.setPositiveButton("Oui") { _, _ ->
                     val fermeId = m.id?.toIntOrNull()
-                    val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                        .getInt("cultivateur_id", -1)
 
-                    if (fermeId != null && cultivateurId != -1) {
-                        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map/$fermeId?cultivateur_id=$cultivateurId"
+                    if (fermeId != null) {
+                        val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map/$fermeId"
 
-                        val request = com.android.volley.toolbox.StringRequest(
+                        val request = object : com.android.volley.toolbox.StringRequest(
                             Request.Method.DELETE, url,
                             {
                                 map.overlays.remove(m)
@@ -417,13 +391,25 @@ class MapActivity : AppCompatActivity() {
                                 Toast.makeText(this, "✅ Ferme supprimée", Toast.LENGTH_SHORT).show()
                             },
                             { error ->
-                                if (error.networkResponse?.statusCode == 403) {
-                                    Toast.makeText(this, "❌ Suppression refusée", Toast.LENGTH_LONG).show()
-                                } else {
-                                    Toast.makeText(this, "❌ Erreur suppression : ${error.message}", Toast.LENGTH_LONG).show()
-                                }
+                                val statusCode = error.networkResponse?.statusCode
+                                val data = error.networkResponse?.data?.toString(Charsets.UTF_8)
+
+                                Toast.makeText(
+                                    this@MapActivity,
+                                    "❌ Code HTTP: $statusCode\n${data ?: "Erreur inconnue"}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+
+                                Log.e("SUPPRESSION_FERME", "Erreur suppression: Code $statusCode\n$data", error)
                             }
-                        )
+
+
+                        ) {
+                            override fun getHeaders(): MutableMap<String, String> {
+                                val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+                                return hashMapOf("Authorization" to "Bearer $token")
+                            }
+                        }
 
                         com.android.volley.toolbox.Volley.newRequestQueue(this).add(request)
                     } else {
@@ -438,19 +424,13 @@ class MapActivity : AppCompatActivity() {
                 builder.show()
             }
 
+
             // 🔁 Bouton GO TO
             gotoBtn.setOnClickListener {
-                val prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                val cultivateurId = prefs.getInt("cultivateur_id", -1)
-
-                if (cultivateurId != -1) {
-                    val intent = Intent(this, FermeListActivity::class.java)
-                    intent.putExtra("cultivateur_id", cultivateurId)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "❌ Cultivateur non connecté", Toast.LENGTH_SHORT).show()
-                }
+                val intent = Intent(this, FermeListActivity::class.java)
+                startActivity(intent)
             }
+
 
 
 
@@ -619,13 +599,7 @@ class MapActivity : AppCompatActivity() {
         super.onResume()
         map.onResume()
 
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            .getInt("cultivateur_id", -1)
-
-        if (cultivateurId != -1) {
-            // 🔁 Recharge la carte
-            chargerFermesDepuisAPI(cultivateurId)
-        }
+        chargerFermesDepuisAPI()
     }
 
     override fun onPause() {

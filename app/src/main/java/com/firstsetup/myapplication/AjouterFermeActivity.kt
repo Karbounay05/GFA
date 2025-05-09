@@ -121,19 +121,23 @@ class AjouterFermeActivity : AppCompatActivity() {
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes"
 
         // Requête POST avec Volley
-        val request = JsonObjectRequest(
+        val request = object : JsonObjectRequest(
             Request.Method.POST, url, body,
             { response ->
                 Toast.makeText(this, "Ferme ajoutée ✅", Toast.LENGTH_SHORT).show()
-
-                // 🚀 Aller à FermeListActivity
                 val intent = Intent(this, FermeListActivity::class.java)
                 startActivity(intent)
                 finish()
             },
             { error ->
                 Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
-            })
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
         // Ajouter la requête à la file
         Volley.newRequestQueue(this).add(request)
@@ -150,13 +154,6 @@ class AjouterFermeActivity : AppCompatActivity() {
             return
         }
 
-        val cultivateurId = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            .getInt("cultivateur_id", -1)
-
-        if (cultivateurId == -1) {
-            Toast.makeText(this, "Erreur : identifiant cultivateur manquant ❌", Toast.LENGTH_LONG).show()
-            return
-        }
 
         // ✅ Récupérer la position depuis l'intent
         val latitude = intent.getDoubleExtra("latitude", 0.0)
@@ -168,19 +165,16 @@ class AjouterFermeActivity : AppCompatActivity() {
             put("taille", superficie)
             put("localisation", localisation)
             put("type_sol", typeSol)
-            put("cultivateur_id", cultivateurId)
             put("lat", latitude)
             put("lon", longitude)
         }
 
         val url = "https://fluorescent-boiled-butter.glitch.me/fermes/map"
 
-        val request = JsonObjectRequest(
+        val request = object : JsonObjectRequest(
             Request.Method.POST, url, body,
             { response ->
                 Toast.makeText(this, "Ferme ajoutée à la carte 🗺️", Toast.LENGTH_SHORT).show()
-
-                // ✅ Renvoyer les données à MapActivity
                 val returnIntent = Intent().apply {
                     putExtra("lat", latitude)
                     putExtra("lon", longitude)
@@ -189,13 +183,19 @@ class AjouterFermeActivity : AppCompatActivity() {
                     putExtra("localisation", localisation)
                     putExtra("type_sol", typeSol)
                 }
-
                 setResult(RESULT_OK, returnIntent)
                 finish()
             },
             { error ->
                 Toast.makeText(this, "Erreur : ${error.message}", Toast.LENGTH_LONG).show()
-            })
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
+
 
         Volley.newRequestQueue(this).add(request)
     }

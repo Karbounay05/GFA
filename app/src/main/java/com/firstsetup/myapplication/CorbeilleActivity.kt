@@ -64,17 +64,24 @@ class CorbeilleActivity : AppCompatActivity(), CorbeilleAdapter.ActionListener {
         super.onResume()
         handler.post(refreshRunnable)
     }
+
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(refreshRunnable)
     }
 
     private fun chargerRendementsSupprimes() {
-        val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/deleted/$cultivateurId"
-        val queue = Volley.newRequestQueue(this)
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
 
-        val req = JsonObjectRequest(
-            url, null,
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "Utilisateur non connecté", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/deleted"
+
+        val req = object : JsonObjectRequest(
+            Method.GET, url, null,
             { response ->
                 rendements.clear()
                 val array = response.getJSONArray("rendements")
@@ -97,38 +104,55 @@ class CorbeilleActivity : AppCompatActivity(), CorbeilleAdapter.ActionListener {
                 adapter.notifyDataSetChanged()
             },
             { error ->
-                Toast.makeText(this, "❌ Erreur chargement corbeille : ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "❌ Erreur chargement corbeille : ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
-        queue.add(req)
+        Volley.newRequestQueue(this).add(req)
     }
 
+
     override fun onRestore(rendement: Rendement) {
-        val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/restore/${rendement.id}"
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+        val url =
+            "https://fluorescent-boiled-butter.glitch.me/api/rendements/restore/${rendement.id}"
         val queue = Volley.newRequestQueue(this)
 
-        val req = StringRequest(
+        val req = object : StringRequest(
             com.android.volley.Request.Method.PUT, url,
             {
                 Toast.makeText(this, "✅ Restauré avec succès", Toast.LENGTH_SHORT).show()
                 rendements.remove(rendement)
                 adapter.notifyDataSetChanged()
-                setResult(RESULT_OK) // pour ListeRendementsActivity
+                setResult(RESULT_OK)
             },
             { error ->
-                Toast.makeText(this, "❌ Erreur restauration : ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "❌ Erreur restauration : ${error.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
         queue.add(req)
     }
 
     override fun onDelete(rendement: Rendement) {
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
         val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/hard/${rendement.id}"
         val queue = Volley.newRequestQueue(this)
 
-        val req = StringRequest(
+        val req = object : StringRequest(
             com.android.volley.Request.Method.DELETE, url,
             {
                 Toast.makeText(this, "🗑️ Supprimé définitivement", Toast.LENGTH_SHORT).show()
@@ -138,7 +162,11 @@ class CorbeilleActivity : AppCompatActivity(), CorbeilleAdapter.ActionListener {
             { error ->
                 Toast.makeText(this, "❌ Erreur API : ${error.message}", Toast.LENGTH_SHORT).show()
             }
-        )
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
 
         queue.add(req)
     }

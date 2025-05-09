@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -72,22 +73,35 @@ class ListeRendementsActivity : AppCompatActivity() {
 
                 // Laisse l'élément affiché pendant 4 secondes (y compris l'image)
                 recyclerView.postDelayed({
-                    // Appel API pour suppression logique
+                    val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
+
+                    if (token.isNullOrEmpty()) {
+                        Toast.makeText(this@ListeRendementsActivity, "❌ Token manquant", Toast.LENGTH_SHORT).show()
+                        adapter.notifyItemChanged(position)
+                        return@postDelayed
+                    }
+
                     val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/${rendement.id}"
                     val queue = Volley.newRequestQueue(this@ListeRendementsActivity)
-                    val req = com.android.volley.toolbox.StringRequest(
+
+                    val req = object : com.android.volley.toolbox.StringRequest(
                         com.android.volley.Request.Method.DELETE, url,
                         {
-                            // Supprimer de la liste locale et actualiser visuellement
                             adapter.removeItem(position)
                         },
                         { error ->
                             Toast.makeText(this@ListeRendementsActivity, "❌ Erreur suppression : ${error.message}", Toast.LENGTH_SHORT).show()
-                            adapter.notifyItemChanged(position) // Remet l’élément si erreur
+                            adapter.notifyItemChanged(position)
                         }
-                    )
+                    ) {
+                        override fun getHeaders(): MutableMap<String, String> {
+                            return hashMapOf("Authorization" to "Bearer $token")
+                        }
+                    }
+
                     queue.add(req)
                 }, 1500)
+
             }
 
 
@@ -149,11 +163,17 @@ class ListeRendementsActivity : AppCompatActivity() {
 
 
     private fun fetchRendements() {
-        val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements/$cultivateurId"
-        val queue = Volley.newRequestQueue(this)
+        val token = getSharedPreferences("user", MODE_PRIVATE).getString("jwt_token", null)
 
-        val request = JsonObjectRequest(
-            url, null,
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "❌ Utilisateur non connecté", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val url = "https://fluorescent-boiled-butter.glitch.me/api/rendements"
+
+        val request = object : JsonObjectRequest(
+            Method.GET, url, null,
             { response ->
                 val rendements = mutableListOf<Rendement>()
                 val array = response.getJSONArray("rendements")
@@ -177,11 +197,22 @@ class ListeRendementsActivity : AppCompatActivity() {
                 initialiserFiltrageParAnnee()
             },
             { error ->
-                Toast.makeText(this, "❌ Erreur chargement : ${error.message}", Toast.LENGTH_LONG).show()
+                val statusCode = error.networkResponse?.statusCode
+                val responseData = error.networkResponse?.data?.toString(Charsets.UTF_8)
+
+                Toast.makeText(this, "Erreur [$statusCode] : ${responseData ?: "inconnue"}", Toast.LENGTH_LONG).show()
+                Log.e("RENDEMENT_ERROR", "Code: $statusCode\n$responseData")
             }
-        )
-        queue.add(request)
+
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return hashMapOf("Authorization" to "Bearer $token")
+            }
+        }
+
+        Volley.newRequestQueue(this).add(request)
     }
+
 
     private fun initialiserFiltrageParAnnee() {
         val annees = allRendements.map { it.annee }.distinct().sortedDescending()
