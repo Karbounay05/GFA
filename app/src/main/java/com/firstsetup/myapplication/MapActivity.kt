@@ -359,6 +359,8 @@ class MapActivity : AppCompatActivity() {
         val removeBtn = findViewById<Button>(R.id.markerCardRemove)
         val gotoBtn = findViewById<Button>(R.id.markerCardGoto)
         val modifierButton = findViewById<Button>(R.id.markerCardEdit)
+        val addAnimalBtn = findViewById<Button>(R.id.markerCardAddAnimal)
+        val addCultureBtn = findViewById<Button>(R.id.markerCardAddCulture)
 
         marker.setOnMarkerClickListener { m, _ ->
             m.showInfoWindow()
@@ -451,6 +453,28 @@ class MapActivity : AppCompatActivity() {
 
             true
         }
+        addAnimalBtn.setOnClickListener {
+            val fermeId = marker.id?.toIntOrNull()
+            if (fermeId != null) {
+                val intent = Intent(this, AjouterAnimalActivity::class.java)
+                intent.putExtra("ferme_id", fermeId)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "ID invalide", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        addCultureBtn.setOnClickListener {
+            val fermeId = marker.id?.toIntOrNull()
+            if (fermeId != null) {
+                val intent = Intent(this, AjouterCultureActivity::class.java)
+                intent.putExtra("ferme_id", fermeId)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "ID invalide", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
 
