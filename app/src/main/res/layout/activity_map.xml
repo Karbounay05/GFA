@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mapContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity">
+
+    <!-- Map View -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Button always visible to toggle the panel -->
+    <Button
+        android:id="@+id/btnShowOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="≡"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        />
+
+
+    <!-- Panel hidden by default -->
+    <LinearLayout
+        android:id="@+id/panelOptions"
+        android:orientation="vertical"
+        android:layout_width="140dp"
+        android:layout_marginLeft="198dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"
+        android:background="#AAFFFFFF"
+        android:padding="8dp">
+
+
+        <Spinner
+            android:id="@+id/spinnerMapType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Réinitialiser"
+            android:layout_marginBottom="3dp" />
+
+        <Button
+            android:id="@+id/btnToggleMarkerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marker List" />
+
+        <Button
+            android:id="@+id/btnTogglePanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☰"
+            android:layout_gravity="start|top"
+            android:layout_margin="16dp" />
+    </LinearLayout>
+
+    <!-- Draggable icon panel -->
+    <LinearLayout
+        android:id="@+id/iconPanel"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="0dp"
+        android:padding="4dp"
+        android:background="#DDFFFFFF"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iconAnimal"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/livestock"
+            android:contentDescription="animal" />
+
+        <ImageView
+            android:id="@+id/iconCulture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/culture"
+            android:contentDescription="culture" />
+
+        <ImageView
+            android:id="@+id/iconSize"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/addferme"
+            android:contentDescription="size" />
+
+        <ImageView
+            android:id="@+id/iconEntity"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ex4"
+            android:contentDescription="entity" />
+    </LinearLayout>
+
+    <!-- Marker Info Card -->
+    <LinearLayout
+        android:id="@+id/markerCard"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_card"
+        android:elevation="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/markerCardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marker info"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:layout_marginEnd="8dp" />
+        <Button
+            android:id="@+id/markerCardAddAnimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter Animal"
+            android:backgroundTint="#4FC3F7"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/markerCardAddCulture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ajouter Culture"
+            android:backgroundTint="#81C784"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/markerCardRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:backgroundTint="#FF4444"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/markerCardGoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/markerCardEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modifier"
+            android:backgroundTint="#FFA500"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- Legend Panel -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:id="@+id/legendPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#DDFFFFFF"
+            android:padding="10dp"
+            android:elevation="4dp" />
+    </ScrollView>
+
+    <include layout="@layout/marker_id_card" />
+</FrameLayout>

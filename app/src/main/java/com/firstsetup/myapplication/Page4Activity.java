@@ -2,7 +2,6 @@ package com.firstsetup.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,18 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.firstsetup.myapplication.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Page4Activity extends AppCompatActivity {
     EditText passwordEditText, confirmPasswordEditText;
     Button suivantBtn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,7 @@ public class Page4Activity extends AppCompatActivity {
     private void sendUserToServer(User user) {
         // Utilisation de Volley pour envoyer les données
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.43.207:3000/addCultivateur"; // Pour l'émulateur Android Studio
+        String url = "https://fluorescent-boiled-butter.glitch.me/addCultivateur"; // Pour l'émulateur Android Studio
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -73,16 +71,26 @@ public class Page4Activity extends AppCompatActivity {
             jsonBody.put("region", user.getRegion());
             jsonBody.put("ville", user.getVille());
             jsonBody.put("zone", user.getZone());
+
+            getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                    .edit()
+                    .putInt("val", 1)
+                    .apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                response -> Toast.makeText(this, "Inscription réussie !", Toast.LENGTH_SHORT).show(),
+                response -> {
+                    Toast.makeText(this, "Inscription en cours de verification ! Vérifie ton e-mail 📩", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Page4Activity.this, VerificationActivity.class);
+                    intent.putExtra("email", user.getEmail()); // Envoie l'email à la page de vérif
+                    startActivity(intent);
+                    finish(); // Ferme l'écran d’inscription
+                },
                 error -> Toast.makeText(this, "Erreur serveur : " + error.getMessage(), Toast.LENGTH_LONG).show()
         );
 
         queue.add(request);
-    }
-}
+    }}
 

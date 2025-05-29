@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="374dp"
+        android:layout_height="82dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textColor="#1EA162"
+        android:text="Gérer Votre Ferme"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout2" />
+
+    <!-- Frame 1 -->
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="341dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="152dp"
+        android:background="@drawable/slide_background_inverst"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewFrame1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/fermeadd"
+            android:contentDescription="Ferme Image" />
+
+        <TextView
+            android:id="@+id/textTitleFrame1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="15dp"
+            android:text="Ajouter une nouvelle ferme"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textDescFrame1"
+            android:layout_width="172dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="42dp"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:text="Découvrez un service structuré et rapide pour une meilleure agriculture" />
+
+        <ImageView
+            android:id="@+id/checkImageFrame1"
+            android:layout_width="43dp"
+            android:layout_height="42dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="98dp"
+            android:src="@drawable/check"
+            android:contentDescription="Check" />
+
+        <Button
+            android:id="@+id/buttonFrame1"
+            android:layout_width="103dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="215dp"
+            android:translationY="105dp"
+            android:background="@drawable/button_background"
+            android:text="Suivant" />
+
+    </FrameLayout>
+
+    <!-- Frame 2 -->
+    <FrameLayout
+        android:id="@+id/frameLayout3"
+        android:layout_width="341dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/slide_background_inverst"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewFrame2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/fermeadd"
+            android:contentDescription="Ferme Image" />
+
+        <TextView
+            android:id="@+id/textTitleFrame2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="15dp"
+            android:text="Modifier la ferme"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textDescFrame2"
+            android:layout_width="172dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="42dp"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:text="Changer les informations de votre ferme agricole selon votre volonté" />
+
+        <ImageView
+            android:id="@+id/editImageFrame2"
+            android:layout_width="43dp"
+            android:layout_height="42dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="98dp"
+            android:src="@drawable/edit"
+            android:contentDescription="Edit" />
+
+        <Button
+            android:id="@+id/buttonFrame2"
+            android:layout_width="103dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="105dp"
+            android:background="@drawable/button_background"
+            android:text="Suivant" />
+    </FrameLayout>
+
+    <!-- Frame 3 -->
+    <FrameLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="341dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/slide_background_inverst"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewFrame3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/fermeadd"
+            android:contentDescription="Ferme Image" />
+
+        <TextView
+            android:id="@+id/textTitleFrame3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="15dp"
+            android:text="Supprimer la ferme"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textDescFrame3"
+            android:layout_width="172dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="42dp"
+            android:textStyle="bold"
+            android:textSize="11sp"
+            android:text="Si vous n'êtes pas satisfait ou souhaitez supprimer la ferme, utilisez cette option." />
+
+        <ImageView
+            android:id="@+id/deleteImageFrame3"
+            android:layout_width="43dp"
+            android:layout_height="42dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="98dp"
+            android:src="@drawable/dropferme"
+            android:contentDescription="Delete" />
+
+        <Button
+            android:id="@+id/buttonFrame3"
+            android:layout_width="103dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="105dp"
+            android:background="@drawable/button_background"
+            android:text="Suivant" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

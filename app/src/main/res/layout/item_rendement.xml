@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textRendementParHa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rendement/ha"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textPertesParHa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pertes/ha"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/textCategorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="Catégorie" />
+
+        <TextView
+            android:id="@+id/textDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Superficie - Production - Mois/Année" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,17 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Dégradé vertical -->
+    <gradient
+        android:startColor="#3DEB97"
+        android:endColor="#1EA162"
+        android:angle="270" />
+
+    <!-- Coins légèrement arrondis -->
+    <corners android:radius="12dp" />
+
+    <!-- Bordure autour du losange -->
+    <stroke
+        android:width="2dp"
+        android:color="#1B5E20" />
+</shape>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#009688">
+
+    <FrameLayout
+        android:layout_width="324dp"
+        android:layout_height="628dp"
+        android:background="@drawable/slide_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:layout_width="338dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="83dp"
+                    android:layout_height="99dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/livestock" />
+
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Ajouter un nouvel animal"
+                    android:textColor="#009688"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Spinner Espèce -->
+                <Spinner
+                    android:id="@+id/spinnerEspece"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp" />
+
+                <!-- Nombre avec SeekBar -->
+                <TextView
+                    android:id="@+id/textNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Nombre : 0"
+                    android:textColor="#000000" />
+
+                <SeekBar
+                    android:id="@+id/seekBarNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:max="100" />
+
+                <!-- Date d'entrée -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Date d'entrée :"
+                    android:textColor="#000000" />
+
+                <Button
+                    android:id="@+id/buttonDateEntree"
+                    android:layout_width="219dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/white"
+                    android:gravity="center"
+                    android:text="Choisir Date d'entrée"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="normal" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="71dp"
+                    android:layout_height="68dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="-120dp"
+                    android:layout_marginTop="-60dp"
+                    app:srcCompat="@drawable/ic_calendar" />
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Statut Sanitaire :"
+                        android:textColor="#000000" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxBonneSante"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Bonne Santé" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxMaladie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maladie" />
+
+                    <CheckBox
+                        android:id="@+id/checkboxAutre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Autre" />
+
+
+                </LinearLayout>
+                <!-- Bouton Ajouter -->
+                <Button
+                    android:id="@+id/btnAjouterAnimal"
+                    android:layout_width="172dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="#009688"
+                    android:text="Ajouter l'animal"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+    <include
+        layout="@layout/ping_card"
+        android:id="@+id/pingCard"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

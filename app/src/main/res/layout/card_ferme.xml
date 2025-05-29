@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardFerme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="16dp"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:background="#009688"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/nomFerme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🌾 Ferme"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/localisationFerme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="📍 Localisation"
+            android:translationY="30dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/solFerme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="🌱 Sol"
+            android:translationY="60dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tailleFerme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="📏 Taille"
+            android:translationY="90dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:translationY="125dp">
+
+            <Button
+                android:id="@+id/btnModifier"
+                android:layout_width="121dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_background"
+                android:backgroundTint="#93AD40"
+                android:text="✏️ Modifier"
+                android:textColor="@android:color/white"
+                android:translationX="-28dp" />
+
+            <Button
+                android:id="@+id/btnSupprimer"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_background"
+                android:backgroundTint="#FB0000"
+                android:text="🗑️ Supprimer"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="94dp"
+            android:layout_height="98dp"
+            app:srcCompat="@drawable/addferme"
+            android:translationX="169dp"
+            android:translationY="32dp"/>
+
+    </FrameLayout>
+</androidx.cardview.widget.CardView>
