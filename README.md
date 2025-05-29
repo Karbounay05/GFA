@@ -15,6 +15,7 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
   - Track surface area, soil type, and location using OpenStreetMap integration.
 
 - 🌱 **Crop & Animal Tracking**
+  ![Cloud Animation](media/Animation - 1746052288224.gif)
   - Manage crops and animals per farm.
   - Monitor health status, quantity, and history.
 
@@ -27,7 +28,6 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
   - Receive smart reminders when no follow-up is done for 7+ days.
 
 - 📡 **Weather Forecast**
-  ![Cloud Animation](media/windmill.gif)
   - View 5–7 day forecasts with animated weather UI.
   - Navigate between days and hours using custom SeekBar & buttons.
 
