@@ -27,7 +27,7 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
   - Receive smart reminders when no follow-up is done for 7+ days.
 
 - 📡 **Weather Forecast**
-  ![Cloud Animation](media/windmil.gif)
+  ![Cloud Animation](media/windmill.gif)
   - View 5–7 day forecasts with animated weather UI.
   - Navigate between days and hours using custom SeekBar & buttons.
 
