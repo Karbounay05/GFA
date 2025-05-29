@@ -16,7 +16,7 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
 
 - 🌱 **Crop & Animal Tracking**
   
-  ![Cloud Animation](media/Animation - 1746052288224.gif)
+  ![Cloud Animation](media/plant.gif)
   - Manage crops and animals per farm.
   - Monitor health status, quantity, and history.
 
