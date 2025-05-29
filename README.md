@@ -8,8 +8,7 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
   - Register and log in with email verification and JWT authentication.
   
 - 🧑‍🌾 **Farmer Profile**
-  - Create and update personal farmer profiles with detailed information.
-    ![Cloud Animation](media/farmer.gif)
+  - Create and update personal farmer profiles with detailed information.![Cloud Animation](media/farmer.gif)
 
 - 🌍 **Farm Management**
   - Add, edit, and delete multiple farms.
