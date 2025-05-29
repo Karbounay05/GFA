@@ -15,9 +15,10 @@ SmartFarm is an intelligent mobile application designed to help farmers manage t
   - Add, edit, and delete multiple farms.
   - Track surface area, soil type, and location using OpenStreetMap integration.
 
-- 🌱 **Crop & Animal Tracking**     ![Cloud Animation](media/plant.gif) 
+- 🌱 **Crop & Animal Tracking**
   - Manage crops and animals per farm.
   - Monitor health status, quantity, and history.
+  - ![Cloud Animation](media/plant.gif) 
 
 - 📊 **Yield and Loss Tracking**
   - Calculate yield per hectare, monthly and annual statistics.
