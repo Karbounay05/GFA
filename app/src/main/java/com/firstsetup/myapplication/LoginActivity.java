@@ -29,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText email, password;
+    private  EditText email, password;
     private CardView pingCard;
     private TextView pingText;
     private ProgressBar pingProgress;

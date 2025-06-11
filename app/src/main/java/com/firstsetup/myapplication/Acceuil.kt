@@ -1,12 +1,16 @@
 package com.firstsetup.myapplication
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
@@ -26,7 +30,19 @@ class Acceuil : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acceuil_activity)
+        NotificationHelper.createNotificationChannel(this)
+        checkNotifications()
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
+            }
+        }
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.navigation_view)
         viewPager = findViewById(R.id.viewPager)
@@ -43,7 +59,7 @@ class Acceuil : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val slides = listOf(
-            listOf("Gérer la ferme", "Suivre la parcelle", "Diagnostiquer la plante"),
+            listOf("Gérer la ferme", "Suivre la parcelle", "aide"),
             listOf("Calculer le rendement", "Calculer la superficie", "Assistant AI")
         )
 
@@ -52,12 +68,17 @@ class Acceuil : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_home -> {
-                    // déjà sur l'accueil, ne rien faire
-                }
                 R.id.nav_profil -> {
                     startActivity(Intent(this, CultivateurProfileActivity::class.java))
                 }
+                R.id.nav_logout -> {
+                    val sharedPref = getSharedPreferences("user", MODE_PRIVATE)
+                    sharedPref.edit().clear().apply()
+                    Toast.makeText(this, "Déconnecté", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }
+
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -110,6 +131,41 @@ class Acceuil : AppCompatActivity() {
         }
 
         Volley.newRequestQueue(this).add(request)
+    }
+
+    private fun checkNotifications() {
+        val prefs = getSharedPreferences("user", MODE_PRIVATE)
+        val token = prefs.getString("jwt_token", null) ?: return
+
+        // 1️⃣ Vérif 7 jours d'inactivité
+        val lastUpdate = prefs.getLong("last_update", 0)
+        val now = System.currentTimeMillis()
+        val sevenDays = 7 * 24 * 60 * 60 * 1000L
+        if (now - lastUpdate > sevenDays) {
+            NotificationHelper.sendNotification(
+                this,
+                "Aucun suivi récent 🤔",
+                "Vous n’avez pas mis à jour vos cultures ou animaux depuis 7 jours.",
+                2001
+            )
+        }
+
+        // 2️⃣ Vraie vérification météo pluie via WeatherUtils
+        WeatherUtils.checkRainInCity(this, "Marrakech") {
+            NotificationHelper.sendNotification(
+                this,
+                "🌧️ Alerte météo",
+                "Il va pleuvoir aujourd’hui à Marrakech. Pensez à protéger vos cultures !",
+                2002
+            )
+            NotificationHelper.sendNotification(
+                this,
+                "🎉 Bienvenue à toi !",
+                "Content de te revoir dans GFA 👩‍🌾",
+                1000
+            )
+
+        }
     }
 
 
